@@ -1,0 +1,190 @@
+﻿<UserControl
+    x:Class="SRTPluginManager.MVVM.View.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SRTPluginManager.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="640"
+    d:DesignWidth="1060"
+    mc:Ignorable="d">
+    <StackPanel>
+        <TextBlock
+            Margin="20,20,0,20"
+            HorizontalAlignment="Left"
+            FontSize="28"
+            Foreground="White"
+            Text="Home" />
+        <StackPanel Orientation="Horizontal">
+            <Border
+                Width="1020"
+                Height="200"
+                Margin="20,0,0,0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Offset="0.0" Color="#151527" />
+                        <GradientStop Offset="1" Color="#1D1C2E" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Clip>
+                    <RectangleGeometry
+                        RadiusX="10"
+                        RadiusY="10"
+                        Rect="0,0,1060,200" />
+                </Border.Clip>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock
+                            Margin="20,10,10,0"
+                            FontSize="28"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="SRT Host" />
+                        <TextBlock
+                            Margin="20,10,10,0"
+                            FontSize="18"
+                            Foreground="White"
+                            Text="SRTHost is a .Net Core application for helping facilitate memory scanning and output for universal speedrunning tools."
+                            TextWrapping="Wrap" />
+                        <Image
+                            Width="100"
+                            Height="100"
+                            Margin="0,10,10,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            RenderTransformOrigin="0.5,0.5"
+                            Source="/Images/Host.png">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform />
+                                    <SkewTransform />
+                                    <RotateTransform />
+                                    <TranslateTransform />
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Margin" Value="15,0,0,0" />
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock
+                Margin="20,5,0,10"
+                HorizontalAlignment="Center"
+                FontSize="40"
+                Foreground="White"
+                Text="About" />
+
+            <StackPanel Orientation="Horizontal">
+                <Border
+                    Width="326"
+                    Height="280"
+                    Margin="20,0,0,0"
+                    CornerRadius="10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Offset="0.0" Color="#1D1C2E" />
+                            <GradientStop Offset="1" Color="#1D1C2E" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <StackPanel>
+                            <Image
+                                Width="25"
+                                Height="25"
+                                Margin="0,10,0,0"
+                                Source="/Images/Bolt.png" />
+                            <TextBlock
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                FontSize="24"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="Speeds Up Development" />
+                            <TextBlock
+                                Margin="20,10,20,0"
+                                FontSize="16"
+                                Foreground="White"
+                                Text="SRTHost is a .Net Core application for helping facilitate memory scanning and output for universal speedrunning tools."
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border
+                    Width="326"
+                    Height="280"
+                    Margin="20,0,0,0"
+                    CornerRadius="10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Offset="0.0" Color="#1D1C2E" />
+                            <GradientStop Offset="1" Color="#1D1C2E" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <StackPanel>
+                            <Image
+                                Width="25"
+                                Height="25"
+                                Margin="0,10,0,0"
+                                Source="/Images/Users.png" />
+                            <TextBlock
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                FontSize="24"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="User Experience Focused" />
+                            <TextBlock
+                                Margin="20,10,20,0"
+                                FontSize="16"
+                                Foreground="White"
+                                Text="By utilizing elements and principles of .Net Core, we were able to create a framework that incorporates easy to use components that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience."
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border
+                    Width="326"
+                    Height="280"
+                    Margin="20,0,0,0"
+                    CornerRadius="10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Offset="0.0" Color="#1D1C2E" />
+                            <GradientStop Offset="1" Color="#1D1C2E" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid>
+                        <StackPanel>
+                            <Image
+                                Width="25"
+                                Height="25"
+                                Margin="0,10,0,0"
+                                Source="/Images/Cog.png" />
+                            <TextBlock
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Center"
+                                FontSize="24"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="Easy To Work With" />
+                            <TextBlock
+                                Margin="20,10,20,0"
+                                FontSize="16"
+                                Foreground="White"
+                                Text="We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about SRTHost."
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

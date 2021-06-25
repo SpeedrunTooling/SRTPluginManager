@@ -1,0 +1,160 @@
+﻿<Window x:Class="SRTPluginManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:SRTPluginManager.MVVM.ViewModel"
+        xmlns:local="clr-namespace:SRTPluginManager"
+        mc:Ignorable="d"
+        Width="1280"
+        Height="720"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent">
+
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    <Border 
+        Background="#272537"
+        CornerRadius="20">
+        <Grid Grid.ColumnSpan="2" MouseDown="Grid_MouseDown">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Background="#151527"
+                  Grid.ColumnSpan="2"
+                  MouseDown="Grid_MouseDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal"
+                            Grid.ColumnSpan="3">
+                    <Image Width="30" 
+                           Height="30" 
+                           Source="Images/Server.png"
+                           Margin="10,5,10,5"/>
+                    <TextBlock
+                    Text="SRT Host&#x0a;Plugin Manager"
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,0"
+                    Foreground="White"
+                    FontSize="20"/>
+                </StackPanel>
+
+                <StackPanel Width="183" Orientation="Horizontal" Grid.Column="12" Grid.ColumnSpan="2">
+                    <Button Margin="80,0,0,0"
+                        Grid.ColumnSpan="1"
+                        Click="Button_Click_1"
+                        VerticalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#22202F"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF4C70"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="40"
+                                    Height="40"
+                                    CornerRadius="10"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Image Width="20" Source="Images/Minimize.png"/>
+                    </Button>
+
+                    <Button Margin="10,0,0,0"
+                        Grid.ColumnSpan="1"
+                        Click="Button_Click"
+                        VerticalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#22202F"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF4C70"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="40"
+                                    Height="40"
+                                    CornerRadius="10"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Image Width="20" Source="Images/Close.png"/>
+                    </Button>
+                </StackPanel>
+                
+            </Grid>
+            
+            <StackPanel Grid.Row="1" Background="#181729">
+
+                <RadioButton
+                    Content="Home"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="16"
+                    Style="{StaticResource MenuButtonTheme}"
+                    IsChecked="True"
+                    Command="{Binding HomeViewCommand}"/>
+
+
+
+                <RadioButton
+                    Content="Plugins Providers"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="16"
+                    Style="{StaticResource MenuButtonTheme}"
+                    IsChecked="False"
+                    Command="{Binding PluginViewCommand}"/>
+
+            </StackPanel>
+
+            <ContentControl Grid.Row="1" 
+                            Grid.Column="1" 
+                            Margin="10" 
+                            Content="{Binding CurrentView}"/>
+        </Grid>
+    </Border>
+</Window>
