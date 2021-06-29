@@ -177,7 +177,7 @@ namespace SRTPluginManager.Core
                     await Task.Run(() =>
                     {
                         UnzipPackage(file, destination);
-                        button.Visibility = Visibility.Collapsed;
+                        Application.Current.Dispatcher.Invoke(() => button.Visibility = Visibility.Collapsed); // Canot change a UI element from another thread. Use Dispatcher to invoke the change on the UI's thread.
                     });
                 };
                 await Task.Run(() =>
