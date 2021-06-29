@@ -213,7 +213,6 @@ namespace SRTPluginManager.MVVM.View
                     CopyPluginProvider(dir, PluginFolderPath);
                 }
             }
-            
         }
 
         private void ResidentEvil1_Click(object sender, RoutedEventArgs e)
@@ -273,28 +272,83 @@ namespace SRTPluginManager.MVVM.View
 
         private void SetCurrent_Click(object sender, RoutedEventArgs e)
         {
-            ReplacePluginProvider();
+            //ReplacePluginProvider();
             // Write Startup Routine
+            RunSRT();
         }
 
-#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         private async void GetUpdate_Click(object sender, RoutedEventArgs e)
-#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
-            DownloadPlugin(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, ProviderFolderPath);
-            GetCurrentPluginData();
+            await Task.Run(() => {
+                DownloadPlugin(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, ProviderFolderPath);
+            });
         }
 
-        //private async Task UpdateManager()
-        //{
-        //    return Task.Run(() =>
-        //    {
-        //        DownloadPlugin(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, ProviderFolderPath);
-        //        while ()
-        //        {
-        //
-        //        }
-        //    });
-        //}
+        private async void RunSRT()
+        {
+            var filePath = Path.Combine(ApplicationPath, GetPlatform());
+            var fileExists = File.Exists(filePath);
+            if (!fileExists) { ConsoleBox.Text = "SRT Not Installed."; return; }
+            ClearLog();
+            await Task.Run(() =>
+            {
+                var p = Process.Start(filePath, PluginName.Text);
+                while (p.Responding)
+                {
+                    //RUN SRT
+                }
+            });
+        }
+
+        private string GetPlatform()
+        {
+            switch(CurrentPlugin)
+            {
+                case Plugins.SRTPluginProviderRE1:
+                case Plugins.SRTPluginProviderRE1C:
+                case Plugins.SRTPluginProviderRE2C:
+                case Plugins.SRTPluginProviderRE3C:
+                case Plugins.SRTPluginProviderRE4:
+                case Plugins.SRTPluginProviderRE5:
+                    return GetSRT(Platform.x86);
+                case Plugins.SRTPluginProviderRE2:
+                case Plugins.SRTPluginProviderRE3:
+                case Plugins.SRTPluginProviderRE6:
+                case Plugins.SRTPluginProviderRE7:
+                case Plugins.SRTPluginProviderRE8:
+                default:
+                    return GetSRT(Platform.x64);
+            }
+        }
+
+        private string GetSRT(Platform platform)
+        {
+            switch (platform)
+            {
+                case Platform.x86:
+                    return "SRTHost32.exe";
+                default:
+                    return "SRTHost64.exe";
+            }
+        }
+
+        public void ClearLog()
+        {
+            ConsoleBox.Text = "";
+        }
+
+        public void Log(string line)
+        {
+            ConsoleBox.Text += string.Format("{0}{1}", line, "&#10;");
+        }
+
+        public void Log(string[] lines)
+        {
+            foreach (string line in lines)
+            {
+                ConsoleBox.Text += string.Format("{0}{1}", line, "&#10;");
+            }
+        }
+
     }
 }

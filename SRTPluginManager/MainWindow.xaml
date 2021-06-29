@@ -6,11 +6,9 @@
     xmlns:local="clr-namespace:SRTPluginManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:SRTPluginManager.MVVM.ViewModel"
-    Width="1280"
-    Height="720"
-    AllowsTransparency="True"
+    Width="1920"
+    Height="1080"
     Background="Transparent"
-    ResizeMode="NoResize"
     WindowStyle="None"
     mc:Ignorable="d">
 
@@ -24,9 +22,9 @@
         <viewModel:MainViewModel />
     </Window.DataContext>
     <Border Background="#272537">
-        <Grid Grid.ColumnSpan="2" MouseDown="Grid_MouseDown">
+        <Grid Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
+                <RowDefinition Height="60" MouseDown="Grid_MouseDown" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
@@ -42,39 +40,23 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="320" />
+                    <ColumnDefinition Width="160" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
                     <Image
-                        Width="50"
-                        Height="50"
-                        Margin="5"
+                        Width="60"
+                        Height="60"
+                        Margin="5,0,0,0"
                         Source="Images/SRTIconAlt.png" />
-                    <TextBlock
-                        Margin="0,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="18"
-                        Foreground="White"
-                        Text="SRT Host Manager" />
                 </StackPanel>
 
                 <Border
-                    Grid.Column="11"
-                    Grid.ColumnSpan="2"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="1"
                     Margin="10"
                     Background="#272537"
                     CornerRadius="10"
@@ -103,7 +85,7 @@
                     Orientation="Horizontal">
                     <Button
                         Grid.ColumnSpan="1"
-                        Margin="0,0,0,0"
+                        Margin="10,0,0,0"
                         VerticalAlignment="Center"
                         Click="MinimizeToTaskbar">
                         <Button.Style>
@@ -129,6 +111,36 @@
                             </ControlTemplate>
                         </Button.Template>
                         <Image Width="20" Source="Images/Minimize.png" />
+                    </Button>
+
+                    <Button
+                        Grid.ColumnSpan="1"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Click="MaximizeWindow">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#22202F" />
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF4C70" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border
+                                    Width="40"
+                                    Height="40"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="10">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Image Width="20" Source="Images/Maximize.png" />
                     </Button>
 
                     <Button
@@ -206,15 +218,6 @@
                     Height="50"
                     Command="{Binding WidgetViewCommand}"
                     Content="Widgets"
-                    FontSize="16"
-                    Foreground="White"
-                    IsChecked="False"
-                    Style="{StaticResource MenuButtonTheme}" />
-
-                <RadioButton
-                    Height="50"
-                    Command="{Binding LogsViewCommand}"
-                    Content="Console Logs"
                     FontSize="16"
                     Foreground="White"
                     IsChecked="False"

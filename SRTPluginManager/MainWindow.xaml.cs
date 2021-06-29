@@ -29,7 +29,11 @@ namespace SRTPluginManager
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed) DragMove();
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                if (this.WindowState == WindowState.Maximized) this.WindowState = WindowState.Normal;
+                DragMove();
+            }
         }
 
         private void CloseApp(object sender, RoutedEventArgs e)
@@ -45,6 +49,18 @@ namespace SRTPluginManager
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             UpdateConfig(true);
+        }
+
+        private void MaximizeWindow(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+            }
         }
     }
 }

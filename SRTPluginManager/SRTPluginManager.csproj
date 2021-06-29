@@ -19,7 +19,13 @@
     <PublishProtocol>FileSystem</PublishProtocol>
     <PublishDir>bin\Release\net5.0-windows\publish\</PublishDir>
     <SelfContained>false</SelfContained>
+    <ApplicationIcon>SRTIconTaskbar.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="MVVM\ViewModel\LogsViewModel.cs" />
+    <Compile Remove="MVVM\View\LogsView.xaml.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Fonts\Teko-Bold.ttf" />
@@ -50,6 +56,10 @@
     <None Remove="Images\SRTIconTaskbar.png" />
     <None Remove="Images\Unchecked.png" />
     <None Remove="Images\Users.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="MVVM\View\LogsView.xaml" />
   </ItemGroup>
 
   <ItemGroup>

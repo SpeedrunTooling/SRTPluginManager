@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SRTPluginManager.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="640"
-    d:DesignWidth="1060"
+    d:DesignHeight="1000"
+    d:DesignWidth="1700"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -46,15 +46,16 @@
                 Foreground="White"
                 Text="Widgets Manager" />
         </StackPanel>
-        <Grid>
+        <StackPanel />
+        <Grid Height="940">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="530" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="281" />
-                <RowDefinition Height="281" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
             <!--  Left Container  -->

@@ -69,6 +69,12 @@ namespace SRTPluginManager.Core
         }
         #endregion
 
+        public enum Platform
+        {
+            x86,
+            x64
+        }
+
         public enum Plugins
         {
             SRTPluginProviderRE1C,
@@ -212,16 +218,17 @@ namespace SRTPluginManager.Core
             }
         }
 
-#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         public static async void UnzipPackage(string file, string destination)
-#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
-            if (!Directory.Exists(file))
+            await Task.Run(() =>
             {
-                ZipFile.ExtractToDirectory(file, TempFolderPath);
-            }
-            var dirs = Directory.GetDirectories(TempFolderPath);
-            UpdatePackage(dirs[0], destination);
+                if (!Directory.Exists(file))
+                {
+                    ZipFile.ExtractToDirectory(file, TempFolderPath);
+                }
+                var dirs = Directory.GetDirectories(TempFolderPath);
+                UpdatePackage(dirs[0], destination);
+            });
         }
 
         public static void UpdatePackage(string source, string destination)

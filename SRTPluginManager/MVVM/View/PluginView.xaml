@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SRTPluginManager.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="640"
-    d:DesignWidth="1060"
+    d:DesignHeight="1000"
+    d:DesignWidth="1700"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -34,23 +34,20 @@
 
         <!--  Middle Container  -->
         <StackPanel Orientation="Horizontal">
-            <Grid>
+            <Grid Width="1700" Height="940">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="530" />
-                    <ColumnDefinition Width="530" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="281" />
-                    <RowDefinition Height="281" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="180" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
                 <!--  Plugin Info Container  -->
-                <Border
-                    Width="500"
-                    Height="255"
-                    Margin="0,0,0,0"
-                    CornerRadius="10">
+                <Border Margin="15,13,15,13" CornerRadius="10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                             <GradientStop Offset="0.0" Color="#151527" />
@@ -61,20 +58,20 @@
                         <StackPanel>
                             <TextBlock
                                 Margin="20,10,10,0"
-                                FontSize="28"
+                                FontSize="24"
                                 FontWeight="Bold"
                                 Foreground="White"
                                 Text="Current Plugin" />
                             <TextBlock
                                 x:Name="PluginName"
-                                Margin="20,10,10,20"
+                                Margin="20,0,10,0"
                                 FontSize="18"
                                 Foreground="White"
                                 Text=""
                                 TextWrapping="Wrap" />
                             <Grid Width="500" Height="100">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -132,9 +129,7 @@
                 <!--  Options  -->
                 <Border
                     Grid.Row="1"
-                    Width="500"
-                    Height="255"
-                    Margin="0,0,0,0"
+                    Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -146,25 +141,25 @@
                         <StackPanel>
                             <TextBlock
                                 Margin="20,10,10,0"
-                                FontSize="28"
+                                FontSize="24"
                                 FontWeight="Bold"
                                 Foreground="White"
                                 Text="Options" />
-                            <Grid Width="500" Height="200">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="250" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
-                                    <RowDefinition />
+                                    <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
 
                                 <Button
                                     x:Name="SetCurrent"
                                     Grid.ColumnSpan="2"
-                                    Margin="10,10,10,10"
+                                    Margin="5"
                                     Click="SetCurrent_Click"
+                                    Command="{Binding LogsViewCommand}"
                                     Content="Start SRT"
                                     FontFamily="/Fonts/#Teko"
                                     FontSize="30"
@@ -175,7 +170,7 @@
                                 <Button
                                     x:Name="GetUpdate"
                                     Grid.ColumnSpan="2"
-                                    Margin="10,10,10,10"
+                                    Margin="5"
                                     Click="GetUpdate_Click"
                                     Content="Install"
                                     FontFamily="/Fonts/#Teko"
@@ -187,13 +182,11 @@
                                     x:Name="UpdateProgressBar"
                                     Grid.Row="1"
                                     Grid.ColumnSpan="2"
-                                    Margin="20,20,20,20"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="28"
-                                    FontWeight="Bold"
+                                    FontSize="20"
                                     Foreground="White"
-                                    Text="" />
+                                    Text="Test" />
                             </Grid>
 
                         </StackPanel>
@@ -204,9 +197,7 @@
                 <Border
                     Grid.RowSpan="2"
                     Grid.Column="1"
-                    Width="500"
-                    Height="540"
-                    Margin="0,0,0,0"
+                    Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -358,6 +349,45 @@
                             </StackPanel>
                         </ScrollViewer>
                     </Grid>
+                </Border>
+                <Border
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Margin="15,13,15,13"
+                    CornerRadius="10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Offset="0.0" Color="#151527" />
+                            <GradientStop Offset="1" Color="#1D1C2E" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+                        <TextBlock
+                            Margin="20,10,10,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Logs" />
+                        <Border
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            Height="470"
+                            Margin="15,0,15,13"
+                            Background="#22202F"
+                            CornerRadius="10">
+                            <ScrollViewer CanContentScroll="True">
+                                <TextBlock
+                                    x:Name="ConsoleBox"
+                                    Margin="10,10,-5,10"
+                                    FontFamily="Consolas"
+                                    FontSize="12"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="SRT Host v2.4.4 32-bit (x86)&#10; --------------------------------------------------&#10;   Loaded host: SRTHost32.dll&#10;         Digitally signed but NOT verified: Travis J Gutjahr [Thumbprint: 38028F54E06C3CECF8CE307D8EFA24D2258A7CE0]&#10;   Loaded plugin: plugins\SRTPluginProviderRE1C\SRTPluginProviderRE1C.dll&#10;         No digital signature found.&#10;   Loaded plugin: plugins\SRTPluginUIJSON\SRTPluginUIJSON.dll&#10;         Digitally signed but NOT verified: Travis J Gutjahr [Thumbprint: 38028F54E06C3CECF8CE307D8EFA24D2258A7CE0]&#10;   Loaded plugin: plugins\SRTPluginWebSocket\SRTPluginWebSocket.dll&#10;         No digital signature found.&#10; &#10; ddraw&#10; [Game Memory Provider (Resident Evil 1 Classic) v1.0.2.0] successfully started.&#10; [JSON Web Server v2.3.2.0] successfully started.&#10; [Websocket Relay v1.0.0.0] successfully started.&#10; Press CTRL+C in this console window to shutdown the SRT.&#10; Hosting environment: Development&#10; Content root path: C:\Users\VGR_T\Desktop\SRT&#10; Now listening on: http://[::]:7190&#10; Now listening on: http://0.0.0.0:7190&#10; Application started. Press Ctrl+C to shut down.&#10;"
+                                    TextWrapping="Wrap" />
+                            </ScrollViewer>
+                        </Border>
+                    </StackPanel>
                 </Border>
             </Grid>
         </StackPanel>
