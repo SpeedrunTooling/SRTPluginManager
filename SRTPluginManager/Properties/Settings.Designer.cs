@@ -34,5 +34,101 @@ namespace SRTPluginManager.Properties {
                 this["LastUpdate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long SRTUpdate {
+            get {
+                return ((long)(this["SRTUpdate"]));
+            }
+            set {
+                this["SRTUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long ExtensionUpdate {
+            get {
+                return ((long)(this["ExtensionUpdate"]));
+            }
+            set {
+                this["ExtensionUpdate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UIJSONEnabled {
+            get {
+                return ((bool)(this["UIJSONEnabled"]));
+            }
+            set {
+                this["UIJSONEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool WebSocketEnabled {
+            get {
+                return ((bool)(this["WebSocketEnabled"]));
+            }
+            set {
+                this["WebSocketEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UUID {
+            get {
+                return ((string)(this["UUID"]));
+            }
+            set {
+                this["UUID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long LastUpdate2 {
+            get {
+                return ((long)(this["LastUpdate2"]));
+            }
+            set {
+                this["LastUpdate2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long SRTUpdate2 {
+            get {
+                return ((long)(this["SRTUpdate2"]));
+            }
+            set {
+                this["SRTUpdate2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long ExtensionUpdate2 {
+            get {
+                return ((long)(this["ExtensionUpdate2"]));
+            }
+            set {
+                this["ExtensionUpdate2"] = value;
+            }
+        }
     }
 }

@@ -11,14 +11,32 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml" />
                 <ResourceDictionary Source="Theme/PluginButtonTheme.xaml" />
+                <ResourceDictionary Source="Theme/CheckBoxTheme.xaml" />
+                <ResourceDictionary Source="Theme/ButtonTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:HostViewModel}">
+                <view:HostView />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModel:PluginViewModel}">
                 <view:PluginView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:ExtensionsViewModel}">
+                <view:ExtensionsView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:WidgetViewModel}">
+                <view:WidgetView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:LogsViewModel}">
+                <view:LogsView />
             </DataTemplate>
 
         </ResourceDictionary>

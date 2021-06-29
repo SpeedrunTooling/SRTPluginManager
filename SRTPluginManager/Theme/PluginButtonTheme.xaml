@@ -14,6 +14,7 @@
                             <TextBlock
                                 Margin="50,0,0,0"
                                 VerticalAlignment="Center"
+                                FontFamily="/Fonts/#Teko"
                                 Text="{TemplateBinding Property=Content}" />
                         </Grid>
                     </ControlTemplate>

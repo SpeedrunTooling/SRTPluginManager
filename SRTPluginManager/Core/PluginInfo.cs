@@ -8,13 +8,11 @@ namespace SRTPluginManager.Core
 {
     public class PluginInfo
     {
-        public string pluginName = "";
-        public string currentVersion = "";
-        public bool hasPluginProvider => (currentVersion != "");
-        public string tagURL => (hasPluginProvider) ? "https://api.github.com/repos/ResidentEvilSpeedrunning/" + pluginName + "/releases/latest" : null;
-        public string downloadURL => (hasPluginProvider) ? "https://github.com/ResidentEvilSpeedrunning/" + pluginName + "/releases/download/" + currentVersion + "/" + pluginName + "-v" + currentVersion + ".zip" : null;
-        public PluginInfo()
-        {
-        }
+        public string pluginName { get; set; }
+        public string currentVersion { get; set; }
+        public string tagURL => "https://api.github.com/repos/SpeedrunToolHost/" + pluginName + "/releases/latest";
+        public bool hasPluginProvider => currentVersion != "0.0.0.0";
+        public string downloadURL => hasPluginProvider ? "https://github.com/SpeedrunToolHost/" + pluginName + "/releases/download/" + currentVersion + "/" + pluginName + "-v" + currentVersion + ".zip" : null;
+        public PluginInfo(){}
     }
 }

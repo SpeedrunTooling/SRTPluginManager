@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SRTPluginManager.Core.Utilities;
 
 namespace SRTPluginManager
 {
@@ -23,6 +24,7 @@ namespace SRTPluginManager
         public MainWindow()
         {
             InitializeComponent();
+            UpdateConfig();
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -30,14 +32,19 @@ namespace SRTPluginManager
             if (e.LeftButton == MouseButtonState.Pressed) DragMove();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CloseApp(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void MinimizeToTaskbar(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UpdateConfig(true);
         }
     }
 }

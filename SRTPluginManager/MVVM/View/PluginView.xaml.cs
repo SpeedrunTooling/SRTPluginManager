@@ -1,18 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using Newtonsoft.Json;
-using System.Web.Script.Serialization;
-using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using SRTPluginManager.Core;
-using SRTPluginManager.Properties;
+using static SRTPluginManager.Core.Utilities;
+using System.Threading.Tasks;
 
 namespace SRTPluginManager.MVVM.View
 {
@@ -21,88 +17,104 @@ namespace SRTPluginManager.MVVM.View
     /// </summary>
     public partial class PluginView : UserControl
     {
-        private static readonly string ApplicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        private static readonly string TempFolderPath = Path.Combine(ApplicationPath, "tmp");
-        private static readonly string PluginFolderPath = Path.Combine(ApplicationPath, "plugins");
-        private static readonly string ProviderFolderPath = Path.Combine(ApplicationPath, "providers");
-
         private Plugins CurrentPlugin = Plugins.SRTPluginProviderRE1C;
-        private PluginInfo[] ProviderInfo = new PluginInfo[11];
-        private enum Plugins
-        {
-            SRTPluginProviderRE1C,
-            SRTPluginProviderRE1,
-            SRTPluginProviderRE2C,
-            SRTPluginProviderRE2,
-            SRTPluginProviderRE3C,
-            SRTPluginProviderRE3,
-            SRTPluginProviderRE4,
-            SRTPluginProviderRE5,
-            SRTPluginProviderRE6,
-            SRTPluginProviderRE7,
-            SRTPluginProviderRE8
-        }
+        private PluginInfo[] ProviderInfo;
+        public PluginConfiguration config;
+        public RadioButton[] PluginSelection;
 
         public PluginView()
         {
             InitializeComponent();
+
+            PluginSelection = new RadioButton[] { 
+                ResidentEvil1,
+                ResidentEvil1HD,
+                ResidentEvil2,
+                ResidentEvil2Remake,
+                ResidentEvil3,
+                ResidentEvil3Remake,
+                ResidentEvil4,
+                ResidentEvil5,
+                ResidentEvil6,
+                ResidentEvil7,
+                ResidentEvil8
+            };
+
+            ProviderInfo = new PluginInfo[11];
+            for (var i = 0; i < ProviderInfo.Length; i++)
+            {
+                ProviderInfo[i] = new PluginInfo();
+            }
+
+            config = LoadConfiguration<PluginConfiguration>();
         }
+
+        #region Config
+        //private string GetConfigFile(Assembly a) => Path.Combine(new FileInfo(a.Location).DirectoryName, string.Format("{0}.cfg", Path.GetFileNameWithoutExtension(new FileInfo(a.Location).Name)));
+        //private JsonSerializerOptions jso = new JsonSerializerOptions() { AllowTrailingCommas = true, ReadCommentHandling = JsonCommentHandling.Skip, WriteIndented = true };
+        //public virtual T LoadConfiguration<T>() where T : class, new() => LoadConfiguration<T>(GetConfigFile(Assembly.GetCallingAssembly()));
+        //private T LoadConfiguration<T>(string configFile) where T : class, new()
+        //{
+        //    try
+        //    {
+        //        FileInfo configFileInfo = new FileInfo(configFile);
+        //        if (configFileInfo.Exists)
+        //            using (FileStream fs = new FileStream(configFileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+        //                return JsonSerializer.DeserializeAsync<T>(fs, jso).Result;
+        //        else
+        //            return new T(); // File did not exist, just return a new instance.
+        //    }
+        //    catch
+        //    {
+        //        return new T(); // An exception occurred when reading the file, return a new instance.
+        //    }
+        //}
+        //
+        //public virtual void SaveConfiguration<T>(T configuration) where T : class, new() => SaveConfiguration<T>(configuration, GetConfigFile(Assembly.GetCallingAssembly()));
+        //private void SaveConfiguration<T>(T configuration, string configFile) where T : class, new()
+        //{
+        //    if (configuration != null) // Only save if configuration is not null.
+        //    {
+        //        try
+        //        {
+        //            using (FileStream fs = new FileStream(configFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+        //                JsonSerializer.SerializeAsync<T>(fs, configuration, jso).Wait();
+        //        }
+        //        catch
+        //        {
+        //        }
+        //    }
+        //}
+        #endregion
 
         private void StackPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            var previousTime = Settings.Default["LastUpdate"];
-            long currentTime = DateTime.UtcNow.Ticks;
-            long elapsedTicks = currentTime - (long)previousTime;
-            TimeSpan timeSpan = new TimeSpan(elapsedTicks);
-
-            if (timeSpan.TotalSeconds >= 3600)
-            {
-                Settings.Default["LastUpdate"] = currentTime;
-                Settings.Default.Save();
-                SetDefaultPluginInfo();
-            }
-            else
-            {
-                // READ STORED DATA
-            }
+            GetPluginVersions(false);
+            GetCurrentPluginData();
         }
 
-        private void SetDefaultPluginInfo()
+        private void Update()
         {
-            string[] names = { "SRTPluginProviderRE1C", "SRTPluginProviderRE1", "SRTPluginProviderRE2C", "SRTPluginProviderRE2", "SRTPluginProviderRE3C", "SRTPluginProviderRE3", "SRTPluginProviderRE4", "SRTPluginProviderRE5", "SRTPluginProviderRE6", "SRTPluginProviderRE7", "SRTPluginProviderRE8" };
-            for (var i = 0; i < names.Length; i++)
+            var i = 0;
+            foreach (PluginInfo info in config.PluginConfig)
             {
-                ProviderInfo[i].pluginName = names[i];
-                ProviderInfo[i].currentVersion = GetPluginVersion(ProviderInfo[i].tagURL);
-            }   
-        }
-
-        private string GetPluginVersion(string url)
-        {
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.UserAgent = "ResidentEvilSpeedrunning";
-            HttpWebResponse response;
-
-            response = (HttpWebResponse)request.GetResponse();
-
-            using (var streamReader = new StreamReader(response.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-
-                var def = new
+                if (info.currentVersion == "0.0.0.0")
                 {
-                    tag_name = ""
-                };
-
-                var info = JsonConvert.DeserializeAnonymousType(result, def);
-                return info.tag_name;
+                    PluginSelection[i].Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    PluginSelection[i].Visibility = Visibility.Visible;
+                }
+                i++;
             }
         }
 
         private void GetCurrentPluginData()
         {
             CurrentPlugin = GetCurrentSelectedPlugin();
-            SetData(ProviderInfo[(int)CurrentPlugin]);
+            SetData(config.PluginConfig[(int)CurrentPlugin]);
+            Update();
         }
 
         private Plugins GetCurrentSelectedPlugin()
@@ -124,11 +136,14 @@ namespace SRTPluginManager.MVVM.View
         {
             var dllPath = Path.Combine(ProviderFolderPath, pluginInfo.pluginName);
             PluginName.Text = pluginInfo.pluginName + ".dll";
+            var filePath = Path.Combine(dllPath, PluginName.Text);
             LatestRelease.Text = pluginInfo.currentVersion;
             if (Directory.Exists(dllPath)) 
-                CurrentRelease.Text = FileVersionInfo.GetVersionInfo(dllPath).FileVersion;
+                CurrentRelease.Text = FileVersionInfo.GetVersionInfo(filePath).FileVersion;
             else 
-                CurrentRelease.Text = "Not Installed";
+                CurrentRelease.Text = "0.0.0.0";
+
+            SetVisibility(pluginInfo);
         }
 
         private void SetVisibility(PluginInfo pluginInfo)
@@ -143,11 +158,12 @@ namespace SRTPluginManager.MVVM.View
             {
                 VersionCheck(CurrentRelease.Text, LatestRelease.Text);
             }
+            Update();
         }
 
         private void VersionCheck(string current, string latest)
         {
-            if (current != "Not Installed" && latest != "N/A")
+            if (current != "0.0.0.0" && latest != "0.0.0.0")
             {
                 var currentSplit = current.Split('.');
                 var latestSplit = latest.Split('.');
@@ -164,73 +180,17 @@ namespace SRTPluginManager.MVVM.View
                     }
                 }
             }
-            else if (current == "Not Installed")
+            else if (current == "0.0.0.0")
             {
                 SetCurrent.Visibility = Visibility.Collapsed;
                 GetUpdate.Visibility = Visibility.Visible;
                 GetUpdate.Content = "Install";
-                UpdateProgressBar.Text = "Plugin Not Installed";
+                UpdateProgressBar.Text = "Not Installed";
                 return;
             }
             SetCurrent.Visibility = Visibility.Visible;
             GetUpdate.Visibility = Visibility.Collapsed;
             UpdateProgressBar.Text = "Update To Date";
-        }
-
-        private async void UnzipPackage(string name, string file, string destination)
-        {
-            var pluginPath = Path.Combine(TempFolderPath, name);
-            if (!Directory.Exists(pluginPath))
-            {
-                ZipFile.ExtractToDirectory(file, TempFolderPath);
-            }
-            var dirs = Directory.GetDirectories(TempFolderPath);
-            UpdatePackage(dirs[0], ProviderFolderPath);
-        }
-
-        private void UpdatePackage(string source, string destination)
-        {
-            var args = source.Split('\\');
-            var repo = args[args.Length - 1];
-            var dest = Path.Combine(destination, repo);
-            if (!Directory.Exists(dest)) Directory.CreateDirectory(dest);
-            var filesSource = Directory.GetFiles(source);
-            foreach (string file in filesSource)
-            {
-                var args2 = file.Split('\\');
-                var destFile = args2[args2.Length - 1];
-                File.Copy(file, Path.Combine(dest, destFile), true);
-            }
-            DeleteTmpFiles();
-        }
-
-        private void DeleteTmpFiles()
-        {
-            DeleteDirectories(TempFolderPath);
-            DeleteFiles(TempFolderPath);
-        }
-
-        private void DeleteDirectories(string source)
-        {
-            var dirs = Directory.GetDirectories(source);
-            foreach (string directory in dirs)
-            {
-                var files = Directory.GetFiles(directory);
-                foreach (string file in files)
-                {
-                    File.Delete(file);
-                }
-                Directory.Delete(directory);
-            }
-        }
-
-        private void DeleteFiles(string source)
-        {
-            var files = Directory.GetFiles(source);
-            foreach (string file in files)
-            {
-                File.Delete(file);
-            }
         }
 
         private void ReplacePluginProvider()
@@ -241,74 +201,74 @@ namespace SRTPluginManager.MVVM.View
             {
                 if (directory.Contains("PluginProvider"))
                 {
-                    var files = Directory.GetFiles(directory);
-                    foreach (string file in files)
-                    {
-                        File.Delete(file);
-                    }
-                    Directory.Delete(directory);
+                    Directory.Delete(directory, true);
                 }
             }
 
             // Adds New Plugin Installed To Current
-            var dirs2 = Directory.GetDirectories(ProviderFolderPath);
-            UpdatePackage(dirs2[0], PluginFolderPath);
+            foreach (string dir in Directory.GetDirectories(ProviderFolderPath))
+            {
+                if (Path.GetFileName(dir) == config.PluginConfig[(int)CurrentPlugin].pluginName)
+                {
+                    CopyPluginProvider(dir, PluginFolderPath);
+                }
+            }
+            
         }
 
         private void ResidentEvil1_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void ResidentEvil1HD_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
-        
         private void ResidentEvil2_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void ResidentEvil2Remake_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void ResidentEvil3_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void ResidentEvil3Remake_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void ResidentEvil4_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void ResidentEvil5_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void ResidentEvil6_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void ResidentEvil7_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void ResidentEvil8_Click(object sender, RoutedEventArgs e)
         {
-            //UpdateGameInfo();
+            GetCurrentPluginData();
         }
 
         private void SetCurrent_Click(object sender, RoutedEventArgs e)
@@ -317,28 +277,24 @@ namespace SRTPluginManager.MVVM.View
             // Write Startup Routine
         }
 
+#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         private async void GetUpdate_Click(object sender, RoutedEventArgs e)
+#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
-            //var url = GetCurrentURL();
-            //var fileName = url.Split('/')[5];
-            //var fileExt = ".zip";
-            //var file = fileName + fileExt;
-            //var filePath = Path.Combine(TempFolderPath, file);
-            //UnzipPackage(fileName, filePath, ProviderFolderPath);
-            //using (var wc = new WebClient())
-            //{
-            //    wc.DownloadProgressChanged += (s, ev) =>
-            //    {
-            //        //UpdateProgressBar.Visibility = Visibility.Visible;
-            //        UpdateProgressBar.Text = ev.ProgressPercentage.ToString();
-            //    };
-            //    wc.DownloadFileCompleted += (s, ev) =>
-            //    {
-            //        //UpdateProgressBar.Visibility = Visibility.Collapsed;
-            //        UnzipPackage(fileName, filePath, ProviderFolderPath);
-            //    };
-            //    wc.DownloadFileAsync(new Uri(GetDownloadLink()), TempFolderPath);
-            //}
+            DownloadPlugin(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, ProviderFolderPath);
+            GetCurrentPluginData();
         }
+
+        //private async Task UpdateManager()
+        //{
+        //    return Task.Run(() =>
+        //    {
+        //        DownloadPlugin(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, ProviderFolderPath);
+        //        while ()
+        //        {
+        //
+        //        }
+        //    });
+        //}
     }
 }

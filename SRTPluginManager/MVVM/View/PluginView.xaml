@@ -8,18 +8,31 @@
     d:DesignHeight="640"
     d:DesignWidth="1060"
     mc:Ignorable="d">
+
     <UserControl.Resources>
         <Style TargetType="ScrollBar">
             <Setter Property="Opacity" Value="0" />
         </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="/Fonts/#Teko" />
+        </Style>
     </UserControl.Resources>
+    <!--  Container  -->
     <StackPanel Loaded="StackPanel_Loaded">
-        <TextBlock
-            Margin="10,10,0,10"
-            HorizontalAlignment="Left"
-            FontSize="28"
-            Foreground="White"
-            Text="Plugin Manager" />
+        <!--  Header  -->
+        <!--  Header  -->
+        <StackPanel Height="60" Orientation="Horizontal">
+            <Image Margin="10" Source="/Images/Plugins.png" />
+            <TextBlock
+                Margin="10,10,0,10"
+                HorizontalAlignment="Left"
+                FontSize="28"
+                FontWeight="Bold"
+                Foreground="White"
+                Text="Plugin Manager" />
+        </StackPanel>
+
+        <!--  Middle Container  -->
         <StackPanel Orientation="Horizontal">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -32,6 +45,7 @@
                     <RowDefinition Height="281" />
                 </Grid.RowDefinitions>
 
+                <!--  Plugin Info Container  -->
                 <Border
                     Width="500"
                     Height="255"
@@ -66,7 +80,6 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-
 
                                 <Border
                                     Width="230"
@@ -116,6 +129,7 @@
                     </Grid>
                 </Border>
 
+                <!--  Options  -->
                 <Border
                     Grid.Row="1"
                     Width="500"
@@ -152,31 +166,11 @@
                                     Margin="10,10,10,10"
                                     Click="SetCurrent_Click"
                                     Content="Start SRT"
-                                    FontSize="20"
+                                    FontFamily="/Fonts/#Teko"
+                                    FontSize="30"
                                     Foreground="White"
-                                    Visibility="Collapsed">
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Background" Value="#22202F" />
-                                            <Setter Property="Cursor" Value="Hand" />
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#FF4C70" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border
-                                                Margin="10,10,10,10"
-                                                Background="{TemplateBinding Background}"
-                                                CornerRadius="10">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                    Style="{StaticResource ButtonTheme}"
+                                    Visibility="Collapsed" />
 
                                 <Button
                                     x:Name="GetUpdate"
@@ -184,30 +178,10 @@
                                     Margin="10,10,10,10"
                                     Click="GetUpdate_Click"
                                     Content="Install"
-                                    FontSize="20"
-                                    Foreground="White">
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Background" Value="#22202F" />
-                                            <Setter Property="Cursor" Value="Hand" />
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#FF4C70" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border
-                                                Margin="10,10,10,10"
-                                                Background="{TemplateBinding Background}"
-                                                CornerRadius="10">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                    FontFamily="/Fonts/#Teko"
+                                    FontSize="30"
+                                    Foreground="White"
+                                    Style="{StaticResource ButtonTheme}" />
 
                                 <TextBlock
                                     x:Name="UpdateProgressBar"
@@ -226,6 +200,7 @@
                     </Grid>
                 </Border>
 
+                <!--  Available Plugin List  -->
                 <Border
                     Grid.RowSpan="2"
                     Grid.Column="1"
@@ -267,7 +242,7 @@
                                     Content="Resident Evil 1 Classic"
                                     FontSize="16"
                                     Foreground="White"
-                                    IsChecked="False"
+                                    IsChecked="True"
                                     Style="{StaticResource PluginButtonTheme}" />
                                 <!--  Command="{Binding RE1Cmd}"  -->
 
@@ -278,7 +253,7 @@
                                     Content="Resident Evil 1 HD"
                                     FontSize="16"
                                     Foreground="White"
-                                    IsChecked="True"
+                                    IsChecked="False"
                                     Style="{StaticResource PluginButtonTheme}" />
                                 <!--  Command="{Binding RE1RCmd}"  -->
 
@@ -382,14 +357,9 @@
                                 <!--  Command="{Binding RE2RCmd}"  -->
                             </StackPanel>
                         </ScrollViewer>
-
                     </Grid>
                 </Border>
             </Grid>
-
-
-
-
         </StackPanel>
     </StackPanel>
 </UserControl>

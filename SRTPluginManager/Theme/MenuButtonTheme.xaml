@@ -14,6 +14,7 @@
                             <TextBlock
                                 Margin="20,0,0,0"
                                 VerticalAlignment="Center"
+                                FontFamily="/Fonts/#Teko"
                                 Text="{TemplateBinding Property=Content}" />
                         </Grid>
                     </ControlTemplate>
@@ -24,7 +25,7 @@
         </Style.Setters>
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#272537" />
+                <Setter Property="Background" Value="#1D1C2E" />
             </Trigger>
         </Style.Triggers>
     </Style>
