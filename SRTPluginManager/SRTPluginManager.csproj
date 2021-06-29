@@ -22,6 +22,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Teko-Bold.ttf" />
+    <None Remove="Fonts\Teko-Light.ttf" />
+    <None Remove="Fonts\Teko-Medium.ttf" />
+    <None Remove="Fonts\Teko-Regular.ttf" />
+    <None Remove="Fonts\Teko-SemiBold.ttf" />
     <None Remove="Images\Bolt.png" />
     <None Remove="Images\Checked.png" />
     <None Remove="Images\Clipboard.png" />
@@ -48,6 +53,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\Teko-Bold.ttf" />
+    <Resource Include="Fonts\Teko-Light.ttf" />
+    <Resource Include="Fonts\Teko-Medium.ttf" />
+    <Resource Include="Fonts\Teko-Regular.ttf" />
+    <Resource Include="Fonts\Teko-SemiBold.ttf" />
     <Resource Include="Images\Bolt.png" />
     <Resource Include="Images\Checked.png" />
     <Resource Include="Images\Clipboard.png" />
