@@ -126,7 +126,7 @@
                             Visibility="Visible" />
                     </StackPanel>
                 </Border>
-
+                <!--DotNet Core Container-->
                 <Border
                     x:Name="DotNetCore"
                     Grid.Column="1"
@@ -173,6 +173,7 @@
                             Visibility="Visible" />
                     </StackPanel>
                 </Border>
+                <!--Extension Selection-->
                 <Border
                     Grid.Row="1"
                     Grid.ColumnSpan="1"

@@ -20,7 +20,6 @@
     <!--  Container  -->
     <StackPanel Loaded="StackPanel_Loaded">
         <!--  Header  -->
-        <!--  Header  -->
         <StackPanel Height="60" Orientation="Horizontal">
             <Image Margin="10" Source="/Images/Plugins.png" />
             <TextBlock
@@ -29,7 +28,7 @@
                 FontSize="28"
                 FontWeight="Bold"
                 Foreground="White"
-                Text="Plugin Manager" />
+                Text="SRT Host" />
         </StackPanel>
 
         <!--  Middle Container  -->
@@ -38,15 +37,17 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="530" />
                     <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="200" />
-                    <RowDefinition Height="180" />
+                    <RowDefinition Height="280" />
+                    <RowDefinition Height="350" />
+                    <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
-                <!--  Plugin Info Container  -->
+                <!--  SRT Host Container  -->
                 <Border Margin="15,13,15,13" CornerRadius="10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -54,81 +55,103 @@
                             <GradientStop Offset="1" Color="#1D1C2E" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Grid>
-                        <StackPanel>
-                            <TextBlock
-                                Margin="20,10,10,0"
-                                FontSize="24"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="Current Plugin" />
-                            <TextBlock
-                                x:Name="PluginName"
-                                Margin="20,0,10,0"
-                                FontSize="18"
-                                Foreground="White"
-                                Text=""
-                                TextWrapping="Wrap" />
-                            <Grid Width="500" Height="100">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
+                    <!--  Inner Container  -->
+                    <StackPanel>
+                        <!--  Title  -->
+                        <TextBlock
+                            Margin="20,10,10,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Host Version Info" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                                <Border
-                                    Width="230"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel>
-                                        <TextBlock
-                                            Margin="10,10,10,0"
-                                            FontSize="20"
-                                            FontWeight="Bold"
-                                            Foreground="White"
-                                            Text="Current Version" />
-                                        <TextBlock
-                                            x:Name="CurrentRelease"
-                                            Margin="20,10,10,0"
-                                            FontSize="18"
-                                            Foreground="White"
-                                            Text=""
-                                            TextWrapping="Wrap" />
-                                    </StackPanel>
-                                </Border>
-                                <Border
-                                    Grid.Column="1"
-                                    Width="230"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel>
-                                        <TextBlock
-                                            Margin="10,10,10,0"
-                                            FontSize="20"
-                                            FontWeight="Bold"
-                                            Foreground="White"
-                                            Text="Latest Plugin" />
-                                        <TextBlock
-                                            x:Name="LatestRelease"
-                                            Margin="20,10,10,0"
-                                            FontSize="18"
-                                            Foreground="White"
-                                            Text=""
-                                            TextWrapping="Wrap" />
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
-                        </StackPanel>
-                    </Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+
+                            <!--  Current Version  -->
+                            <Border
+                                Margin="10"
+                                Background="#272537"
+                                CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock
+                                        Margin="10,10,10,0"
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Current Version" />
+                                    <TextBlock
+                                        x:Name="SRTCurrentRelease"
+                                        Margin="20,10,10,0"
+                                        FontSize="18"
+                                        Foreground="White"
+                                        Text="0.0.0.0"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border
+                                Grid.Column="1"
+                                Margin="10"
+                                Background="#272537"
+                                CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock
+                                        Margin="10,10,10,0"
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Latest Version" />
+                                    <TextBlock
+                                        x:Name="SRTLatestRelease"
+                                        Margin="20,10,10,0"
+                                        FontSize="18"
+                                        Foreground="White"
+                                        Text="0.0.0.0"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                            <Button
+                                x:Name="SRTGetUpdate"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Height="80"
+                                Margin="10,10,10,10"
+                                Click="GetUpdate_Click"
+                                Content="Install"
+                                FontFamily="/Fonts/#Teko"
+                                FontSize="30"
+                                Foreground="White"
+                                Style="{StaticResource ButtonTheme}"
+                                Visibility="Visible" />
+                            <Button
+                                x:Name="StartSRTHost"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Margin="5"
+                                Click="StartSRTHost_Click"
+                                Command="{Binding LogsViewCommand}"
+                                Content="Start SRT"
+                                FontFamily="/Fonts/#Teko"
+                                FontSize="30"
+                                Foreground="White"
+                                Style="{StaticResource ButtonTheme}"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </StackPanel>
                 </Border>
 
-                <!--  Options  -->
+                <!--  Extension Selection  -->
                 <Border
-                    Grid.Row="1"
+                    Grid.Row="2"
+                    Grid.RowSpan="2"
                     Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>
@@ -137,66 +160,222 @@
                             <GradientStop Offset="1" Color="#1D1C2E" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Grid>
-                        <StackPanel>
-                            <TextBlock
-                                Margin="20,10,10,0"
-                                FontSize="24"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="Options" />
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition Height="30" />
-                                </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock
+                            Margin="20,10,10,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Extension Options" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                                <Button
-                                    x:Name="SetCurrent"
-                                    Grid.ColumnSpan="2"
-                                    Margin="5"
-                                    Click="SetCurrent_Click"
-                                    Command="{Binding LogsViewCommand}"
-                                    Content="Start SRT"
-                                    FontFamily="/Fonts/#Teko"
-                                    FontSize="30"
-                                    Foreground="White"
-                                    Style="{StaticResource ButtonTheme}"
-                                    Visibility="Collapsed" />
-
-                                <Button
-                                    x:Name="GetUpdate"
-                                    Grid.ColumnSpan="2"
-                                    Margin="5"
-                                    Click="GetUpdate_Click"
-                                    Content="Install"
-                                    FontFamily="/Fonts/#Teko"
-                                    FontSize="30"
-                                    Foreground="White"
-                                    Style="{StaticResource ButtonTheme}" />
-
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                                <CheckBox
+                                    x:Name="EnableJSON"
+                                    Width="30"
+                                    Margin="40,0,0,0"
+                                    Checked="GetExtensions"
+                                    IsChecked="False"
+                                    Style="{StaticResource CheckBoxTheme}"
+                                    Unchecked="GetExtensions" />
                                 <TextBlock
-                                    x:Name="UpdateProgressBar"
-                                    Grid.Row="1"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalAlignment="Center"
+                                    Margin="10,0,0,0"
                                     VerticalAlignment="Center"
                                     FontSize="20"
                                     Foreground="White"
-                                    Text="Test" />
-                            </Grid>
+                                    Text="Enable UIJSON" />
+                            </StackPanel>
+                            <StackPanel
+                                Grid.Row="1"
+                                Margin="0,0,0,10"
+                                Orientation="Horizontal">
+                                <CheckBox
+                                    x:Name="EnableWebSocket"
+                                    Width="30"
+                                    Margin="40,0,0,0"
+                                    Checked="GetExtensions"
+                                    IsChecked="False"
+                                    Style="{StaticResource CheckBoxTheme}"
+                                    Unchecked="GetExtensions" />
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Foreground="White"
+                                    Text="Enable Websocket" />
+                            </StackPanel>
+                        </Grid>
 
-                        </StackPanel>
-                    </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!--  DotNet Core Container  -->
+                <Border
+                    x:Name="DotNetCore"
+                    Grid.Column="2"
+                    Margin="15,13,15,13"
+                    CornerRadius="10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Offset="0.0" Color="#151527" />
+                            <GradientStop Offset="1" Color="#1D1C2E" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+                        <TextBlock
+                            Margin="20,10,10,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text=".Net Core 3.1" />
+                        <Button
+                            x:Name="Download32"
+                            Grid.ColumnSpan="2"
+                            Height="80"
+                            Margin="10,10,10,10"
+                            Click="Download32_Click"
+                            Content="Download 32bit"
+                            FontFamily="/Fonts/#Teko"
+                            FontSize="30"
+                            Foreground="White"
+                            Style="{StaticResource ButtonTheme}"
+                            Visibility="Visible" />
+                        <Button
+                            x:Name="Download64"
+                            Grid.ColumnSpan="2"
+                            Height="80"
+                            Margin="10,10,10,10"
+                            Click="Download64_Click"
+                            Content="Download 64bit"
+                            FontFamily="/Fonts/#Teko"
+                            FontSize="30"
+                            Foreground="White"
+                            Style="{StaticResource ButtonTheme}"
+                            Visibility="Visible" />
+                    </StackPanel>
+                </Border>
+
+                <!--  Plugin Info Container  -->
+                <Border
+                    Grid.Row="1"
+                    Grid.RowSpan="1"
+                    Margin="15,13,15,13"
+                    CornerRadius="10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Offset="0.0" Color="#151527" />
+                            <GradientStop Offset="1" Color="#1D1C2E" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+                        <TextBlock
+                            Margin="20,10,10,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Current Plugin" />
+                        <TextBlock
+                            x:Name="PluginName"
+                            Margin="20,0,10,0"
+                            FontSize="18"
+                            Foreground="White"
+                            Text=""
+                            TextWrapping="Wrap" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+
+                            <Border
+                                Width="230"
+                                Margin="10"
+                                Background="#272537"
+                                CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock
+                                        Margin="10,10,10,0"
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Current Version" />
+                                    <TextBlock
+                                        x:Name="CurrentRelease"
+                                        Margin="20,10,10,0"
+                                        FontSize="18"
+                                        Foreground="White"
+                                        Text=""
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                            <Border
+                                Grid.Column="1"
+                                Width="230"
+                                Margin="10"
+                                Background="#272537"
+                                CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock
+                                        Margin="10,10,10,0"
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="Latest Plugin" />
+                                    <TextBlock
+                                        x:Name="LatestRelease"
+                                        Margin="20,10,10,0"
+                                        FontSize="18"
+                                        Foreground="White"
+                                        Text=""
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                            <Button
+                                x:Name="GetUpdate"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Margin="5"
+                                Click="GetUpdate_Click"
+                                Content="Install"
+                                FontFamily="/Fonts/#Teko"
+                                FontSize="30"
+                                Foreground="White"
+                                Style="{StaticResource ButtonTheme}" />
+
+                            <TextBlock
+                                x:Name="UpdateProgressBar"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Test"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </StackPanel>
                 </Border>
 
                 <!--  Available Plugin List  -->
                 <Border
-                    Grid.RowSpan="2"
+                    x:Name="PluginBox"
                     Grid.Column="1"
+                    Grid.ColumnSpan="1"
                     Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>
@@ -351,7 +530,9 @@
                     </Grid>
                 </Border>
                 <Border
-                    Grid.Row="2"
+                    Grid.Row="1"
+                    Grid.RowSpan="3"
+                    Grid.Column="1"
                     Grid.ColumnSpan="2"
                     Margin="15,13,15,13"
                     CornerRadius="10">
@@ -371,7 +552,7 @@
                         <Border
                             Grid.Row="2"
                             Grid.ColumnSpan="2"
-                            Height="470"
+                            Height="580"
                             Margin="15,0,15,13"
                             Background="#22202F"
                             CornerRadius="10">

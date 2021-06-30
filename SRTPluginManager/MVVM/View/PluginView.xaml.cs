@@ -9,6 +9,7 @@ using System.Diagnostics;
 using SRTPluginManager.Core;
 using static SRTPluginManager.Core.Utilities;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace SRTPluginManager.MVVM.View
 {
@@ -17,10 +18,16 @@ namespace SRTPluginManager.MVVM.View
     /// </summary>
     public partial class PluginView : UserControl
     {
+        private VersionType HasDotNetCore = VersionType.None;
+        private VersionType HasDotNetCore32 = VersionType.None;
         private Plugins CurrentPlugin = Plugins.SRTPluginProviderRE1C;
-        private PluginInfo[] ProviderInfo;
         public PluginConfiguration config;
         public RadioButton[] PluginSelection;
+
+        private bool SRTUpdated = false;
+        private bool SRTInstalled = false;
+        private bool CurrentPluginUpdated = false;
+        private bool CurrentPluginInstalled = false;
 
         public PluginView()
         {
@@ -40,60 +47,49 @@ namespace SRTPluginManager.MVVM.View
                 ResidentEvil8
             };
 
-            ProviderInfo = new PluginInfo[11];
-            for (var i = 0; i < ProviderInfo.Length; i++)
-            {
-                ProviderInfo[i] = new PluginInfo();
-            }
-
             config = LoadConfiguration<PluginConfiguration>();
+            InitSRTData();
+            GetPluginVersions(false);
+            GetCurrentPluginData();
+            Update();
         }
 
-        #region Config
-        //private string GetConfigFile(Assembly a) => Path.Combine(new FileInfo(a.Location).DirectoryName, string.Format("{0}.cfg", Path.GetFileNameWithoutExtension(new FileInfo(a.Location).Name)));
-        //private JsonSerializerOptions jso = new JsonSerializerOptions() { AllowTrailingCommas = true, ReadCommentHandling = JsonCommentHandling.Skip, WriteIndented = true };
-        //public virtual T LoadConfiguration<T>() where T : class, new() => LoadConfiguration<T>(GetConfigFile(Assembly.GetCallingAssembly()));
-        //private T LoadConfiguration<T>(string configFile) where T : class, new()
-        //{
-        //    try
-        //    {
-        //        FileInfo configFileInfo = new FileInfo(configFile);
-        //        if (configFileInfo.Exists)
-        //            using (FileStream fs = new FileStream(configFileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
-        //                return JsonSerializer.DeserializeAsync<T>(fs, jso).Result;
-        //        else
-        //            return new T(); // File did not exist, just return a new instance.
-        //    }
-        //    catch
-        //    {
-        //        return new T(); // An exception occurred when reading the file, return a new instance.
-        //    }
-        //}
-        //
-        //public virtual void SaveConfiguration<T>(T configuration) where T : class, new() => SaveConfiguration<T>(configuration, GetConfigFile(Assembly.GetCallingAssembly()));
-        //private void SaveConfiguration<T>(T configuration, string configFile) where T : class, new()
-        //{
-        //    if (configuration != null) // Only save if configuration is not null.
-        //    {
-        //        try
-        //        {
-        //            using (FileStream fs = new FileStream(configFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
-        //                JsonSerializer.SerializeAsync<T>(fs, configuration, jso).Wait();
-        //        }
-        //        catch
-        //        {
-        //        }
-        //    }
-        //}
-        #endregion
+        private void InitSRTData()
+        {
+            CheckDotNet();
+            SRTCurrentRelease.Text = GetFileVersionInfo(ApplicationPath, "SRTHost64.dll");
+            SRTLatestRelease.Text = GetHostVersion(false).ToString();
+            SRTInstalled = SRTCurrentRelease.Text != "0.0.0.0";
+            SRTUpdated = IsUpdated(SRTCurrentRelease.Text, SRTLatestRelease.Text);
+            EnableJSON.IsChecked = (bool)GetSetting("UIJSONEnabled");
+            EnableWebSocket.IsChecked = (bool)GetSetting("WebSocketEnabled");
+        }
 
         private void StackPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            GetPluginVersions(false);
-            GetCurrentPluginData();
         }
 
         private void Update()
+        {
+            UpdateHost();
+            UpdatePlugins();
+            UpdateDotNet();
+            UpdateSRTState();
+        }
+
+        private void UpdateHost()
+        {
+            if (SRTUpdated)
+            {
+                SRTGetUpdate.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SRTGetUpdate.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void UpdatePlugins()
         {
             var i = 0;
             foreach (PluginInfo info in config.PluginConfig)
@@ -107,6 +103,110 @@ namespace SRTPluginManager.MVVM.View
                     PluginSelection[i].Visibility = Visibility.Visible;
                 }
                 i++;
+            }
+        }
+
+        private void UpdateDotNet()
+        {
+            if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.Optional)
+            {
+                DotNetCore.Visibility = Visibility.Collapsed;
+                PluginBox.SetValue(Grid.ColumnSpanProperty, 2);
+                return;
+            }
+            else if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.Required)
+            {
+                DotNetCore.Visibility = Visibility.Visible;
+                Download64.Visibility = Visibility.Collapsed;
+                Download32.Visibility = Visibility.Visible;
+                Download32.Content = "Download Optional 32Bit Update";
+                PluginBox.SetValue(Grid.ColumnSpanProperty, 1);
+                return;
+            }
+            else if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.None)
+            {
+                DotNetCore.Visibility = Visibility.Visible;
+                Download64.Visibility = Visibility.Collapsed;
+                Download32.Visibility = Visibility.Visible;
+                PluginBox.SetValue(Grid.ColumnSpanProperty, 1);
+                return;
+            }
+            else if (HasDotNetCore == VersionType.None && HasDotNetCore32 == VersionType.None)
+            {
+                DotNetCore.Visibility = Visibility.Visible;
+                Download64.Visibility = Visibility.Visible;
+                Download32.Visibility = Visibility.Collapsed;
+                PluginBox.SetValue(Grid.ColumnSpanProperty, 1);
+                return;
+            }
+            else
+            {
+                DotNetCore.Visibility = Visibility.Visible;
+                Download64.Visibility = Visibility.Visible;
+                Download32.Visibility = Visibility.Visible;
+                PluginBox.SetValue(Grid.ColumnSpanProperty, 1);
+                return;
+            }
+        }
+
+        private void UpdateSRTState()
+        {
+            if (SRTInstalled && CurrentPluginInstalled)
+            {
+                StartSRTHost.Visibility = Visibility.Visible;
+
+                if (SRTUpdated) SRTGetUpdate.Visibility = Visibility.Collapsed;
+                else
+                {
+                    SRTGetUpdate.Content = "Update";
+                    SRTGetUpdate.Visibility = Visibility.Visible;
+                }
+
+                if (CurrentPluginUpdated) GetUpdate.Visibility = Visibility.Collapsed;
+                else
+                {
+                    GetUpdate.Content = "Update";
+                    GetUpdate.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                StartSRTHost.Visibility = Visibility.Collapsed;
+                if (!SRTInstalled)
+                {
+                    SRTGetUpdate.Content = "Install";
+                    SRTGetUpdate.Visibility = Visibility.Visible;
+                }
+                else if (SRTInstalled && !SRTUpdated)
+                {
+                    SRTGetUpdate.Content = "Update";
+                    SRTGetUpdate.Visibility = Visibility.Visible;
+                    StartSRTHost.Visibility = Visibility.Visible;
+                }
+
+                if (!CurrentPluginInstalled)
+                {
+                    GetUpdate.Content = "Install";
+                    GetUpdate.Visibility = Visibility.Visible;
+                    UpdateProgressBar.SetValue(Grid.RowProperty, 2);
+                    UpdateProgressBar.Text = "Not Installed";
+                    UpdateProgressBar.Visibility = Visibility.Visible;
+                }
+                else if (CurrentPluginInstalled && !CurrentPluginUpdated)
+                {
+                    GetUpdate.Content = "Update";
+                    GetUpdate.Visibility = Visibility.Visible;
+                    UpdateProgressBar.SetValue(Grid.RowProperty, 2);
+                    UpdateProgressBar.Text = "Update Pending";
+                    UpdateProgressBar.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    GetUpdate.Visibility = Visibility.Collapsed;
+                    UpdateProgressBar.SetValue(Grid.RowProperty, 1);
+                    UpdateProgressBar.Text = "Up To Date";
+                    UpdateProgressBar.Visibility = Visibility.Visible;
+                }
             }
         }
 
@@ -151,7 +251,7 @@ namespace SRTPluginManager.MVVM.View
             if (!pluginInfo.hasPluginProvider)
             {
                 GetUpdate.Visibility = Visibility.Collapsed;
-                SetCurrent.Visibility = Visibility.Collapsed;
+                StartSRTHost.Visibility = Visibility.Collapsed;
                 UpdateProgressBar.Text = "No Plugin Available";
             }
             else
@@ -163,7 +263,14 @@ namespace SRTPluginManager.MVVM.View
 
         private void VersionCheck(string current, string latest)
         {
-            if (current != "0.0.0.0" && latest != "0.0.0.0")
+            if (current == "0.0.0.0")
+            {
+                CurrentPluginUpdated = false;
+                CurrentPluginInstalled = false;
+                Update();
+                return;
+            }
+            else if (current != "0.0.0.0" && latest != "0.0.0.0")
             {
                 var currentSplit = current.Split('.');
                 var latestSplit = latest.Split('.');
@@ -172,25 +279,16 @@ namespace SRTPluginManager.MVVM.View
                 {
                     if (currentSplit[i] != latestSplit[i])
                     {
-                        SetCurrent.Visibility = Visibility.Collapsed;
-                        GetUpdate.Visibility = Visibility.Visible;
-                        GetUpdate.Content = "Update";
-                        UpdateProgressBar.Text = "Update Pending";
+                        CurrentPluginUpdated = false;
+                        CurrentPluginInstalled = true;
+                        Update();
                         return;
                     }
                 }
             }
-            else if (current == "0.0.0.0")
-            {
-                SetCurrent.Visibility = Visibility.Collapsed;
-                GetUpdate.Visibility = Visibility.Visible;
-                GetUpdate.Content = "Install";
-                UpdateProgressBar.Text = "Not Installed";
-                return;
-            }
-            SetCurrent.Visibility = Visibility.Visible;
-            GetUpdate.Visibility = Visibility.Collapsed;
-            UpdateProgressBar.Text = "Update To Date";
+            CurrentPluginUpdated = true;
+            CurrentPluginInstalled = true;
+            Update();
         }
 
         private void ReplacePluginProvider()
@@ -218,59 +316,70 @@ namespace SRTPluginManager.MVVM.View
         private void ResidentEvil1_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil1HD_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil2_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil2Remake_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil3_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil3Remake_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil4_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil5_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil6_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil7_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
         private void ResidentEvil8_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
+            Update();
         }
 
-        private void SetCurrent_Click(object sender, RoutedEventArgs e)
+        private void StartSRTHost_Click(object sender, RoutedEventArgs e)
         {
             //ReplacePluginProvider();
             // Write Startup Routine
@@ -279,9 +388,12 @@ namespace SRTPluginManager.MVVM.View
 
         private async void GetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await Task.Run(() => {
-                DownloadPlugin(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, ProviderFolderPath);
+            await DownloadFile(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, ProviderFolderPath);
+            await Task.Run(() =>
+            {
+                autoResetEvent.WaitOne();
             });
+            GetCurrentPluginData();
         }
 
         private async void RunSRT()
@@ -347,6 +459,60 @@ namespace SRTPluginManager.MVVM.View
             foreach (string line in lines)
             {
                 ConsoleBox.Text += string.Format("{0}{1}", line, "&#10;");
+            }
+        }
+
+        private void CheckDotNet()
+        {
+            HasDotNetCore = CheckDotNetCore(16);
+            HasDotNetCore32 = CheckDotNetCore(15, 16);
+            Update();
+        }
+
+        private void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            if (HasDotNetCore == VersionType.None || HasDotNetCore32 == VersionType.None)
+            {
+                var result = MessageBox.Show(".Net Core 3.1 Required! Please download both 32bit and 64bit", "Warning");
+                if (result == MessageBoxResult.OK)
+                {
+                    return;
+                }
+            }
+            DownloadFile("SRTHost.zip", "https://neonblu.com/SRT/Host/SRTHost_2440-Beta-Signed-Release.7z", GetUpdate, ApplicationPath);
+        }
+
+        private void Download64_Click(object sender, RoutedEventArgs e)
+        {
+            DownloadFile("dotNet64.exe", dotNetCore64URL, Download64);
+        }
+
+        private void Download32_Click(object sender, RoutedEventArgs e)
+        {
+            DownloadFile("dotNet32.exe", dotNetCore32URL, Download32);
+        }
+
+        private void GetExtensions(object sender, RoutedEventArgs e)
+        {
+            var sourceJSON = Path.Combine(ExtensionFolderPath, "SRTPluginUIJSON");
+            var sourceWS = Path.Combine(ExtensionFolderPath, "SRTPluginWebSocket");
+            if ((bool)EnableJSON.IsChecked)
+            {
+                if (Directory.Exists(sourceJSON)) GetExtensionsSelected((bool)EnableJSON.IsChecked, (bool)EnableWebSocket.IsChecked);
+                else
+                {
+                    EnableJSON.IsChecked = false;
+                    MessageBox.Show("SRTPluginUIJSON Not Installed.", "Error Missing Plugin");
+                }
+            }
+            else if ((bool)EnableWebSocket.IsChecked)
+            {
+                if (Directory.Exists(sourceJSON)) GetExtensionsSelected((bool)EnableJSON.IsChecked, (bool)EnableWebSocket.IsChecked);
+                else
+                {
+                    EnableWebSocket.IsChecked = false;
+                    MessageBox.Show("SRTPluginWebSocket Not Installed.", "Error Missing Plugin");
+                }
             }
         }
 

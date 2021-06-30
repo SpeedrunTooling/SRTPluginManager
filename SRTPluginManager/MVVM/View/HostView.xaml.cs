@@ -82,7 +82,7 @@ namespace SRTPluginManager.MVVM.View
                     return;
                 }
             }
-            DownloadSRTHost("SRTHost.zip", "https://neonblu.com/SRT/Host/SRTHost_2440-Beta-Signed-Release.7z", GetUpdate);
+            DownloadFile("SRTHost.zip", "https://neonblu.com/SRT/Host/SRTHost_2440-Beta-Signed-Release.7z", GetUpdate, ApplicationPath);
         }
 
         private void Download64_Click(object sender, RoutedEventArgs e)

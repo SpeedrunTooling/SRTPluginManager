@@ -31,6 +31,8 @@ namespace SRTPluginManager.Core
 
         public static PluginConfiguration Config { get; set; }
 
+        public static AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+
         #region Config
         private static string GetConfigFile(Assembly a) => Path.Combine(new FileInfo(a.Location).DirectoryName, string.Format("{0}.cfg", Path.GetFileNameWithoutExtension(new FileInfo(a.Location).Name)));
 
@@ -140,10 +142,8 @@ namespace SRTPluginManager.Core
             }
         }
 
-#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-        public static async void DownloadFile(string fileName, string url, Button button)
-#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-        {
+       public static void DownloadFile(string fileName, string url, Button button)
+       {
             var file = Path.Combine(TempFolderPath, fileName);
             using (var wc = new WebClient())
             {
@@ -154,6 +154,26 @@ namespace SRTPluginManager.Core
                     File.Delete(file);
                 };
                 wc.DownloadFileAsync(new Uri(url), file);
+            }
+        }
+
+        public static async Task DownloadFile(string fileName, string url, Button button, string destination)
+        {
+            var file = Path.Combine(TempFolderPath, fileName);
+            using (var wc = new WebClient())
+            {
+                wc.DownloadFileCompleted += async (s, ev) =>
+                {
+                    await Task.Run(() =>
+                    {
+                        UnzipPackage(file, destination);
+                        autoResetEvent.Set();
+                    });
+                };
+                await Task.Run(() =>
+                {
+                    wc.DownloadFileAsync(new Uri(url), file);
+                });
             }
         }
 
@@ -173,25 +193,7 @@ namespace SRTPluginManager.Core
             }
         }
 
-        public static async void DownloadPlugin(string fileName, string url, Button button, string destination)
-        {
-            var file = Path.Combine(TempFolderPath, fileName);
-            using (var wc = new WebClient())
-            {
-                wc.DownloadFileCompleted += async (s, ev) =>
-                {
-                    await Task.Run(() =>
-                    {
-                        UnzipPackage(file, destination);
-                        Application.Current.Dispatcher.Invoke(() => button.Visibility = Visibility.Collapsed); // Canot change a UI element from another thread. Use Dispatcher to invoke the change on the UI's thread.
-                    });
-                };
-                await Task.Run(() =>
-                {
-                    wc.DownloadFileAsync(new Uri(url), file);
-                });
-            }
-        }
+        
 
         public static string GetHostVersion(bool isManual)
         {
@@ -204,31 +206,14 @@ namespace SRTPluginManager.Core
             return Config.SRTConfig.currentVersion;
         }
 
-        public static void DownloadSRTHost(string fileName, string url, Button button)
+        public static void UnzipPackage(string file, string destination)
         {
-            var file = Path.Combine(TempFolderPath, fileName);
-            using (var wc = new WebClient())
+            if (!Directory.Exists(file))
             {
-                wc.DownloadFileCompleted += (s, ev) =>
-                {
-                    button.Visibility = Visibility.Collapsed;
-                    UnzipPackage(file, ApplicationPath);
-                };
-                wc.DownloadFileAsync(new Uri(url), file);
+                ZipFile.ExtractToDirectory(file, TempFolderPath);
             }
-        }
-
-        public static async void UnzipPackage(string file, string destination)
-        {
-            await Task.Run(() =>
-            {
-                if (!Directory.Exists(file))
-                {
-                    ZipFile.ExtractToDirectory(file, TempFolderPath);
-                }
-                var dirs = Directory.GetDirectories(TempFolderPath);
-                UpdatePackage(dirs[0], destination);
-            });
+            var dirs = Directory.GetDirectories(TempFolderPath);
+            UpdatePackage(dirs[0], destination);
         }
 
         public static void UpdatePackage(string source, string destination)

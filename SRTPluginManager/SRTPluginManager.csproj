@@ -38,7 +38,9 @@
     <None Remove="Images\Clipboard.png" />
     <None Remove="Images\Close.png" />
     <None Remove="Images\Cog.png" />
+    <None Remove="Images\CursedToast.png" />
     <None Remove="Images\Download.png" />
+    <None Remove="Images\Github.png" />
     <None Remove="Images\Home.png" />
     <None Remove="Images\Host.png" />
     <None Remove="Images\Hover.png" />
@@ -46,16 +48,23 @@
     <None Remove="Images\Laptop.png" />
     <None Remove="Images\Maximize.png" />
     <None Remove="Images\Minimize.png" />
+    <None Remove="Images\Mysterion06.png" />
     <None Remove="Images\Plugins.png" />
     <None Remove="Images\Power.png" />
     <None Remove="Images\Ram.png" />
     <None Remove="Images\Refresh.png" />
     <None Remove="Images\Server.png" />
     <None Remove="Images\Signal.png" />
+    <None Remove="Images\Squirrelies.png" />
     <None Remove="Images\SRTIconAlt.png" />
     <None Remove="Images\SRTIconTaskbar.png" />
+    <None Remove="Images\Sychotix.png" />
+    <None Remove="Images\Twitch.png" />
+    <None Remove="Images\TwitchAlt.png" />
     <None Remove="Images\Unchecked.png" />
     <None Remove="Images\Users.png" />
+    <None Remove="Images\VGR.png" />
+    <None Remove="Images\Willow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -73,7 +82,9 @@
     <Resource Include="Images\Clipboard.png" />
     <Resource Include="Images\Close.png" />
     <Resource Include="Images\Cog.png" />
+    <Resource Include="Images\CursedToast.png" />
     <Resource Include="Images\Download.png" />
+    <Resource Include="Images\Github.png" />
     <Resource Include="Images\Home.png" />
     <Resource Include="Images\Host.png" />
     <Resource Include="Images\Hover.png" />
@@ -81,16 +92,23 @@
     <Resource Include="Images\Laptop.png" />
     <Resource Include="Images\Maximize.png" />
     <Resource Include="Images\Minimize.png" />
+    <Resource Include="Images\Mysterion06.png" />
     <Resource Include="Images\Plugins.png" />
     <Resource Include="Images\Power.png" />
     <Resource Include="Images\Ram.png" />
     <Resource Include="Images\Refresh.png" />
     <Resource Include="Images\Server.png" />
     <Resource Include="Images\Signal.png" />
+    <Resource Include="Images\Squirrelies.png" />
     <Resource Include="Images\SRTIconAlt.png" />
     <Resource Include="Images\SRTIconTaskbar.png" />
+    <Resource Include="Images\Sychotix.png" />
+    <Resource Include="Images\Twitch.png" />
+    <Resource Include="Images\TwitchAlt.png" />
     <Resource Include="Images\Unchecked.png" />
     <Resource Include="Images\Users.png" />
+    <Resource Include="Images\VGR.png" />
+    <Resource Include="Images\Willow.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -28,10 +28,11 @@
                 Text="Home" />
         </StackPanel>
         <!--  Main Grid Container  -->
-        <Grid>
+        <Grid Height="940">
             <Grid.RowDefinitions>
-                <RowDefinition Height="200" MaxHeight="200" />
-                <RowDefinition Height="380" MaxHeight="380" />
+                <RowDefinition Height="1*" MaxHeight="200" />
+                <RowDefinition Height="1*" MaxHeight="380" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <!--  Top Container  -->
             <Border Margin="10" CornerRadius="10">
@@ -73,7 +74,7 @@
                     </Image>
                 </StackPanel>
             </Border>
-            <!--  Bottom Container  -->
+            <!--  Middle Container  -->
             <StackPanel Grid.Row="1">
                 <!--  Title  -->
                 <TextBlock
@@ -185,6 +186,494 @@
                                 Text="We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about SRTHost."
                                 TextWrapping="Wrap" />
                         </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+            <!--  Middle Container  -->
+            <StackPanel Grid.Row="2">
+                <!--  Title  -->
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="40"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Text="Credits" />
+                <!--  Secondary Grid Container  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" MaxHeight="150" />
+                        <RowDefinition Height="1*" MaxHeight="150" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Section 1  -->
+                    <Border
+                        Grid.Column="0"
+                        Margin="15,13,15,13"
+                        CornerRadius="10">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Offset="0.0" Color="#151527" />
+                                <GradientStop Offset="1" Color="#1D1C2E" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Width="50" Height="50">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/Squirrelies.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    Margin="0,10,0,0"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="Squirrelies" />
+                                <TextBlock
+                                    Margin="10,0,0,10"
+                                    FontSize="24"
+                                    Foreground="White"
+                                    Text="Lead SRT Host Dev"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/Github.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/TwitchAlt.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!--  Section 2  -->
+                    <Border
+                        Grid.Column="1"
+                        Margin="15,13,15,13"
+                        CornerRadius="10">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Offset="0.0" Color="#151527" />
+                                <GradientStop Offset="1" Color="#1D1C2E" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Width="50" Height="50">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/VGR.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    Margin="0,10,0,0"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="VideoGameRoulette" />
+                                <TextBlock
+                                    Margin="10,0,0,10"
+                                    FontSize="24"
+                                    Foreground="White"
+                                    Text="Lead Plugin Dev"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/Github.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/TwitchAlt.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!--  Section 3  -->
+                    <Border
+                        Grid.Column="2"
+                        Margin="15,13,15,13"
+                        CornerRadius="10">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Offset="0.0" Color="#151527" />
+                                <GradientStop Offset="1" Color="#1D1C2E" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Width="50" Height="50">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/CursedToast.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    Margin="0,10,0,0"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="CursedToast" />
+                                <TextBlock
+                                    Margin="10,0,0,10"
+                                    FontSize="24"
+                                    Foreground="White"
+                                    Text="Lead Autosplitter Dev"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/Github.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/TwitchAlt.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!--  Section 4  -->
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="15,13,15,13"
+                        CornerRadius="10">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Offset="0.0" Color="#151527" />
+                                <GradientStop Offset="1" Color="#1D1C2E" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Width="50" Height="50">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/Willow.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    Margin="0,10,0,0"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="WillowTheWhisperSR" />
+                                <TextBlock
+                                    Margin="10,0,0,10"
+                                    FontSize="24"
+                                    Foreground="White"
+                                    Text="Lead Systems Admin Engineer"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/Github.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/TwitchAlt.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!--  Section 5  -->
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="15,13,15,13"
+                        CornerRadius="10">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Offset="0.0" Color="#151527" />
+                                <GradientStop Offset="1" Color="#1D1C2E" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Width="50" Height="50">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/Sychotix.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    Margin="0,10,0,0"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="Sychotix" />
+                                <TextBlock
+                                    Margin="10,0,0,10"
+                                    FontSize="24"
+                                    Foreground="White"
+                                    Text="Contributor"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/Github.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/TwitchAlt.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!--  Section 6  -->
+                    <Border
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="15,13,15,13"
+                        CornerRadius="10">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Offset="0.0" Color="#151527" />
+                                <GradientStop Offset="1" Color="#1D1C2E" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Width="50" Height="50">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Images/Mysterion06.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock
+                                    Margin="0,10,0,0"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="Mysterion06" />
+                                <TextBlock
+                                    Margin="10,0,0,10"
+                                    FontSize="24"
+                                    Foreground="White"
+                                    Text="Contributor"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/Github.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="10"
+                                    Background="#272537"
+                                    CornerRadius="10">
+                                    <StackPanel
+                                        Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Horizontal">
+                                        <Image
+                                            Width="25"
+                                            Height="25"
+                                            Source="/Images/TwitchAlt.png" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
                     </Border>
                 </Grid>
             </StackPanel>

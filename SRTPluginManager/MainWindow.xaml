@@ -189,17 +189,8 @@
 
                 <RadioButton
                     Height="50"
-                    Command="{Binding HostViewCommand}"
-                    Content="SRT Host"
-                    FontSize="16"
-                    Foreground="White"
-                    IsChecked="False"
-                    Style="{StaticResource MenuButtonTheme}" />
-
-                <RadioButton
-                    Height="50"
                     Command="{Binding PluginViewCommand}"
-                    Content="Plugins Providers"
+                    Content="SRT Host"
                     FontSize="16"
                     Foreground="White"
                     IsChecked="False"
@@ -222,9 +213,7 @@
                     Foreground="White"
                     IsChecked="False"
                     Style="{StaticResource MenuButtonTheme}" />
-
             </StackPanel>
-
             <ContentControl
                 Grid.Row="1"
                 Grid.Column="1"
@@ -233,3 +222,4 @@
         </Grid>
     </Border>
 </Window>
+

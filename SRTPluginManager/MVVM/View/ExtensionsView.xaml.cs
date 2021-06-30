@@ -118,10 +118,26 @@ namespace SRTPluginManager.MVVM.View
             //UpdateProgressBar.Text = "Update To Date";
         }
 
-        private void InstallUpdate_Click(object sender, RoutedEventArgs e)
+        private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
         {
-            DownloadPlugin(CurrentExtension.ToString() + ".zip", Config.ExtensionsConfig[(int)CurrentExtension].downloadURL, InstallUpdate, ExtensionFolderPath);
+            await DownloadFile(CurrentExtension.ToString() + ".zip", Config.ExtensionsConfig[(int)CurrentExtension].downloadURL, InstallUpdate, ExtensionFolderPath);
+            await Task.Run(() =>
+            {
+                autoResetEvent.WaitOne();
+            });
+            GetExtensionData();
+        }
+
+        private void GetExtensionData()
+        {
+            CurrentExtension = GetCurrentSelectedExtension();
             SetData(Config.ExtensionsConfig[(int)CurrentExtension]);
+        }
+
+        private Extensions GetCurrentSelectedExtension()
+        {
+            if (WebSocket.IsChecked == true) { return Extensions.SRTPluginWebsocket; }
+            return Extensions.SRTPluginUIJSON;
         }
 
         private void Uninstall_Click(object sender, RoutedEventArgs e)
