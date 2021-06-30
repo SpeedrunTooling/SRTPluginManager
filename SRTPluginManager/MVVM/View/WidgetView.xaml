@@ -51,11 +51,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="530" />
                 <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
+                <RowDefinition />
             </Grid.RowDefinitions>
 
             <!--  Left Container  -->

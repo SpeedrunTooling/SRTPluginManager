@@ -9,6 +9,7 @@
     Width="1920"
     Height="1080"
     Background="Transparent"
+    WindowState="Maximized"
     WindowStyle="None"
     mc:Ignorable="d">
 

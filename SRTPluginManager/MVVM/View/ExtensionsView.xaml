@@ -32,14 +32,15 @@
                 Text="Plugin Extensions Manager" />
         </StackPanel>
         <!--  Middle Container  -->
-        <Grid>
+        <Grid Height="940">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="530" />
+                <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="300" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
@@ -122,43 +123,20 @@
                             </StackPanel>
                         </Border>
                     </Grid>
-                </StackPanel>
-            </Border>
-
-            <!--  Bottom Left Container  -->
-            <Border
-                Grid.Row="1"
-                Margin="15,13,15,13"
-                CornerRadius="10">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Offset="0.0" Color="#151527" />
-                        <GradientStop Offset="1" Color="#1D1C2E" />
-                    </LinearGradientBrush>
-                </Border.Background>
-                <!--  Inner Container  -->
-                <StackPanel>
-                    <!--  Title  -->
-                    <TextBlock
-                        Margin="20,10,10,0"
-                        FontSize="28"
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Text="Options" />
-                    <!--  Install / Update Button  -->
-                    <Button
+                    <StackPanel>
+                        <!--  Install / Update Button  -->
+                        <Button
                         x:Name="InstallUpdate"
                         Grid.ColumnSpan="2"
-                        Height="80"
-                        Margin="10"
+                        Margin="5"
                         Click="InstallUpdate_Click"
                         Content="Install"
                         FontFamily="/Fonts/#Teko"
                         FontSize="30"
                         Foreground="White"
                         Style="{StaticResource ButtonTheme}" />
-                    <!--  Uninstall Button  -->
-                    <Button
+                        <!--  Uninstall Button  -->
+                        <Button
                         x:Name="Uninstall"
                         Grid.ColumnSpan="2"
                         Height="80"
@@ -170,13 +148,15 @@
                         Foreground="White"
                         Style="{StaticResource ButtonTheme}"
                         Visibility="Collapsed" />
+                    </StackPanel>
                 </StackPanel>
             </Border>
 
             <!--  Right Container  -->
             <Border
                 Grid.RowSpan="3"
-                Grid.Column="1"
+                Grid.Column="0"
+                Grid.Row="1"
                 Margin="15,13,15,13"
                 CornerRadius="10">
                 <Border.Background>

@@ -86,9 +86,9 @@
                 <!--  Secondary Grid Container  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition MinWidth="500" />
+                        <ColumnDefinition MinWidth="500" />
+                        <ColumnDefinition MinWidth="500" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -201,9 +201,9 @@
                 <!--  Secondary Grid Container  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition MinWidth="500" />
+                        <ColumnDefinition MinWidth="500" />
+                        <ColumnDefinition MinWidth="500" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -478,7 +478,7 @@
                                     Margin="10,0,0,10"
                                     FontSize="24"
                                     Foreground="White"
-                                    Text="Lead Systems Admin Engineer"
+                                    Text="Lead Systems Admin"
                                     TextWrapping="Wrap" />
                             </StackPanel>
                             <StackPanel Grid.Column="3" VerticalAlignment="Center">
