@@ -44,7 +44,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="280" />
+                    <RowDefinition Height="300" />
                     <RowDefinition Height="350" />
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
@@ -67,6 +67,12 @@
                             FontWeight="Bold"
                             Foreground="White"
                             Text="Host Version Info" />
+                        <TextBlock
+                            Margin="20,0,10,0"
+                            FontSize="18"
+                            Foreground="White"
+                            Text=""
+                            TextWrapping="Wrap" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -151,77 +157,6 @@
                     </StackPanel>
                 </Border>
 
-                <!--  Extension Selection  -->
-                <Border
-                    Grid.Row="2"
-                    Grid.RowSpan="2"
-                    Margin="15,13,15,13"
-                    CornerRadius="10">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Offset="0.0" Color="#151527" />
-                            <GradientStop Offset="1" Color="#1D1C2E" />
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <StackPanel>
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="24"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Extension Options" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                                <CheckBox
-                                    x:Name="EnableJSON"
-                                    Width="30"
-                                    Margin="40,0,0,0"
-                                    Checked="GetExtensions"
-                                    IsChecked="False"
-                                    Style="{StaticResource CheckBoxTheme}"
-                                    Unchecked="GetExtensions" />
-                                <TextBlock
-                                    Margin="10,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="White"
-                                    Text="Enable UIJSON" />
-                            </StackPanel>
-                            <StackPanel
-                                Grid.Row="1"
-                                Margin="0,0,0,10"
-                                Orientation="Horizontal">
-                                <CheckBox
-                                    x:Name="EnableWebSocket"
-                                    Width="30"
-                                    Margin="40,0,0,0"
-                                    Checked="GetExtensions"
-                                    IsChecked="False"
-                                    Style="{StaticResource CheckBoxTheme}"
-                                    Unchecked="GetExtensions" />
-                                <TextBlock
-                                    Margin="10,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="White"
-                                    Text="Enable Websocket" />
-                            </StackPanel>
-                        </Grid>
-
-                    </StackPanel>
-                </Border>
-
                 <!--  DotNet Core Container  -->
                 <Border
                     x:Name="DotNetCore"
@@ -270,8 +205,7 @@
 
                 <!--  Plugin Info Container  -->
                 <Border
-                    Grid.Row="1"
-                    Grid.RowSpan="1"
+                    Grid.Column="1"
                     Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>
@@ -377,8 +311,8 @@
                 <!--  Available Plugin List  -->
                 <Border
                     x:Name="PluginBox"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="1"
+                    Grid.Row="1"
+                    Grid.RowSpan="3"
                     Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>

@@ -34,7 +34,7 @@ namespace SRTPluginManager.MVVM.View
         {
             InitializeComponent();
 
-            PluginSelection = new RadioButton[] { 
+            PluginSelection = new RadioButton[] {
                 ResidentEvil1,
                 ResidentEvil1HD,
                 ResidentEvil2,
@@ -61,8 +61,6 @@ namespace SRTPluginManager.MVVM.View
             SRTLatestRelease.Text = GetHostVersion(false).ToString();
             SRTInstalled = SRTCurrentRelease.Text != "0.0.0.0";
             SRTUpdated = IsUpdated(SRTCurrentRelease.Text, SRTLatestRelease.Text);
-            EnableJSON.IsChecked = (bool)GetSetting("UIJSONEnabled");
-            EnableWebSocket.IsChecked = (bool)GetSetting("WebSocketEnabled");
         }
 
         private void StackPanel_Loaded(object sender, RoutedEventArgs e)
@@ -111,7 +109,6 @@ namespace SRTPluginManager.MVVM.View
             if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.Optional)
             {
                 DotNetCore.Visibility = Visibility.Collapsed;
-                PluginBox.SetValue(Grid.ColumnSpanProperty, 2);
                 return;
             }
             else if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.Required)
@@ -120,7 +117,6 @@ namespace SRTPluginManager.MVVM.View
                 Download64.Visibility = Visibility.Collapsed;
                 Download32.Visibility = Visibility.Visible;
                 Download32.Content = "Download Optional 32Bit Update";
-                PluginBox.SetValue(Grid.ColumnSpanProperty, 1);
                 return;
             }
             else if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.None)
@@ -128,7 +124,6 @@ namespace SRTPluginManager.MVVM.View
                 DotNetCore.Visibility = Visibility.Visible;
                 Download64.Visibility = Visibility.Collapsed;
                 Download32.Visibility = Visibility.Visible;
-                PluginBox.SetValue(Grid.ColumnSpanProperty, 1);
                 return;
             }
             else if (HasDotNetCore == VersionType.None && HasDotNetCore32 == VersionType.None)
@@ -136,7 +131,6 @@ namespace SRTPluginManager.MVVM.View
                 DotNetCore.Visibility = Visibility.Visible;
                 Download64.Visibility = Visibility.Visible;
                 Download32.Visibility = Visibility.Collapsed;
-                PluginBox.SetValue(Grid.ColumnSpanProperty, 1);
                 return;
             }
             else
@@ -144,7 +138,6 @@ namespace SRTPluginManager.MVVM.View
                 DotNetCore.Visibility = Visibility.Visible;
                 Download64.Visibility = Visibility.Visible;
                 Download32.Visibility = Visibility.Visible;
-                PluginBox.SetValue(Grid.ColumnSpanProperty, 1);
                 return;
             }
         }
@@ -238,9 +231,9 @@ namespace SRTPluginManager.MVVM.View
             PluginName.Text = pluginInfo.pluginName + ".dll";
             var filePath = Path.Combine(dllPath, PluginName.Text);
             LatestRelease.Text = pluginInfo.currentVersion;
-            if (Directory.Exists(dllPath)) 
+            if (Directory.Exists(dllPath))
                 CurrentRelease.Text = FileVersionInfo.GetVersionInfo(filePath).FileVersion;
-            else 
+            else
                 CurrentRelease.Text = "0.0.0.0";
 
             SetVisibility(pluginInfo);
@@ -408,7 +401,7 @@ namespace SRTPluginManager.MVVM.View
 
         private string GetPlatform()
         {
-            switch(CurrentPlugin)
+            switch (CurrentPlugin)
             {
                 case Plugins.SRTPluginProviderRE1:
                 case Plugins.SRTPluginProviderRE1C:
@@ -485,30 +478,5 @@ namespace SRTPluginManager.MVVM.View
         {
             DownloadFile("dotNet32.exe", dotNetCore32URL, Download32);
         }
-
-        private void GetExtensions(object sender, RoutedEventArgs e)
-        {
-            var sourceJSON = Path.Combine(ExtensionFolderPath, "SRTPluginUIJSON");
-            var sourceWS = Path.Combine(ExtensionFolderPath, "SRTPluginWebSocket");
-            if ((bool)EnableJSON.IsChecked)
-            {
-                if (Directory.Exists(sourceJSON)) GetExtensionsSelected((bool)EnableJSON.IsChecked, (bool)EnableWebSocket.IsChecked);
-                else
-                {
-                    EnableJSON.IsChecked = false;
-                    MessageBox.Show("SRTPluginUIJSON Not Installed.", "Error Missing Plugin");
-                }
-            }
-            else if ((bool)EnableWebSocket.IsChecked)
-            {
-                if (Directory.Exists(sourceJSON)) GetExtensionsSelected((bool)EnableJSON.IsChecked, (bool)EnableWebSocket.IsChecked);
-                else
-                {
-                    EnableWebSocket.IsChecked = false;
-                    MessageBox.Show("SRTPluginWebSocket Not Installed.", "Error Missing Plugin");
-                }
-            }
-        }
-
     }
 }
