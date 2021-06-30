@@ -10,6 +10,7 @@ using SRTPluginManager.Core;
 using static SRTPluginManager.Core.Utilities;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Linq;
 
 namespace SRTPluginManager.MVVM.View
 {
@@ -51,13 +52,12 @@ namespace SRTPluginManager.MVVM.View
             InitSRTData();
             GetPluginVersions(false);
             GetCurrentPluginData();
-            Update();
         }
 
         private void InitSRTData()
         {
             CheckDotNet();
-            SRTCurrentRelease.Text = GetFileVersionInfo(ApplicationPath, "SRTHost64.dll");
+            SRTCurrentRelease.Text = GetFileVersionInfo(ApplicationPath, "SRTHost64.exe");
             SRTLatestRelease.Text = GetHostVersion(false).ToString();
             SRTInstalled = SRTCurrentRelease.Text != "0.0.0.0";
             SRTUpdated = IsUpdated(SRTCurrentRelease.Text, SRTLatestRelease.Text);
@@ -234,7 +234,7 @@ namespace SRTPluginManager.MVVM.View
 
         private void SetData(PluginInfo pluginInfo)
         {
-            var dllPath = Path.Combine(ProviderFolderPath, pluginInfo.pluginName);
+            var dllPath = Path.Combine(PluginFolderPath, pluginInfo.pluginName);
             PluginName.Text = pluginInfo.pluginName + ".dll";
             var filePath = Path.Combine(dllPath, PluginName.Text);
             LatestRelease.Text = pluginInfo.currentVersion;
@@ -270,47 +270,17 @@ namespace SRTPluginManager.MVVM.View
                 Update();
                 return;
             }
-            else if (current != "0.0.0.0" && latest != "0.0.0.0")
+            var updated = IsUpdated(current, latest);
+            if (updated)
             {
-                var currentSplit = current.Split('.');
-                var latestSplit = latest.Split('.');
-
-                for (var i = 0; i < 4; i++)
-                {
-                    if (currentSplit[i] != latestSplit[i])
-                    {
-                        CurrentPluginUpdated = false;
-                        CurrentPluginInstalled = true;
-                        Update();
-                        return;
-                    }
-                }
+                CurrentPluginUpdated = true;
+                CurrentPluginInstalled = true;
+                Update();
+                return;
             }
-            CurrentPluginUpdated = true;
+            CurrentPluginUpdated = false;
             CurrentPluginInstalled = true;
             Update();
-        }
-
-        private void ReplacePluginProvider()
-        {
-            // Removes Current Plugin Installed
-            var dirs = Directory.GetDirectories(PluginFolderPath);
-            foreach (string directory in dirs)
-            {
-                if (directory.Contains("PluginProvider"))
-                {
-                    Directory.Delete(directory, true);
-                }
-            }
-
-            // Adds New Plugin Installed To Current
-            foreach (string dir in Directory.GetDirectories(ProviderFolderPath))
-            {
-                if (Path.GetFileName(dir) == config.PluginConfig[(int)CurrentPlugin].pluginName)
-                {
-                    CopyPluginProvider(dir, PluginFolderPath);
-                }
-            }
         }
 
         private void ResidentEvil1_Click(object sender, RoutedEventArgs e)
@@ -388,7 +358,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void GetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFile(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, ProviderFolderPath);
+            await DownloadFile(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();
@@ -402,14 +372,38 @@ namespace SRTPluginManager.MVVM.View
             var fileExists = File.Exists(filePath);
             if (!fileExists) { ConsoleBox.Text = "SRT Not Installed."; return; }
             ClearLog();
+            Process[] processes = Process.GetProcessesByName("SRTHost64").Concat(Process.GetProcessesByName("SRTHost32")).ToArray();
+            foreach (Process process in processes)
+            {
+                process.Kill();
+            }
+            var psi = new ProcessStartInfo(filePath, string.Format("--Provider={0}", Application.Current.Dispatcher.Invoke(() => PluginName.Text)));
+            psi.UseShellExecute = false;
+            psi.RedirectStandardOutput = true;
+            psi.CreateNoWindow = true;
+            psi.RedirectStandardError = true;
+            //psi.WindowStyle = ProcessWindowStyle.Normal; //might be useful?
+            var p = new Process();
+            p.StartInfo = psi;
+            p.EnableRaisingEvents = true;
+            p.OutputDataReceived += P_OutputDataReceived;
+            p.ErrorDataReceived += P_OutputDataReceived;
+            p.Start();
+            p.BeginOutputReadLine();
+            p.BeginErrorReadLine();
             await Task.Run(() =>
             {
-                var p = Process.Start(filePath, PluginName.Text);
-                while (p.Responding)
-                {
-                    //RUN SRT
-                }
+                p.WaitForExit();
             });
+        }
+
+        private void P_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                Log(e.Data);
+            });
+            //throw new NotImplementedException();
         }
 
         private string GetPlatform()
@@ -446,19 +440,19 @@ namespace SRTPluginManager.MVVM.View
 
         public void ClearLog()
         {
-            ConsoleBox.Text = "";
+            ConsoleBox.Clear();
         }
 
         public void Log(string line)
         {
-            ConsoleBox.Text += string.Format("{0}{1}", line, "&#10;");
+            ConsoleBox.AppendText(string.Format("{0}\r\n", line));
         }
 
         public void Log(string[] lines)
         {
             foreach (string line in lines)
             {
-                ConsoleBox.Text += string.Format("{0}{1}", line, "&#10;");
+                Log(line);
             }
         }
 

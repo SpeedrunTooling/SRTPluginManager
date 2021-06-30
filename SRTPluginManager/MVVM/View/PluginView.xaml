@@ -16,6 +16,9 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="/Fonts/#Teko" />
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="/Fonts/#Teko" />
+        </Style>
     </UserControl.Resources>
     <!--  Container  -->
     <StackPanel Loaded="StackPanel_Loaded">
@@ -557,9 +560,10 @@
                             Background="#22202F"
                             CornerRadius="10">
                             <ScrollViewer CanContentScroll="True">
-                                <TextBlock
+                                <TextBox
                                     x:Name="ConsoleBox"
                                     Margin="10,10,-5,10"
+                                    Background="Transparent"
                                     FontFamily="Consolas"
                                     FontSize="12"
                                     FontWeight="Bold"

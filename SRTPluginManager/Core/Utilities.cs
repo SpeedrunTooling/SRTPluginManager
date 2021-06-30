@@ -438,6 +438,10 @@ namespace SRTPluginManager.Core
 
             for (var i = 0; i < currentSplit.Length; i++)
             {
+                if (int.Parse(currentSplit[i]) > int.Parse(latestSplit[i]))
+                {
+                    return true;
+                }
                 if (int.Parse(currentSplit[i]) < int.Parse(latestSplit[i]))
                 {
                     return false;

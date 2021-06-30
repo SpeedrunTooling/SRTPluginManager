@@ -22,7 +22,6 @@ namespace SRTPluginManager.MVVM.View
         {
             GetDirectory(TempFolderPath);
             GetDirectory(PluginFolderPath);
-            GetDirectory(ProviderFolderPath);
             GetDirectory(ExtensionFolderPath);
         }
 

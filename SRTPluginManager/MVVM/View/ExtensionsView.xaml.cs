@@ -88,34 +88,23 @@ namespace SRTPluginManager.MVVM.View
 
         private void VersionCheck(string current, string latest)
         {
-            if (current != "0.0.0.0" && latest != "0.0.0.0")
-            {
-                var currentSplit = current.Split('.');
-                var latestSplit = latest.Split('.');
-
-                for (var i = 0; i < 4; i++)
-                {
-                    if (currentSplit[i] != latestSplit[i])
-                    {
-                        Uninstall.Visibility = Visibility.Collapsed;
-                        InstallUpdate.Visibility = Visibility.Visible;
-                        InstallUpdate.Content = "Update";
-                        //UpdateProgressBar.Text = "Update Pending";
-                        return;
-                    }
-                }
-            }
-            else if (current == "0.0.0.0")
+            if (current == "0.0.0.0")
             {
                 Uninstall.Visibility = Visibility.Collapsed;
                 InstallUpdate.Visibility = Visibility.Visible;
                 InstallUpdate.Content = "Install";
-                //UpdateProgressBar.Text = "Not Installed";
                 return;
             }
-            Uninstall.Visibility = Visibility.Visible;
-            InstallUpdate.Visibility = Visibility.Collapsed;
-            //UpdateProgressBar.Text = "Update To Date";
+            var updated = IsUpdated(current, latest);
+            if (updated)
+            {
+                Uninstall.Visibility = Visibility.Visible;
+                InstallUpdate.Visibility = Visibility.Collapsed;
+                return;
+            }
+            Uninstall.Visibility = Visibility.Collapsed;
+            InstallUpdate.Visibility = Visibility.Visible;
+            InstallUpdate.Content = "Update";
         }
 
         private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
