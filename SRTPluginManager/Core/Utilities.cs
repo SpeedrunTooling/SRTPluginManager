@@ -21,13 +21,17 @@ namespace SRTPluginManager.Core
         public static readonly string ApplicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public static readonly string TempFolderPath = Path.Combine(ApplicationPath, "tmp");
         public static readonly string PluginFolderPath = Path.Combine(ApplicationPath, "plugins");
-        public static readonly string ProviderFolderPath = Path.Combine(ApplicationPath, "providers");
-        public static readonly string ExtensionFolderPath = Path.Combine(ApplicationPath, "extensions");
+        public static readonly string WebSocketConfig = Path.Combine(Path.Combine(PluginFolderPath, "SRTPluginWebSocket"), "SRTPluginWebSocket.cfg");
         public static readonly string srtHostURL = "https://api.github.com/repos/ResidentEvilSpeedrunning/SRTHost/releases/latest";
         public static readonly string dotNetCorePath = @"C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App";
         public static readonly string dotNetCore32Path = @"C:\Program Files (x86)\dotnet\shared\Microsoft.WindowsDesktop.App";
         public static readonly string dotNetCore32URL = "https://download.visualstudio.microsoft.com/download/pr/f703f604-a973-4ab9-abe4-b4b2ec786e66/af8cea0988953ef074157ea99d30879a/windowsdesktop-runtime-3.1.16-win-x86.exe";
         public static readonly string dotNetCore64URL = "https://download.visualstudio.microsoft.com/download/pr/7cea63ad-1e76-41f0-a54a-eacb48fec749/87c339835cd7647c0fee3f14820cd909/windowsdesktop-runtime-3.1.16-win-x64.exe";
+        public static readonly string vgrSource = "pack://application:,,,/SRTPluginManager;component/Images/VGR.png";
+        public static readonly string squirrelSource = "pack://application:,,,/SRTPluginManager;component/Images/Squirrelies.png";
+        public static readonly string willowSource = "pack://application:,,,/SRTPluginManager;component/Images/Willow.png";
+        public static readonly string mysterionSource = "pack://application:,,,/SRTPluginManager;component/Images/Mysterion06.png";
+        public static readonly string toastSource = "pack://application:,,,/SRTPluginManager;component/Images/CursedToast.png";
 
         public static PluginConfiguration Config { get; set; }
 
@@ -38,7 +42,7 @@ namespace SRTPluginManager.Core
 
         private static JsonSerializerOptions jso = new JsonSerializerOptions() { AllowTrailingCommas = true, ReadCommentHandling = JsonCommentHandling.Skip, WriteIndented = true };
         public static T LoadConfiguration<T>() where T : class, new() => LoadConfiguration<T>(GetConfigFile(Assembly.GetCallingAssembly()));
-        private static T LoadConfiguration<T>(string configFile) where T : class, new()
+        public static T LoadConfiguration<T>(string configFile) where T : class, new()
         {
             try
             {
@@ -55,7 +59,7 @@ namespace SRTPluginManager.Core
             }
         }
         public static void SaveConfiguration<T>(T configuration) where T : class, new() => SaveConfiguration<T>(configuration, GetConfigFile(Assembly.GetCallingAssembly()));
-        private static void SaveConfiguration<T>(T configuration, string configFile) where T : class, new()
+        public static void SaveConfiguration<T>(T configuration, string configFile) where T : class, new()
         {
             if (configuration != null) // Only save if configuration is not null.
             {
@@ -69,6 +73,7 @@ namespace SRTPluginManager.Core
                 }
             }
         }
+
         #endregion
 
         public enum Platform
@@ -289,45 +294,6 @@ namespace SRTPluginManager.Core
                     Directory.Delete(directory, true);
                 }
             }
-        }
-
-        public static void GetExtensionsSelected(bool UseUIJSON, bool UseWebSocket)
-        {
-            if (UseUIJSON)
-            {
-                var source = Path.Combine(ExtensionFolderPath, "SRTPluginUIJSON");
-                var destination = Path.Combine(PluginFolderPath, "SRTPluginUIJSON");
-                var folders = Directory.GetDirectories(Path.Combine(ExtensionFolderPath, "SRTPluginUIJSON"));
-                CopyPluginFolder(folders, source, destination);
-            }
-            else if (!UseUIJSON)
-            {
-                var destination = Path.Combine(PluginFolderPath, "SRTPluginUIJSON");
-                if (Directory.Exists(destination))
-                {
-                    Directory.Delete(destination, true);
-                }
-            }
-
-            if (UseWebSocket)
-            {
-                var source = Path.Combine(ExtensionFolderPath, "SRTPluginWebSocket");
-                var destination = Path.Combine(PluginFolderPath, "SRTPluginWebSocket");
-                var folders = Directory.GetDirectories(Path.Combine(ExtensionFolderPath, "SRTPluginWebSocket"));
-                CopyPluginFolder(folders, source, destination);
-                var files = Directory.GetFiles(source);
-                CopyFiles(files, destination);
-            }
-            else if (!UseWebSocket)
-            {
-                var destination = Path.Combine(PluginFolderPath, "SRTPluginWebSocket");
-                if (Directory.Exists(destination))
-                {
-                    Directory.Delete(destination, true);
-                }
-            }
-            UpdateSetting("UIJSONEnabled", UseUIJSON);
-            UpdateSetting("WebSocketEnabled", UseWebSocket);
         }
 
         private static void CopyPluginFolder(string[] folders, string source, string destination)

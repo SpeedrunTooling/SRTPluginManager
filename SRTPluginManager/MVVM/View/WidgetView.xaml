@@ -49,8 +49,7 @@
         <StackPanel />
         <Grid Height="940">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="530" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="1*" MinWidth="530" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
@@ -189,10 +188,10 @@
                         FontWeight="Bold"
                         Foreground="White"
                         Text="User Token" />
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="450" />
+                                <ColumnDefinition Width="700" />
                                 <ColumnDefinition Width="50" />
                             </Grid.ColumnDefinitions>
 
@@ -229,10 +228,10 @@
                         FontWeight="Bold"
                         Foreground="White"
                         Text="Stats URL" />
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="450" />
+                                <ColumnDefinition Width="700" />
                                 <ColumnDefinition Width="50" />
                             </Grid.ColumnDefinitions>
 
@@ -267,10 +266,10 @@
                         FontWeight="Bold"
                         Foreground="White"
                         Text="Inventory URL" />
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="450" />
+                                <ColumnDefinition Width="700" />
                                 <ColumnDefinition Width="50" />
                             </Grid.ColumnDefinitions>
 

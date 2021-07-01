@@ -9,6 +9,7 @@
     Width="1920"
     Height="1080"
     Background="Transparent"
+    ResizeMode="NoResize"
     WindowState="Maximized"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -200,7 +201,7 @@
                 <RadioButton
                     Height="50"
                     Command="{Binding ExtensionViewCommand}"
-                    Content="Extension Plugins"
+                    Content="Extensions"
                     FontSize="16"
                     Foreground="White"
                     IsChecked="False"

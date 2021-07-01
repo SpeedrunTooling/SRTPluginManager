@@ -24,7 +24,7 @@ namespace SRTPluginManager.MVVM.View
     public partial class ExtensionsView : UserControl
     {
         private Extensions CurrentExtension = Extensions.SRTPluginUIJSON;
-
+        
         private enum Extensions
         {
             SRTPluginUIJSON,
@@ -54,13 +54,27 @@ namespace SRTPluginManager.MVVM.View
 
         private Extensions GetCurrentSelectedPlugin()
         {
-            if (WebSocket.IsChecked == true) { return Extensions.SRTPluginWebsocket; }
-            return Extensions.SRTPluginUIJSON;
+            if (WebSocket.IsChecked == true) 
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username1.Text = "VideoGameRoulette";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
+                Username2.Text = "WillowTheWhisperSR";
+                return Extensions.SRTPluginWebsocket; 
+            }
+            else
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
+                Username1.Text = "Squirrelies";
+                UserPanel2.Visibility = Visibility.Collapsed;
+                return Extensions.SRTPluginUIJSON;
+            }
         }
 
         private void SetData(PluginInfo pluginInfo)
         {
-            var dllPath = Path.Combine(ExtensionFolderPath, pluginInfo.pluginName);
+            var dllPath = Path.Combine(PluginFolderPath, pluginInfo.pluginName);
             ExtensionName.Text = pluginInfo.pluginName + ".dll";
             var filePath = Path.Combine(dllPath, ExtensionName.Text);
             LatestRelease.Text = pluginInfo.currentVersion;
@@ -109,7 +123,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFile(CurrentExtension.ToString() + ".zip", Config.ExtensionsConfig[(int)CurrentExtension].downloadURL, InstallUpdate, ExtensionFolderPath);
+            await DownloadFile(CurrentExtension.ToString() + ".zip", Config.ExtensionsConfig[(int)CurrentExtension].downloadURL, InstallUpdate, PluginFolderPath);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();
@@ -131,7 +145,7 @@ namespace SRTPluginManager.MVVM.View
 
         private void Uninstall_Click(object sender, RoutedEventArgs e)
         {
-            UninstallExtension(ExtensionFolderPath, Config.ExtensionsConfig[(int)CurrentExtension].pluginName);
+            UninstallExtension(PluginFolderPath, Config.ExtensionsConfig[(int)CurrentExtension].pluginName);
         }
 
         private void UpdateInfo_Click(object sender, RoutedEventArgs e)

@@ -21,7 +21,7 @@
         </Style>
     </UserControl.Resources>
     <!--  Container  -->
-    <StackPanel Loaded="StackPanel_Loaded">
+    <StackPanel>
         <!--  Header  -->
         <StackPanel Height="60" Orientation="Horizontal">
             <Image Margin="10" Source="/Images/Plugins.png" />
@@ -39,14 +39,13 @@
             <Grid Width="1700" Height="940">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="530" />
+                    <ColumnDefinition Width="530" />
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="300" />
                     <RowDefinition Height="350" />
-                    <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
@@ -68,10 +67,11 @@
                             Foreground="White"
                             Text="Host Version Info" />
                         <TextBlock
+                            x:Name="SRTName"
                             Margin="20,0,10,0"
                             FontSize="18"
                             Foreground="White"
-                            Text=""
+                            Text="SRTHost64.exe"
                             TextWrapping="Wrap" />
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -143,11 +143,22 @@
                             <Button
                                 x:Name="StartSRTHost"
                                 Grid.Row="1"
-                                Grid.ColumnSpan="2"
+                                Grid.Column="0"
                                 Margin="5"
                                 Click="StartSRTHost_Click"
-                                Command="{Binding LogsViewCommand}"
                                 Content="Start SRT"
+                                FontFamily="/Fonts/#Teko"
+                                FontSize="30"
+                                Foreground="White"
+                                Style="{StaticResource ButtonTheme}"
+                                Visibility="Collapsed" />
+                            <Button
+                                x:Name="StopSRTHost"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="5"
+                                Click="CloseSRT"
+                                Content="Stop SRT"
                                 FontFamily="/Fonts/#Teko"
                                 FontSize="30"
                                 Foreground="White"
@@ -157,10 +168,107 @@
                     </StackPanel>
                 </Border>
 
+                <!--  Author Container  -->
+                <Border
+                    x:Name="AuthorContainer"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Margin="15,13,15,13"
+                    CornerRadius="10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Offset="0.0" Color="#151527" />
+                            <GradientStop Offset="1" Color="#1D1C2E" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+                        <!--  Title  -->
+                        <TextBlock
+                            Margin="20,10,10,0"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Text="Authors / Contributors" />
+                        <!--  Extension Name  -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel
+                                x:Name="UserPanel1"
+                                Margin="10,0,10,0"
+                                Orientation="Horizontal">
+                                <Ellipse Width="30" Height="30">
+                                    <Ellipse.Fill>
+                                        <ImageBrush x:Name="User1" ImageSource="/Images/Users.png" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock
+                                    x:Name="Username1"
+                                    Margin="10"
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="Username" />
+                            </StackPanel>
+
+                            <StackPanel
+                                x:Name="UserPanel2"
+                                Grid.Row="1"
+                                Margin="10,0,10,0"
+                                Orientation="Horizontal">
+                                <Ellipse
+                                    Grid.Row="1"
+                                    Width="30"
+                                    Height="30">
+                                    <Ellipse.Fill>
+                                        <ImageBrush x:Name="User2" ImageSource="/Images/Users.png" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock
+                                    x:Name="Username2"
+                                    Margin="10"
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="Username" />
+                            </StackPanel>
+
+                            <StackPanel
+                                x:Name="UserPanel3"
+                                Grid.Row="2"
+                                Margin="10,0,10,0"
+                                Orientation="Horizontal">
+                                <Ellipse
+                                    Grid.Row="1"
+                                    Width="30"
+                                    Height="30">
+                                    <Ellipse.Fill>
+                                        <ImageBrush x:Name="User3" ImageSource="/Images/Users.png" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <TextBlock
+                                    x:Name="Username3"
+                                    Margin="10"
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="Username" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
                 <!--  DotNet Core Container  -->
                 <Border
                     x:Name="DotNetCore"
-                    Grid.Column="2"
+                    Grid.Column="3"
                     Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>
@@ -226,7 +334,7 @@
                             Margin="20,0,10,0"
                             FontSize="18"
                             Foreground="White"
-                            Text=""
+                            Text="SRTPluginProviderRE1C.dll"
                             TextWrapping="Wrap" />
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -240,7 +348,6 @@
                             </Grid.RowDefinitions>
 
                             <Border
-                                Width="230"
                                 Margin="10"
                                 Background="#272537"
                                 CornerRadius="10">
@@ -256,13 +363,12 @@
                                         Margin="20,10,10,0"
                                         FontSize="18"
                                         Foreground="White"
-                                        Text=""
+                                        Text="0.0.0.0"
                                         TextWrapping="Wrap" />
                                 </StackPanel>
                             </Border>
                             <Border
                                 Grid.Column="1"
-                                Width="230"
                                 Margin="10"
                                 Background="#272537"
                                 CornerRadius="10">
@@ -278,7 +384,7 @@
                                         Margin="20,10,10,0"
                                         FontSize="18"
                                         Foreground="White"
-                                        Text=""
+                                        Text="0.0.0.0"
                                         TextWrapping="Wrap" />
                                 </StackPanel>
                             </Border>
@@ -312,7 +418,6 @@
                 <Border
                     x:Name="PluginBox"
                     Grid.Row="1"
-                    Grid.RowSpan="3"
                     Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>
@@ -345,7 +450,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil1"
                                     Height="50"
-                                    Click="ResidentEvil1_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 1 Classic"
                                     FontSize="16"
                                     Foreground="White"
@@ -356,7 +461,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil1HD"
                                     Height="50"
-                                    Click="ResidentEvil1HD_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 1 HD"
                                     FontSize="16"
                                     Foreground="White"
@@ -367,7 +472,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil2"
                                     Height="50"
-                                    Click="ResidentEvil2_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 2 Classic"
                                     FontSize="16"
                                     Foreground="White"
@@ -378,7 +483,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil2Remake"
                                     Height="50"
-                                    Click="ResidentEvil2Remake_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 2 Remake"
                                     FontSize="16"
                                     Foreground="White"
@@ -389,7 +494,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil3"
                                     Height="50"
-                                    Click="ResidentEvil3_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 3 Classic"
                                     FontSize="16"
                                     Foreground="White"
@@ -400,7 +505,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil3Remake"
                                     Height="50"
-                                    Click="ResidentEvil3Remake_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 3 Remake"
                                     FontSize="16"
                                     Foreground="White"
@@ -411,7 +516,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil4"
                                     Height="50"
-                                    Click="ResidentEvil4_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 4"
                                     FontSize="16"
                                     Foreground="White"
@@ -422,7 +527,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil5"
                                     Height="50"
-                                    Click="ResidentEvil5_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 5"
                                     FontSize="16"
                                     Foreground="White"
@@ -433,7 +538,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil6"
                                     Height="50"
-                                    Click="ResidentEvil6_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 6"
                                     FontSize="16"
                                     Foreground="White"
@@ -444,7 +549,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil7"
                                     Height="50"
-                                    Click="ResidentEvil7_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 7"
                                     FontSize="16"
                                     Foreground="White"
@@ -455,7 +560,7 @@
                                 <RadioButton
                                     x:Name="ResidentEvil8"
                                     Height="50"
-                                    Click="ResidentEvil8_Click"
+                                    Click="ListSelection_Click"
                                     Content="Resident Evil 8: Village"
                                     FontSize="16"
                                     Foreground="White"
@@ -468,9 +573,8 @@
                 </Border>
                 <Border
                     Grid.Row="1"
-                    Grid.RowSpan="3"
                     Grid.Column="1"
-                    Grid.ColumnSpan="2"
+                    Grid.ColumnSpan="3"
                     Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>
@@ -479,28 +583,30 @@
                             <GradientStop Offset="1" Color="#1D1C2E" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <StackPanel>
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="24"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Logs" />
-                        <Grid Height="570">
+                    <StackPanel Margin="15,13,15,13">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition />
                                 <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
+                            <!--  Title  -->
+                            <TextBlock
+                                Margin="20,10,10,0"
+                                FontSize="24"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="Console Logs" />
                             <Border
-                                Margin="15,0,15,13"
+                                Grid.Row="1"
                                 Background="#22202F"
                                 CornerRadius="10">
-                                <ScrollViewer CanContentScroll="True">
+                                <ScrollViewer Margin="10" CanContentScroll="True">
                                     <TextBox
                                         x:Name="ConsoleBox"
-                                        Margin="10,10,-5,10"
+                                        Margin="0,0,-17,0"
                                         Background="Transparent"
                                         BorderBrush="Transparent"
                                         FontFamily="Consolas"

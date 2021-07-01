@@ -12,6 +12,7 @@ namespace SRTPluginManager.MVVM.ViewModel
         public PluginViewModel PluginVM { get; set; }
         public ExtensionsViewModel ExtensionVM { get; set; }
         public WidgetViewModel WidgetVM { get; set; }
+        public HostViewModel DebugVM { get; set; }
 
         private object _currentView;
         public object CurrentView 
@@ -29,7 +30,8 @@ namespace SRTPluginManager.MVVM.ViewModel
             PluginVM = new PluginViewModel();
             ExtensionVM = new ExtensionsViewModel();
             WidgetVM = new WidgetViewModel();
-            
+            DebugVM = new HostViewModel();
+
             CurrentView = HomeVM;
 
             HomeViewCommand = new RelayCommand(o => 

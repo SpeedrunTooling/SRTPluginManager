@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SRTPluginManager.Core;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,19 +26,40 @@ namespace SRTPluginManager.MVVM.View
         private Plugins CurrentPlugin;
         private List<string> paramList = new List<string>();
         private string GameName;
-        
+        public PluginConfiguration config;
+        public RadioButton[] PluginSelection;
+
         public WidgetView()
         {
             InitializeComponent();
+
+            PluginSelection = new RadioButton[] {
+                ResidentEvil1,
+                ResidentEvil1HD,
+                ResidentEvil2,
+                ResidentEvil2Remake,
+                ResidentEvil3,
+                ResidentEvil3Remake,
+                ResidentEvil4,
+                ResidentEvil5,
+                ResidentEvil6,
+                ResidentEvil7,
+                ResidentEvil8
+            };
+
             AuthToken.Password = GetSetting("UUID").ToString();
             CurrentPlugin = GetCurrentSelectedPlugin();
             GameName = CurrentPlugin.ToString();
+
+            config = LoadConfiguration<PluginConfiguration>();
+            Update();
         }
 
         private void Update()
         {
             CurrentPlugin = GetCurrentSelectedPlugin();
             GameName = CurrentPlugin.ToString();
+            UpdatePlugins();
         }
 
         private Plugins GetCurrentSelectedPlugin()
@@ -54,7 +77,30 @@ namespace SRTPluginManager.MVVM.View
             return Plugins.SRTPluginProviderRE1C;
         }
 
+        private void UpdatePlugins()
+        {
+            var i = 0;
+            foreach (PluginInfo info in config.PluginConfig)
+            {
+                if (info.currentVersion == "0.0.0.0")
+                {
+                    PluginSelection[i].Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    PluginSelection[i].Visibility = Visibility.Visible;
+                }
+                i++;
+            }
+            GetParams();
+        }
+
         public void GetParams(object sender, RoutedEventArgs e)
+        {
+            GetParams();
+        }
+
+        public void GetParams()
         {
             string defaultLink = string.Format("https://residentevilspeedrunning.github.io/{0}/Stats", GetCurrentSelectedPlugin().ToString());
             string inventoryLink = string.Format("https://residentevilspeedrunning.github.io/{0}/Inventory", GetCurrentSelectedPlugin().ToString());
@@ -134,6 +180,17 @@ namespace SRTPluginManager.MVVM.View
             var uuid = result.Trim(new char[] { '{', '}' });
             AuthToken.Password = uuid;
             UpdateSetting("UUID", uuid);
+            if (File.Exists(WebSocketConfig))
+            {
+                var wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
+                wsc.Username = uuid;
+                SaveConfiguration(wsc, WebSocketConfig);
+            }
+            else
+            {
+                MessageBox.Show("Error: SRTPluginWebSocket is not installed. Please switch to Extensions tab install.", "Error Extension Missing");
+            }
+            GetParams();
         }
 
         public void CopyToClipboard(object sender, RoutedEventArgs e)

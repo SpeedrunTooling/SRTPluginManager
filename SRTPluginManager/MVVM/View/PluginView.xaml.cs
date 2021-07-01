@@ -11,6 +11,7 @@ using static SRTPluginManager.Core.Utilities;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Linq;
+using System.Windows.Media;
 
 namespace SRTPluginManager.MVVM.View
 {
@@ -24,6 +25,8 @@ namespace SRTPluginManager.MVVM.View
         private Plugins CurrentPlugin = Plugins.SRTPluginProviderRE1C;
         public PluginConfiguration config;
         public RadioButton[] PluginSelection;
+
+        private Process SRTProcess;
 
         private bool SRTUpdated = false;
         private bool SRTInstalled = false;
@@ -63,16 +66,13 @@ namespace SRTPluginManager.MVVM.View
             SRTUpdated = IsUpdated(SRTCurrentRelease.Text, SRTLatestRelease.Text);
         }
 
-        private void StackPanel_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void Update()
         {
             UpdateHost();
             UpdatePlugins();
             UpdateDotNet();
             UpdateSRTState();
+            GetPlatform();
         }
 
         private void UpdateHost()
@@ -116,7 +116,7 @@ namespace SRTPluginManager.MVVM.View
                 DotNetCore.Visibility = Visibility.Visible;
                 Download64.Visibility = Visibility.Collapsed;
                 Download32.Visibility = Visibility.Visible;
-                Download32.Content = "Download Optional 32Bit Update";
+                Download32.Content = "Optional 32Bit";
                 return;
             }
             else if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.None)
@@ -147,6 +147,7 @@ namespace SRTPluginManager.MVVM.View
             if (SRTInstalled && CurrentPluginInstalled)
             {
                 StartSRTHost.Visibility = Visibility.Visible;
+                StopSRTHost.Visibility = Visibility.Visible;
 
                 if (SRTUpdated) SRTGetUpdate.Visibility = Visibility.Collapsed;
                 else
@@ -155,10 +156,15 @@ namespace SRTPluginManager.MVVM.View
                     SRTGetUpdate.Visibility = Visibility.Visible;
                 }
 
-                if (CurrentPluginUpdated) GetUpdate.Visibility = Visibility.Collapsed;
+                if (CurrentPluginUpdated) 
+                {
+                    UpdateProgressBar.Text = "Up to Date";
+                    GetUpdate.Visibility = Visibility.Collapsed; 
+                }
                 else
                 {
                     GetUpdate.Content = "Update";
+                    UpdateProgressBar.Text = "Update Pending";
                     GetUpdate.Visibility = Visibility.Visible;
                 }
             }
@@ -212,17 +218,122 @@ namespace SRTPluginManager.MVVM.View
 
         private Plugins GetCurrentSelectedPlugin()
         {
-            if (ResidentEvil1HD.IsChecked == true) { return Plugins.SRTPluginProviderRE1; }
-            else if (ResidentEvil2.IsChecked == true) { return Plugins.SRTPluginProviderRE2C; }
-            else if (ResidentEvil2Remake.IsChecked == true) { return Plugins.SRTPluginProviderRE2; }
-            else if (ResidentEvil3.IsChecked == true) { return Plugins.SRTPluginProviderRE3C; }
-            else if (ResidentEvil3Remake.IsChecked == true) { return Plugins.SRTPluginProviderRE3; }
-            else if (ResidentEvil4.IsChecked == true) { return Plugins.SRTPluginProviderRE4; }
-            else if (ResidentEvil5.IsChecked == true) { return Plugins.SRTPluginProviderRE5; }
-            else if (ResidentEvil6.IsChecked == true) { return Plugins.SRTPluginProviderRE6; }
-            else if (ResidentEvil7.IsChecked == true) { return Plugins.SRTPluginProviderRE7; }
-            else if (ResidentEvil8.IsChecked == true) { return Plugins.SRTPluginProviderRE8; }
-            return Plugins.SRTPluginProviderRE1C;
+            if (ResidentEvil1HD.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
+                Username1.Text = "Squirrelies";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username2.Text = "VideoGameRoulette";
+                UserPanel3.Visibility = Visibility.Visible;
+                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
+                Username3.Text = "Cursed Toast";
+                return Plugins.SRTPluginProviderRE1;
+            }
+            else if (ResidentEvil2.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
+                Username1.Text = "Squirrelies";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username2.Text = "VideoGameRoulette";
+                UserPanel3.Visibility = Visibility.Collapsed;
+                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
+                //Username3.Text = "WillowTheWhisperSR";
+                return Plugins.SRTPluginProviderRE2C;
+            }
+            else if (ResidentEvil2Remake.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
+                Username1.Text = "Squirrelies";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username2.Text = "VideoGameRoulette";
+                UserPanel3.Visibility = Visibility.Visible;
+                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
+                Username3.Text = "Cursed Toast";
+                return Plugins.SRTPluginProviderRE2;
+            }
+            else if (ResidentEvil3.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
+                Username1.Text = "Squirrelies";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username2.Text = "VideoGameRoulette";
+                UserPanel3.Visibility = Visibility.Collapsed;
+                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
+                //Username3.Text = "WillowTheWhisperSR";
+                return Plugins.SRTPluginProviderRE3C;
+            }
+            else if (ResidentEvil3Remake.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
+                Username1.Text = "Squirrelies";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username2.Text = "VideoGameRoulette";
+                UserPanel3.Visibility = Visibility.Visible;
+                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
+                Username3.Text = "Cursed Toast";
+                return Plugins.SRTPluginProviderRE3;
+            }
+            else if (ResidentEvil4.IsChecked == true)
+            {
+                return Plugins.SRTPluginProviderRE4;
+            }
+            else if (ResidentEvil5.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(mysterionSource) as ImageSource;
+                Username1.Text = "Mysterion06";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username2.Text = "VideoGameRoulette";
+                UserPanel3.Visibility = Visibility.Collapsed;
+                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
+                //Username3.Text = "WillowTheWhisperSR";
+                return Plugins.SRTPluginProviderRE5;
+            }
+            else if (ResidentEvil6.IsChecked == true)
+            {
+                return Plugins.SRTPluginProviderRE6;
+            }
+            else if (ResidentEvil7.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
+                Username1.Text = "Squirrelies";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username2.Text = "VideoGameRoulette";
+                UserPanel3.Visibility = Visibility.Collapsed;
+                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
+                //Username3.Text = "WillowTheWhisperSR";
+                return Plugins.SRTPluginProviderRE7;
+            }
+            else if (ResidentEvil8.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
+                Username1.Text = "Squirrelies";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username2.Text = "VideoGameRoulette";
+                UserPanel3.Visibility = Visibility.Collapsed;
+                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
+                //Username3.Text = "WillowTheWhisperSR";
+                return Plugins.SRTPluginProviderRE8;
+            }
+            else
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(mysterionSource) as ImageSource;
+                Username1.Text = "Mysterion06";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username2.Text = "VideoGameRoulette";
+                UserPanel3.Visibility = Visibility.Collapsed;
+                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
+                //Username3.Text = "WillowTheWhisperSR";
+                return Plugins.SRTPluginProviderRE1C;
+            }
         }
 
         private void SetData(PluginInfo pluginInfo)
@@ -276,67 +387,7 @@ namespace SRTPluginManager.MVVM.View
             Update();
         }
 
-        private void ResidentEvil1_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil1HD_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil2_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil2Remake_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil3_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil3Remake_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil4_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil5_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil6_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil7_Click(object sender, RoutedEventArgs e)
-        {
-            GetCurrentPluginData();
-            Update();
-        }
-
-        private void ResidentEvil8_Click(object sender, RoutedEventArgs e)
+        private void ListSelection_Click(object sender, RoutedEventArgs e)
         {
             GetCurrentPluginData();
             Update();
@@ -365,29 +416,37 @@ namespace SRTPluginManager.MVVM.View
             var fileExists = File.Exists(filePath);
             if (!fileExists) { ConsoleBox.Text = "SRT Not Installed."; return; }
             ClearLog();
-            Process[] processes = Process.GetProcessesByName("SRTHost64").Concat(Process.GetProcessesByName("SRTHost32")).ToArray();
-            foreach (Process process in processes)
-            {
-                process.Kill();
-            }
+            SRTProcess?.Kill();
             var psi = new ProcessStartInfo(filePath, string.Format("--Provider={0}", Application.Current.Dispatcher.Invoke(() => PluginName.Text)));
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
             psi.CreateNoWindow = true;
             psi.RedirectStandardError = true;
+            psi.RedirectStandardInput = true;
             //psi.WindowStyle = ProcessWindowStyle.Normal; //might be useful?
-            var p = new Process();
-            p.StartInfo = psi;
-            p.EnableRaisingEvents = true;
-            p.OutputDataReceived += P_OutputDataReceived;
-            p.ErrorDataReceived += P_OutputDataReceived;
-            p.Start();
-            p.BeginOutputReadLine();
-            p.BeginErrorReadLine();
+            SRTProcess = new Process();
+            SRTProcess.StartInfo = psi;
+            SRTProcess.EnableRaisingEvents = true;
+            SRTProcess.OutputDataReceived += P_OutputDataReceived;
+            SRTProcess.ErrorDataReceived += P_OutputDataReceived;
+            SRTProcess.Start();
+            SRTProcess.BeginOutputReadLine();
+            SRTProcess.BeginErrorReadLine();
             await Task.Run(() =>
             {
-                p.WaitForExit();
+                SRTProcess.WaitForExit();
             });
+        }
+
+        private void CloseSRT(object sender, RoutedEventArgs e)
+        {
+            if (SRTProcess != null)
+            {
+                SRTProcess.StandardInput.AutoFlush = true;
+                SRTProcess.StandardInput.Write("\x3");
+                SRTProcess.StandardInput.Flush();
+                SRTProcess.StandardInput.Close();
+            }
         }
 
         private void P_OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -425,10 +484,13 @@ namespace SRTPluginManager.MVVM.View
             switch (platform)
             {
                 case Platform.x86:
-                    return "SRTHost32.exe";
+                    SRTName.Text = "SRTHost32.exe";
+                    break;
                 default:
-                    return "SRTHost64.exe";
+                    SRTName.Text = "SRTHost64.exe";
+                    break;
             }
+            return SRTName.Text;
         }
 
         public void ClearLog()

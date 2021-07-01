@@ -86,9 +86,9 @@
                 <!--  Secondary Grid Container  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="500" />
-                        <ColumnDefinition MinWidth="500" />
-                        <ColumnDefinition MinWidth="500" />
+                        <ColumnDefinition MinWidth="446" />
+                        <ColumnDefinition MinWidth="446" />
+                        <ColumnDefinition MinWidth="446" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -201,9 +201,9 @@
                 <!--  Secondary Grid Container  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="500" />
-                        <ColumnDefinition MinWidth="500" />
-                        <ColumnDefinition MinWidth="500" />
+                        <ColumnDefinition MinWidth="446" />
+                        <ColumnDefinition MinWidth="446" />
+                        <ColumnDefinition MinWidth="446" />
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -228,7 +228,6 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="70" />
-                                <ColumnDefinition Width="70" />
                             </Grid.ColumnDefinitions>
                             <Ellipse Width="50" Height="50">
                                 <Ellipse.Fill>
@@ -249,42 +248,20 @@
                                     Text="Lead SRT Host Dev"
                                     TextWrapping="Wrap" />
                             </StackPanel>
-                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/Github.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/TwitchAlt.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
+                            <Button
+                                Grid.Column="2"
+                                Margin="10,20,10,20"
+                                Click="Button_Click"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/Github.png" />
+                            </Button>
+                            <Button
+                                Grid.Column="3"
+                                Margin="10,20,10,20"
+                                Click="Button_Click_1"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/TwitchAlt.png" />
+                            </Button>
                         </Grid>
                     </Border>
 
@@ -303,7 +280,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="60" />
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="70" />
                             </Grid.ColumnDefinitions>
@@ -326,42 +302,20 @@
                                     Text="Lead Plugin Dev"
                                     TextWrapping="Wrap" />
                             </StackPanel>
-                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/Github.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/TwitchAlt.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
+                            <Button
+                                Grid.Column="2"
+                                Margin="10,20,10,20"
+                                Click="Button_Click_5"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/Github.png" />
+                            </Button>
+                            <Button
+                                Grid.Column="3"
+                                Margin="10,20,10,20"
+                                Click="Button_Click_4"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/TwitchAlt.png" />
+                            </Button>
                         </Grid>
                     </Border>
 
@@ -380,7 +334,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="60" />
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="70" />
                             </Grid.ColumnDefinitions>
@@ -403,42 +356,20 @@
                                     Text="Lead Autosplitter Dev"
                                     TextWrapping="Wrap" />
                             </StackPanel>
-                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/Github.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/TwitchAlt.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
+                            <Button
+                                Grid.Column="2"
+                                Margin="10,20,10,20"
+                                Click="Button_Click_7"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/Github.png" />
+                            </Button>
+                            <Button
+                                Grid.Column="3"
+                                Margin="10,20,10,20"
+                                Click="Button_Click_6"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/TwitchAlt.png" />
+                            </Button>
                         </Grid>
                     </Border>
 
@@ -458,7 +389,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="60" />
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="70" />
                             </Grid.ColumnDefinitions>
@@ -481,49 +411,27 @@
                                     Text="Lead Systems Admin"
                                     TextWrapping="Wrap" />
                             </StackPanel>
-                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/Github.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/TwitchAlt.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
+                            <Button
+                                Grid.Column="2"
+                                Margin="10,20,10,20"
+                                Click="Button_Click_3"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/Github.png" />
+                            </Button>
+                            <Button
+                                Grid.Column="3"
+                                Margin="10,20,10,20"
+                                Click="Button_Click_2"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/TwitchAlt.png" />
+                            </Button>
                         </Grid>
                     </Border>
 
                     <!--  Section 5  -->
                     <Border
                         Grid.Row="1"
-                        Grid.Column="1"
+                        Grid.Column="2"
                         Margin="15,13,15,13"
                         CornerRadius="10">
                         <Border.Background>
@@ -536,7 +444,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="60" />
                                 <ColumnDefinition />
-                                <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="70" />
                                 <ColumnDefinition Width="70" />
                             </Grid.ColumnDefinitions>
@@ -559,122 +466,24 @@
                                     Text="Contributor"
                                     TextWrapping="Wrap" />
                             </StackPanel>
-                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/Github.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/TwitchAlt.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
+                            <Button
+                                Grid.Column="2"
+                                Margin="10,20,10,20"
+                                Click="Button_Click_9"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/Github.png" />
+                            </Button>
+                            <Button
+                                Grid.Column="3"
+                                Margin="10,20,10,20"
+                                Click="Button_Click_8"
+                                Style="{StaticResource LinkButtonTheme}">
+                                <Image Width="30" Source="/Images/TwitchAlt.png" />
+                            </Button>
                         </Grid>
                     </Border>
 
                     <!--  Section 6  -->
-                    <Border
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        Margin="15,13,15,13"
-                        CornerRadius="10">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                <GradientStop Offset="0.0" Color="#151527" />
-                                <GradientStop Offset="1" Color="#1D1C2E" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="70" />
-                                <ColumnDefinition Width="70" />
-                                <ColumnDefinition Width="70" />
-                            </Grid.ColumnDefinitions>
-                            <Ellipse Width="50" Height="50">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Images/Mysterion06.png" />
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <StackPanel Grid.Column="1">
-                                <TextBlock
-                                    Margin="0,10,0,0"
-                                    FontSize="24"
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="Mysterion06" />
-                                <TextBlock
-                                    Margin="10,0,0,10"
-                                    FontSize="24"
-                                    Foreground="White"
-                                    Text="Contributor"
-                                    TextWrapping="Wrap" />
-                            </StackPanel>
-                            <StackPanel Grid.Column="3" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/Github.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Grid.Column="4" VerticalAlignment="Center">
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="10"
-                                    Background="#272537"
-                                    CornerRadius="10">
-                                    <StackPanel
-                                        Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Image
-                                            Width="25"
-                                            Height="25"
-                                            Source="/Images/TwitchAlt.png" />
-                                    </StackPanel>
-                                </Border>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
                 </Grid>
             </StackPanel>
         </Grid>

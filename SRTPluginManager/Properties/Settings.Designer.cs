@@ -61,30 +61,6 @@ namespace SRTPluginManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UIJSONEnabled {
-            get {
-                return ((bool)(this["UIJSONEnabled"]));
-            }
-            set {
-                this["UIJSONEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool WebSocketEnabled {
-            get {
-                return ((bool)(this["WebSocketEnabled"]));
-            }
-            set {
-                this["WebSocketEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("00000000-0000-0000-0000-000000000000")]
         public string UUID {
             get {

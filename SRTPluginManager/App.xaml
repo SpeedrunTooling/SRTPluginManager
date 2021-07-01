@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Theme/PluginButtonTheme.xaml" />
                 <ResourceDictionary Source="Theme/CheckBoxTheme.xaml" />
                 <ResourceDictionary Source="Theme/ButtonTheme.xaml" />
+                <ResourceDictionary Source="Theme/LinkButtonTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">

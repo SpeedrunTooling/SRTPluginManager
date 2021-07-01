@@ -5,43 +5,59 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SRTPluginManager.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="1000"
-    d:DesignWidth="1700"
+    d:DesignHeight="900"
+    d:DesignWidth="1600"
     mc:Ignorable="d">
 
     <UserControl.Resources>
         <Style TargetType="ScrollBar">
             <Setter Property="Opacity" Value="0" />
         </Style>
-        <Style TargetType="TextBlock">
+        <Style x:Key="LBSytle" TargetType="{x:Type ListBoxItem}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+            </Style.Resources>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Black" />
+                    <Setter Property="BorderThickness" Value="0" />
+                </Trigger>
+            </Style.Triggers>
             <Setter Property="FontFamily" Value="/Fonts/#Teko" />
+            <Setter Property="Foreground" Value="White" />
         </Style>
     </UserControl.Resources>
-
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
         <!--  Header  -->
-        <StackPanel Height="60" Orientation="Horizontal">
-            <Image Margin="10" Source="/Images/Laptop.png" />
+        <StackPanel Orientation="Horizontal">
+            <Image Margin="10" Source="/Images/Close.png" />
             <TextBlock
                 Margin="10,10,0,10"
                 HorizontalAlignment="Left"
                 FontSize="28"
                 FontWeight="Bold"
                 Foreground="White"
-                Text="SRT Host Manager" />
+                Text="Header Title" />
         </StackPanel>
-        <StackPanel>
-            <Grid>
+        <DockPanel
+            Grid.Row="1"
+            Margin="15,13,15,13"
+            LastChildFill="True">
+            <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="530" />
-                    <ColumnDefinition Width="530" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="281" />
-                    <RowDefinition Height="281" />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <!--  Top Left Container  -->
                 <Border Margin="15,13,15,13" CornerRadius="10">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -49,134 +65,11 @@
                             <GradientStop Offset="1" Color="#1D1C2E" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <!--  Inner Container  -->
-                    <StackPanel>
-                        <!--  Title  -->
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="28"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Version Info" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="100" />
-                            </Grid.RowDefinitions>
-
-                            <!--  Current Version  -->
-                            <Border
-                                Margin="10"
-                                Background="#272537"
-                                CornerRadius="10">
-                                <StackPanel>
-                                    <TextBlock
-                                        Margin="10,10,10,0"
-                                        FontSize="20"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Text="Current Version" />
-                                    <TextBlock
-                                        x:Name="CurrentRelease"
-                                        Margin="20,10,10,0"
-                                        FontSize="18"
-                                        Foreground="White"
-                                        Text="0.0.0.0"
-                                        TextWrapping="Wrap" />
-                                </StackPanel>
-                            </Border>
-
-                            <Border
-                                Grid.Column="1"
-                                Margin="10"
-                                Background="#272537"
-                                CornerRadius="10">
-                                <StackPanel>
-                                    <TextBlock
-                                        Margin="10,10,10,0"
-                                        FontSize="20"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Text="Latest Version" />
-                                    <TextBlock
-                                        x:Name="LatestRelease"
-                                        Margin="20,10,10,0"
-                                        FontSize="18"
-                                        Foreground="White"
-                                        Text="0.0.0.0"
-                                        TextWrapping="Wrap" />
-                                </StackPanel>
-                            </Border>
-                        </Grid>
-                        <Button
-                            x:Name="GetUpdate"
-                            Grid.ColumnSpan="2"
-                            Height="80"
-                            Margin="10,10,10,10"
-                            Click="GetUpdate_Click"
-                            Content="Install"
-                            FontFamily="/Fonts/#Teko"
-                            FontSize="30"
-                            Foreground="White"
-                            Style="{StaticResource ButtonTheme}"
-                            Visibility="Visible" />
-                    </StackPanel>
+                    <Border Margin="15,13,15,13" Background="#22202F" />
                 </Border>
-                <!--DotNet Core Container-->
+
                 <Border
-                    x:Name="DotNetCore"
                     Grid.Column="1"
-                    Width="500"
-                    Height="255"
-                    Margin="0,0,0,0"
-                    CornerRadius="10">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Offset="0.0" Color="#151527" />
-                            <GradientStop Offset="1" Color="#1D1C2E" />
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <StackPanel>
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="28"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text=".Net Core 3.1" />
-                        <Button
-                            x:Name="Download32"
-                            Grid.ColumnSpan="2"
-                            Height="80"
-                            Margin="10,10,10,10"
-                            Click="Download32_Click"
-                            Content="Download 32bit"
-                            FontFamily="/Fonts/#Teko"
-                            FontSize="30"
-                            Foreground="White"
-                            Style="{StaticResource ButtonTheme}"
-                            Visibility="Visible" />
-                        <Button
-                            x:Name="Download64"
-                            Grid.ColumnSpan="2"
-                            Height="80"
-                            Margin="10,10,10,10"
-                            Click="Download64_Click"
-                            Content="Download 64bit"
-                            FontFamily="/Fonts/#Teko"
-                            FontSize="30"
-                            Foreground="White"
-                            Style="{StaticResource ButtonTheme}"
-                            Visibility="Visible" />
-                    </StackPanel>
-                </Border>
-                <!--Extension Selection-->
-                <Border
-                    Grid.Row="1"
-                    Grid.ColumnSpan="1"
                     Margin="15,13,15,13"
                     CornerRadius="10">
                     <Border.Background>
@@ -185,65 +78,18 @@
                             <GradientStop Offset="1" Color="#1D1C2E" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <StackPanel>
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="28"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Extension Options" />
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
-                                <CheckBox
-                                    x:Name="EnableJSON"
-                                    Width="30"
-                                    Margin="40,0,0,0"
-                                    Checked="GetExtensions"
-                                    IsChecked="False"
-                                    Style="{StaticResource CheckBoxTheme}"
-                                    Unchecked="GetExtensions" />
-                                <TextBlock
-                                    Margin="10,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="White"
-                                    Text="Enable UIJSON" />
-                            </StackPanel>
-                            <StackPanel
-                                Grid.Row="1"
-                                Margin="0,0,0,10"
-                                Orientation="Horizontal">
-                                <CheckBox
-                                    x:Name="EnableWebSocket"
-                                    Width="30"
-                                    Margin="40,0,0,0"
-                                    Checked="GetExtensions"
-                                    IsChecked="False"
-                                    Style="{StaticResource CheckBoxTheme}"
-                                    Unchecked="GetExtensions" />
-                                <TextBlock
-                                    Margin="10,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="White"
-                                    Text="Enable Websocket" />
-                            </StackPanel>
-                        </Grid>
-
-                    </StackPanel>
+                    <Border Margin="15,13,15,13" Background="#22202F">
+                        <ListBox
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            ItemContainerStyle="{StaticResource LBSytle}">
+                            <ListBoxItem Content="Hello" IsSelected="True" />
+                            <ListBoxItem Content="World" />
+                        </ListBox>
+                    </Border>
                 </Border>
             </Grid>
-        </StackPanel>
-    </StackPanel>
+        </DockPanel>
+
+    </Grid>
 </UserControl>
