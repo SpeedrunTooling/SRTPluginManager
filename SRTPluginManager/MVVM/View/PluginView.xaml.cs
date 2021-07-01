@@ -416,14 +416,15 @@ namespace SRTPluginManager.MVVM.View
             var fileExists = File.Exists(filePath);
             if (!fileExists) { ConsoleBox.Text = "SRT Not Installed."; return; }
             ClearLog();
-            SRTProcess?.Kill();
+            KillSRT();
+
             var psi = new ProcessStartInfo(filePath, string.Format("--Provider={0}", Application.Current.Dispatcher.Invoke(() => PluginName.Text)));
             psi.UseShellExecute = false;
-            psi.RedirectStandardOutput = true;
             psi.CreateNoWindow = true;
-            psi.RedirectStandardError = true;
             psi.RedirectStandardInput = true;
-            //psi.WindowStyle = ProcessWindowStyle.Normal; //might be useful?
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+
             SRTProcess = new Process();
             SRTProcess.StartInfo = psi;
             SRTProcess.EnableRaisingEvents = true;
@@ -432,21 +433,26 @@ namespace SRTPluginManager.MVVM.View
             SRTProcess.Start();
             SRTProcess.BeginOutputReadLine();
             SRTProcess.BeginErrorReadLine();
-            await Task.Run(() =>
-            {
-                SRTProcess.WaitForExit();
-            });
+            await Task.Run(SRTProcess.WaitForExit);
         }
 
-        private void CloseSRT(object sender, RoutedEventArgs e)
+        private async void CloseSRT(object sender, RoutedEventArgs e)
         {
             if (SRTProcess != null)
             {
-                SRTProcess.StandardInput.AutoFlush = true;
-                SRTProcess.StandardInput.Write("\x3");
-                SRTProcess.StandardInput.Flush();
-                SRTProcess.StandardInput.Close();
+                await SRTProcess.SendCtrlCAsync();
             }
+            else
+            {
+                KillSRT(); // If the process has not been tracked by us, try to just kill existing processes the spicy way.
+            }
+        }
+
+        private void KillSRT()
+        {
+            Process[] processes = Process.GetProcessesByName("SRTHost64").Concat(Process.GetProcessesByName("SRTHost32")).ToArray();
+            foreach (Process process in processes)
+                process.Kill();
         }
 
         private void P_OutputDataReceived(object sender, DataReceivedEventArgs e)
