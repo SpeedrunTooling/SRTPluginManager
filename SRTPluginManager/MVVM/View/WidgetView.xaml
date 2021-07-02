@@ -88,6 +88,12 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
                             <CheckBox
@@ -148,6 +154,63 @@
                             Margin="0,0,0,10"
                             Orientation="Horizontal">
                             <CheckBox
+                                x:Name="HideIGT"
+                                Width="30"
+                                Margin="40,0,0,0"
+                                Checked="GetParams"
+                                IsChecked="False"
+                                Style="{StaticResource CheckBoxTheme}"
+                                Unchecked="GetParams" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Hide In-Game Timer" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="4"
+                            Margin="0,0,0,10"
+                            Orientation="Horizontal">
+                            <CheckBox
+                                x:Name="HideDA"
+                                Width="30"
+                                Margin="40,0,0,0"
+                                Checked="GetParams"
+                                IsChecked="False"
+                                Style="{StaticResource CheckBoxTheme}"
+                                Unchecked="GetParams" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Hide Difficulty Adjustment Stats" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="5"
+                            Margin="0,0,0,10"
+                            Orientation="Horizontal">
+                            <CheckBox
+                                x:Name="HideMoney"
+                                Width="30"
+                                Margin="40,0,0,0"
+                                Checked="GetParams"
+                                IsChecked="False"
+                                Style="{StaticResource CheckBoxTheme}"
+                                Unchecked="GetParams" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Hide Money" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="6"
+                            Margin="0,0,0,10"
+                            Orientation="Horizontal">
+                            <CheckBox
                                 x:Name="HideStats"
                                 Width="30"
                                 Margin="40,0,0,0"
@@ -160,14 +223,14 @@
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 Foreground="White"
-                                Text="Hide Stats - DA / Money / IGT" />
+                                Text="Hide Misc Stats - Position, Chapter Stats, Other" />
                         </StackPanel>
                         <StackPanel
-                            Grid.Row="4"
+                            Grid.Row="7"
                             Margin="0,0,0,10"
                             Orientation="Horizontal">
                             <CheckBox
-                                x:Name="HidePlayerPosition"
+                                x:Name="SeparatePlayerData"
                                 Width="30"
                                 Margin="40,0,0,0"
                                 Checked="GetParams"
@@ -179,7 +242,26 @@
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 Foreground="White"
-                                Text="Hide Player Position - X / Y / Z" />
+                                Text="Separate Player HUDS (Resident Evil 5 Only)" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="8"
+                            Margin="0,0,0,10"
+                            Orientation="Horizontal">
+                            <CheckBox
+                                x:Name="Player2Check"
+                                Width="30"
+                                Margin="40,0,0,0"
+                                Checked="GetParams"
+                                IsChecked="False"
+                                Style="{StaticResource CheckBoxTheme}"
+                                Unchecked="GetParams" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Is Sheva (Resident Evil 5 Only)" />
                         </StackPanel>
                     </Grid>
                     <TextBlock

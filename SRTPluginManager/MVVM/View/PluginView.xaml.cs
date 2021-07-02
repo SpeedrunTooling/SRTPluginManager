@@ -305,9 +305,9 @@ namespace SRTPluginManager.MVVM.View
                 UserPanel2.Visibility = Visibility.Visible;
                 User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
                 Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Collapsed;
-                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
-                //Username3.Text = "WillowTheWhisperSR";
+                UserPanel3.Visibility = Visibility.Visible;
+                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
+                Username3.Text = "Cursed Toast";
                 return Plugins.SRTPluginProviderRE7;
             }
             else if (ResidentEvil8.IsChecked == true)
@@ -317,9 +317,9 @@ namespace SRTPluginManager.MVVM.View
                 UserPanel2.Visibility = Visibility.Visible;
                 User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
                 Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Collapsed;
-                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
-                //Username3.Text = "WillowTheWhisperSR";
+                UserPanel3.Visibility = Visibility.Visible;
+                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
+                Username3.Text = "Cursed Toast";
                 return Plugins.SRTPluginProviderRE8;
             }
             else
@@ -417,8 +417,8 @@ namespace SRTPluginManager.MVVM.View
             if (!fileExists) { ConsoleBox.Text = "SRT Not Installed."; return; }
             ClearLog();
             KillSRT();
-
-            var psi = new ProcessStartInfo(filePath, string.Format("--Provider={0}", Application.Current.Dispatcher.Invoke(() => PluginName.Text)));
+            var providerName = PluginName.Text.Split('.')[0];
+            var psi = new ProcessStartInfo(filePath, string.Format("--Provider={0}", Application.Current.Dispatcher.Invoke(() => providerName)));
             psi.UseShellExecute = false;
             psi.CreateNoWindow = true;
             psi.RedirectStandardInput = true;

@@ -613,7 +613,7 @@
                                         FontSize="12"
                                         FontWeight="Bold"
                                         Foreground="White"
-                                        Text="SRT Host v2.4.4 32-bit (x86)&#10; --------------------------------------------------&#10;   Loaded host: SRTHost32.dll&#10;         Digitally signed but NOT verified: Travis J Gutjahr [Thumbprint: 38028F54E06C3CECF8CE307D8EFA24D2258A7CE0]&#10;   Loaded plugin: plugins\SRTPluginProviderRE1C\SRTPluginProviderRE1C.dll&#10;         No digital signature found.&#10;   Loaded plugin: plugins\SRTPluginUIJSON\SRTPluginUIJSON.dll&#10;         Digitally signed but NOT verified: Travis J Gutjahr [Thumbprint: 38028F54E06C3CECF8CE307D8EFA24D2258A7CE0]&#10;   Loaded plugin: plugins\SRTPluginWebSocket\SRTPluginWebSocket.dll&#10;         No digital signature found.&#10; &#10; ddraw&#10; [Game Memory Provider (Resident Evil 1 Classic) v1.0.2.0] successfully started.&#10; [JSON Web Server v2.3.2.0] successfully started.&#10; [Websocket Relay v1.0.0.0] successfully started.&#10; Press CTRL+C in this console window to shutdown the SRT.&#10; Hosting environment: Development&#10; Content root path: C:\Users\VGR_T\Desktop\SRT&#10; Now listening on: http://[::]:7190&#10; Now listening on: http://0.0.0.0:7190&#10; Application started. Press Ctrl+C to shut down.&#10;"
+                                        Text=""
                                         TextWrapping="Wrap" />
                                 </ScrollViewer>
                             </Border>

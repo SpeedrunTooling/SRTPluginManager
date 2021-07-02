@@ -65,6 +65,8 @@
     <None Remove="Images\Users.png" />
     <None Remove="Images\VGR.png" />
     <None Remove="Images\Willow.png" />
+    <None Remove="SRTIcon.ico" />
+    <None Remove="SRTIconAlt.ico" />
   </ItemGroup>
 
   <ItemGroup>

@@ -25,6 +25,7 @@ namespace SRTPluginManager.MVVM.View
     {
         private Plugins CurrentPlugin;
         private List<string> paramList = new List<string>();
+        private List<string> paramListInventory = new List<string>();
         private string GameName;
         public PluginConfiguration config;
         public RadioButton[] PluginSelection;
@@ -102,14 +103,97 @@ namespace SRTPluginManager.MVVM.View
 
         public void GetParams()
         {
-            string defaultLink = string.Format("https://residentevilspeedrunning.github.io/{0}/Stats", GetCurrentSelectedPlugin().ToString());
-            string inventoryLink = string.Format("https://residentevilspeedrunning.github.io/{0}/Inventory", GetCurrentSelectedPlugin().ToString());
+            string defaultLink = "https://speedruntooling.github.io/StatsHUD";
+            string inventoryLink = "https://speedruntooling.github.io/InventoryHUD";
 
             if (AuthToken.Password != "")
             {
                 defaultLink += string.Format("?token={0}", AuthToken.Password);
                 inventoryLink += string.Format("?token={0}", AuthToken.Password);
             }
+            // HIDE IGT
+            if ((bool)HideIGT.IsChecked)
+            {
+                if (!paramList.Contains("hideigt"))
+                {
+                    paramList.Add("hideigt");
+                }
+            }
+            else
+            {
+                paramList.Remove("hideigt");
+            }
+
+            // HIDE MONEY
+            if ((bool)HideMoney.IsChecked)
+            {
+                if (!paramList.Contains("hidemoney"))
+                {
+                    paramList.Add("hidemoney");
+                }
+            }
+            else
+            {
+                paramList.Remove("hidemoney");
+            }
+
+            // HIDE DA
+            if ((bool)HideDA.IsChecked)
+            {
+                if (!paramList.Contains("hideda"))
+                {
+                    paramList.Add("hideda");
+                }
+            }
+            else
+            {
+                paramList.Remove("hideda");
+            }
+
+            // HIDE MISC STATS
+            if ((bool)HideStats.IsChecked)
+            {
+                if (!paramList.Contains("hidestats"))
+                {
+                    paramList.Add("hidestats");
+                }
+            }
+            else
+            {
+                paramList.Remove("hidestats");
+            }
+
+            // SEPARATE PLAYER STATS
+            if ((bool)SeparatePlayerData.IsChecked)
+            {
+                if (!paramList.Contains("separated"))
+                {
+                    paramList.Add("separated");
+                    paramListInventory.Add("separated");
+                }
+            }
+            else
+            {
+                paramList.Remove("separated");
+                paramListInventory.Add("separated");
+            }
+
+            // DISPLAY PLAYER 2
+            if ((bool)Player2Check.IsChecked)
+            {
+                if (!paramList.Contains("isplayer2"))
+                {
+                    paramList.Add("isplayer2");
+                    paramListInventory.Add("isplayer2");
+                }
+            }
+            else
+            {
+                paramList.Remove("isplayer2");
+                paramListInventory.Add("isplayer2");
+            }
+
+            // SHOW BOSS ONLY
             if ((bool)BossOnly.IsChecked)
             {
                 if (!paramList.Contains("bossonly"))
@@ -121,6 +205,8 @@ namespace SRTPluginManager.MVVM.View
             {
                 paramList.Remove("bossonly");
             }
+
+            // HIDE ALL ENEMIES
             if ((bool)HideEnemies.IsChecked)
             {
                 if (!paramList.Contains("enemy"))
@@ -132,28 +218,8 @@ namespace SRTPluginManager.MVVM.View
             {
                 paramList.Remove("enemy");
             }
-            if ((bool)HideStats.IsChecked)
-            {
-                if (!paramList.Contains("stats"))
-                {
-                    paramList.Add("stats");
-                }
-            }
-            else
-            {
-                paramList.Remove("stats");
-            }
-            if ((bool)HidePlayerPosition.IsChecked)
-            {
-                if (!paramList.Contains("position"))
-                {
-                    paramList.Add("position");
-                }
-            }
-            else
-            {
-                paramList.Remove("position");
-            }
+
+            // HIDE DEBUG INFO
             if ((bool)HideDebugInfo.IsChecked)
             {
                 if (!paramList.Contains("debug"))
@@ -165,11 +231,19 @@ namespace SRTPluginManager.MVVM.View
             {
                 paramList.Remove("debug");
             }
+
+            // SET PARAMS STATS HUD
             for (var i = 0; i < paramList.Count; i++)
             {
                 defaultLink += string.Format("&{0}=1", paramList[i].ToString());
-                inventoryLink += string.Format("&{0}=1", paramList[i].ToString());
             }
+
+            // SET PARAMS INVENTORY HUD
+            for (var i = 0; i < paramListInventory.Count; i++)
+            {
+                inventoryLink += string.Format("&{0}=1", paramListInventory[i].ToString());
+            }
+
             WebURL.Text = defaultLink;
             InventoryURL.Text = inventoryLink;
         }

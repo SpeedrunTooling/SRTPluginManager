@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -33,54 +34,66 @@ namespace SRTPluginManager.MVVM.View
             Directory.CreateDirectory(path);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Github(object sender, RoutedEventArgs e)
         {
-
+            Button button = (Button)e.Source;
+            var url = GetGithubURL(button.Name);
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = "chrome";
+            p.StartInfo.Arguments = url;
+            p.Start();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Twitch(object sender, RoutedEventArgs e)
         {
-
+            Button button = (Button)e.Source;
+            var url = GetTwitchURL(button.Name);
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = true;
+            p.StartInfo.FileName = "chrome";
+            p.StartInfo.Arguments = url;
+            p.Start();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private string GetGithubURL(string name)
         {
-
+            switch (name)
+            {
+                case "Github1":
+                    return @"https://github.com/Squirrelies";
+                case "Github2":
+                    return @"https://github.com/VideoGameRoulette";
+                case "Github3":
+                    return @"https://github.com/CursedToast";
+                case "Github4":
+                    return @"https://github.com/markrawls";
+                case "Github5":
+                    return @"https://github.com/sychotixdev";
+                default:
+                    return null;
+            }
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private string GetTwitchURL(string name)
         {
-
+            switch (name)
+            {
+                case "Twitch1":
+                    return @"https://www.twitch.tv/Squirrelies";
+                case "Twitch2":
+                    return @"https://www.twitch.tv/VideoGameRoulette";
+                case "Twitch3":
+                    return @"https://www.twitch.tv/CursedToast";
+                case "Twitch4":
+                    return @"https://www.twitch.tv/WillowTheWhisperSR";
+                case "Twitch5":
+                    return @"https://www.twitch.tv/";
+                default:
+                    return null;
+            }
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_7(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_8(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_9(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }
