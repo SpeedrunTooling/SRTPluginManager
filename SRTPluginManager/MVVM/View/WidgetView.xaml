@@ -269,6 +269,59 @@
                         FontSize="28"
                         FontWeight="Bold"
                         Foreground="White"
+                        Text="Resident Evil 6 Character Select" />
+
+                    <Grid>
+                        <ComboBox
+                            x:Name="RE6NameBox"
+                            Width="680"
+                            Height="30"
+                            Margin="50,0,10,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Foreground="White"
+                            ItemsSource="{Binding RE6Names}"
+                            SelectionChanged="RE6NameBox_SelectionChanged">
+                            <ComboBox.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#272537" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#1D1C2E" />
+                            </ComboBox.Resources>
+                        </ComboBox>
+                        <Border
+                            Width="700"
+                            Margin="-45,-1,0,0"
+                            Padding="4,1"
+                            Background="#272537"
+                            CornerRadius="10"
+                            MouseDown="TestBlock_MouseDown">
+                            <Grid>
+                                <TextBlock
+                                    x:Name="TestBlock"
+                                    Height="30"
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    FontFamily="/Fonts/#Teko"
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Foreground="White"
+                                    Text="None" />
+                                <Image
+                                    Width="15"
+                                    Margin="0,0,10,0"
+                                    HorizontalAlignment="Right"
+                                    Source="/Images/DropBoxDownAlt.png" />
+                            </Grid>
+                        </Border>
+
+                    </Grid>
+
+                    <TextBlock
+                        Margin="20,10,10,0"
+                        FontSize="28"
+                        FontWeight="Bold"
+                        Foreground="White"
                         Text="User Token" />
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <Grid>
@@ -383,163 +436,6 @@
             </Border>
 
             <!--  Right Container  -->
-            <Border
-                Grid.RowSpan="2"
-                Grid.Column="1"
-                Margin="15,13,15,13"
-                CornerRadius="10">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Offset="0.0" Color="#151527" />
-                        <GradientStop Offset="1" Color="#1D1C2E" />
-                    </LinearGradientBrush>
-                </Border.Background>
-                <!--  Inner Container  -->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel>
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="14"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Available Games" />
-                    </StackPanel>
-
-                    <ScrollViewer Grid.Row="1">
-                        <StackPanel>
-                            <RadioButton
-                                x:Name="ResidentEvil1"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 1 Classic"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="True"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE1Cmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil1HD"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 1 HD"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE1RCmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil2"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 2 Classic"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE2Cmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil2Remake"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 2 Remake"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE2RCmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil3"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 3 Classic"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE2Cmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil3Remake"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 3 Remake"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE2RCmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil4"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 4"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE2RCmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil5"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 5"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE2RCmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil6"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 6"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE2RCmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil7"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 7"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE2RCmd}"  -->
-
-                            <RadioButton
-                                x:Name="ResidentEvil8"
-                                Height="50"
-                                Click="GetParams"
-                                Content="Resident Evil 8: Village"
-                                FontSize="16"
-                                Foreground="White"
-                                IsChecked="False"
-                                Style="{StaticResource PluginButtonTheme}" />
-                            <!--  Command="{Binding RE2RCmd}"  -->
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
-            </Border>
         </Grid>
     </StackPanel>
 </UserControl>

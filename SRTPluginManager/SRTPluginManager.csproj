@@ -40,6 +40,8 @@
     <None Remove="Images\Cog.png" />
     <None Remove="Images\CursedToast.png" />
     <None Remove="Images\Download.png" />
+    <None Remove="Images\DropBoxDown.png" />
+    <None Remove="Images\DropBoxDownAlt.png" />
     <None Remove="Images\Github.png" />
     <None Remove="Images\Home.png" />
     <None Remove="Images\Host.png" />
@@ -86,6 +88,8 @@
     <Resource Include="Images\Cog.png" />
     <Resource Include="Images\CursedToast.png" />
     <Resource Include="Images\Download.png" />
+    <Resource Include="Images\DropBoxDown.png" />
+    <Resource Include="Images\DropBoxDownAlt.png" />
     <Resource Include="Images\Github.png" />
     <Resource Include="Images\Home.png" />
     <Resource Include="Images\Host.png" />

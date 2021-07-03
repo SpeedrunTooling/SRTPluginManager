@@ -171,6 +171,7 @@ namespace SRTPluginManager.MVVM.View
             else
             {
                 StartSRTHost.Visibility = Visibility.Collapsed;
+                StopSRTHost.Visibility = Visibility.Collapsed;
                 if (!SRTInstalled)
                 {
                     SRTGetUpdate.Content = "Install";
@@ -474,10 +475,10 @@ namespace SRTPluginManager.MVVM.View
                 case Plugins.SRTPluginProviderRE3C:
                 case Plugins.SRTPluginProviderRE4:
                 case Plugins.SRTPluginProviderRE5:
+                case Plugins.SRTPluginProviderRE6:
                     return GetSRT(Platform.x86);
                 case Plugins.SRTPluginProviderRE2:
                 case Plugins.SRTPluginProviderRE3:
-                case Plugins.SRTPluginProviderRE6:
                 case Plugins.SRTPluginProviderRE7:
                 case Plugins.SRTPluginProviderRE8:
                 default:

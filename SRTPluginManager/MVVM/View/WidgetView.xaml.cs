@@ -1,4 +1,5 @@
 ﻿using SRTPluginManager.Core;
+using SRTPluginManager.MVVM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,76 +24,19 @@ namespace SRTPluginManager.MVVM.View
     /// </summary>
     public partial class WidgetView : UserControl
     {
-        private Plugins CurrentPlugin;
         private List<string> paramList = new List<string>();
         private List<string> paramListInventory = new List<string>();
-        private string GameName;
         public PluginConfiguration config;
         public RadioButton[] PluginSelection;
 
         public WidgetView()
         {
             InitializeComponent();
-
-            PluginSelection = new RadioButton[] {
-                ResidentEvil1,
-                ResidentEvil1HD,
-                ResidentEvil2,
-                ResidentEvil2Remake,
-                ResidentEvil3,
-                ResidentEvil3Remake,
-                ResidentEvil4,
-                ResidentEvil5,
-                ResidentEvil6,
-                ResidentEvil7,
-                ResidentEvil8
-            };
+            DataContext = new ComboBoxViewModel();
 
             AuthToken.Password = GetSetting("UUID").ToString();
-            CurrentPlugin = GetCurrentSelectedPlugin();
-            GameName = CurrentPlugin.ToString();
 
             config = LoadConfiguration<PluginConfiguration>();
-            Update();
-        }
-
-        private void Update()
-        {
-            CurrentPlugin = GetCurrentSelectedPlugin();
-            GameName = CurrentPlugin.ToString();
-            UpdatePlugins();
-        }
-
-        private Plugins GetCurrentSelectedPlugin()
-        {
-            if (ResidentEvil1HD.IsChecked == true) { return Plugins.SRTPluginProviderRE1; }
-            else if (ResidentEvil2.IsChecked == true) { return Plugins.SRTPluginProviderRE2C; }
-            else if (ResidentEvil2Remake.IsChecked == true) { return Plugins.SRTPluginProviderRE2; }
-            else if (ResidentEvil3.IsChecked == true) { return Plugins.SRTPluginProviderRE3C; }
-            else if (ResidentEvil3Remake.IsChecked == true) { return Plugins.SRTPluginProviderRE3; }
-            else if (ResidentEvil4.IsChecked == true) { return Plugins.SRTPluginProviderRE4; }
-            else if (ResidentEvil5.IsChecked == true) { return Plugins.SRTPluginProviderRE5; }
-            else if (ResidentEvil6.IsChecked == true) { return Plugins.SRTPluginProviderRE6; }
-            else if (ResidentEvil7.IsChecked == true) { return Plugins.SRTPluginProviderRE7; }
-            else if (ResidentEvil8.IsChecked == true) { return Plugins.SRTPluginProviderRE8; }
-            return Plugins.SRTPluginProviderRE1C;
-        }
-
-        private void UpdatePlugins()
-        {
-            var i = 0;
-            foreach (PluginInfo info in config.PluginConfig)
-            {
-                if (info.currentVersion == "0.0.0.0")
-                {
-                    PluginSelection[i].Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    PluginSelection[i].Visibility = Visibility.Visible;
-                }
-                i++;
-            }
             GetParams();
         }
 
@@ -175,7 +119,7 @@ namespace SRTPluginManager.MVVM.View
             else
             {
                 paramList.Remove("separated");
-                paramListInventory.Add("separated");
+                paramListInventory.Remove("separated");
             }
 
             // DISPLAY PLAYER 2
@@ -186,11 +130,28 @@ namespace SRTPluginManager.MVVM.View
                     paramList.Add("isplayer2");
                     paramListInventory.Add("isplayer2");
                 }
+                if (!(bool)SeparatePlayerData.IsChecked)
+                {
+                    var results = MessageBox.Show("Is Sheva Param can only be used if players are separated. Would you like to separate them now?", "Error Players Not Separated", MessageBoxButton.YesNo);
+                    if (results == MessageBoxResult.Yes)
+                    {
+                        SeparatePlayerData.IsChecked = true;
+                    }
+                    else
+                    {
+                        Player2Check.IsChecked = false;
+                        if (paramList.Contains("isplayer2"))
+                        {
+                            paramList.Remove("isplayer2");
+                            paramListInventory.Remove("isplayer2");
+                        }
+                    }
+                }
             }
             else
             {
                 paramList.Remove("isplayer2");
-                paramListInventory.Add("isplayer2");
+                paramListInventory.Remove("isplayer2");
             }
 
             // SHOW BOSS ONLY
@@ -232,6 +193,7 @@ namespace SRTPluginManager.MVVM.View
                 paramList.Remove("debug");
             }
 
+
             // SET PARAMS STATS HUD
             for (var i = 0; i < paramList.Count; i++)
             {
@@ -242,6 +204,11 @@ namespace SRTPluginManager.MVVM.View
             for (var i = 0; i < paramListInventory.Count; i++)
             {
                 inventoryLink += string.Format("&{0}=1", paramListInventory[i].ToString());
+            }
+
+            if (TestBlock.Text != "None")
+            {
+                defaultLink += string.Format("&name={0}", RE6NameBox.SelectedIndex);
             }
 
             WebURL.Text = defaultLink;
@@ -270,6 +237,17 @@ namespace SRTPluginManager.MVVM.View
         public void CopyToClipboard(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(WebURL.Text);
+        }
+
+        private void RE6NameBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TestBlock.Text = RE6NameBox.SelectedItem.ToString();
+            GetParams();
+        }
+
+        private void TestBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            RE6NameBox.IsDropDownOpen = true;
         }
     }
 }
