@@ -265,52 +265,6 @@
                     </StackPanel>
                 </Border>
 
-                <!--  DotNet Core Container  -->
-                <Border
-                    x:Name="DotNetCore"
-                    Grid.Column="3"
-                    Margin="15,13,15,13"
-                    CornerRadius="10">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Offset="0.0" Color="#151527" />
-                            <GradientStop Offset="1" Color="#1D1C2E" />
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <StackPanel>
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="24"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text=".Net Core 3.1" />
-                        <Button
-                            x:Name="Download32"
-                            Grid.ColumnSpan="2"
-                            Height="80"
-                            Margin="10,10,10,10"
-                            Click="Download32_Click"
-                            Content="Download 32bit"
-                            FontFamily="/Fonts/#Teko"
-                            FontSize="30"
-                            Foreground="White"
-                            Style="{StaticResource ButtonTheme}"
-                            Visibility="Visible" />
-                        <Button
-                            x:Name="Download64"
-                            Grid.ColumnSpan="2"
-                            Height="80"
-                            Margin="10,10,10,10"
-                            Click="Download64_Click"
-                            Content="Download 64bit"
-                            FontFamily="/Fonts/#Teko"
-                            FontSize="30"
-                            Foreground="White"
-                            Style="{StaticResource ButtonTheme}"
-                            Visibility="Visible" />
-                    </StackPanel>
-                </Border>
-
                 <!--  Plugin Info Container  -->
                 <Border
                     Grid.Column="1"

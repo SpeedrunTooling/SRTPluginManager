@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Linq;
 using System.Windows.Media;
+using static SRTPluginBase.Extensions;
 
 namespace SRTPluginManager.MVVM.View
 {
@@ -20,8 +21,6 @@ namespace SRTPluginManager.MVVM.View
     /// </summary>
     public partial class PluginView : UserControl
     {
-        private VersionType HasDotNetCore = VersionType.None;
-        private VersionType HasDotNetCore32 = VersionType.None;
         private Plugins CurrentPlugin = Plugins.SRTPluginProviderRE0;
         public PluginConfiguration config;
         public RadioButton[] PluginSelection;
@@ -71,7 +70,6 @@ namespace SRTPluginManager.MVVM.View
         {
             UpdateHost();
             UpdatePlugins();
-            UpdateDotNet();
             UpdateSRTState();
             GetPlatform();
         }
@@ -102,44 +100,6 @@ namespace SRTPluginManager.MVVM.View
                     PluginSelection[i].Visibility = Visibility.Visible;
                 }
                 i++;
-            }
-        }
-
-        private void UpdateDotNet()
-        {
-            if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.Optional)
-            {
-                DotNetCore.Visibility = Visibility.Collapsed;
-                return;
-            }
-            else if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.Required)
-            {
-                DotNetCore.Visibility = Visibility.Visible;
-                Download64.Visibility = Visibility.Collapsed;
-                Download32.Visibility = Visibility.Visible;
-                Download32.Content = "Optional 32Bit";
-                return;
-            }
-            else if (HasDotNetCore == VersionType.Required && HasDotNetCore32 == VersionType.None)
-            {
-                DotNetCore.Visibility = Visibility.Visible;
-                Download64.Visibility = Visibility.Collapsed;
-                Download32.Visibility = Visibility.Visible;
-                return;
-            }
-            else if (HasDotNetCore == VersionType.None && HasDotNetCore32 == VersionType.None)
-            {
-                DotNetCore.Visibility = Visibility.Visible;
-                Download64.Visibility = Visibility.Visible;
-                Download32.Visibility = Visibility.Collapsed;
-                return;
-            }
-            else
-            {
-                DotNetCore.Visibility = Visibility.Visible;
-                Download64.Visibility = Visibility.Visible;
-                Download32.Visibility = Visibility.Visible;
-                return;
             }
         }
 
@@ -530,32 +490,12 @@ namespace SRTPluginManager.MVVM.View
 
         private void CheckDotNet()
         {
-            HasDotNetCore = CheckDotNetCore(16);
-            HasDotNetCore32 = CheckDotNetCore(15, 16);
             Update();
         }
 
         private void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (HasDotNetCore == VersionType.None || HasDotNetCore32 == VersionType.None)
-            {
-                var result = MessageBox.Show(".Net Core 3.1 Required! Please download both 32bit and 64bit", "Warning");
-                if (result == MessageBoxResult.OK)
-                {
-                    return;
-                }
-            }
             DownloadFile("SRTHost.zip", "https://neonblu.com/SRT/Host/SRTHost_2440-Beta-Signed-Release.7z", GetUpdate, ApplicationPath);
-        }
-
-        private void Download64_Click(object sender, RoutedEventArgs e)
-        {
-            DownloadFile("dotNet64.exe", dotNetCore64URL, Download64);
-        }
-
-        private void Download32_Click(object sender, RoutedEventArgs e)
-        {
-            DownloadFile("dotNet32.exe", dotNetCore32URL, Download32);
         }
     }
 }

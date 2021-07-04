@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static SRTPluginManager.Core.Utilities;
+using static SRTPluginBase.Extensions;
 
 namespace SRTPluginManager.MVVM.View
 {
@@ -225,7 +226,7 @@ namespace SRTPluginManager.MVVM.View
             {
                 var wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
                 wsc.Username = uuid;
-                SaveConfiguration(wsc, WebSocketConfig);
+                wsc.SaveConfiguration(WebSocketConfig);
             }
             else
             {

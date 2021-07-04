@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Xml.Serialization;
+using static SRTPluginBase.Extensions;
 
 namespace SRTPluginManager.Core
 {
@@ -38,41 +39,41 @@ namespace SRTPluginManager.Core
         public static AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 
         #region Config
-        private static string GetConfigFile(Assembly a) => Path.Combine(new FileInfo(a.Location).DirectoryName, string.Format("{0}.cfg", Path.GetFileNameWithoutExtension(new FileInfo(a.Location).Name)));
-
-        private static JsonSerializerOptions jso = new JsonSerializerOptions() { AllowTrailingCommas = true, ReadCommentHandling = JsonCommentHandling.Skip, WriteIndented = true };
-        public static T LoadConfiguration<T>() where T : class, new() => LoadConfiguration<T>(GetConfigFile(Assembly.GetCallingAssembly()));
-        public static T LoadConfiguration<T>(string configFile) where T : class, new()
-        {
-            try
-            {
-                FileInfo configFileInfo = new FileInfo(configFile);
-                if (configFileInfo.Exists)
-                    using (FileStream fs = new FileStream(configFileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
-                        return JsonSerializer.DeserializeAsync<T>(fs, jso).Result;
-                else
-                    return new T(); // File did not exist, just return a new instance.
-            }
-            catch
-            {
-                return new T(); // An exception occurred when reading the file, return a new instance.
-            }
-        }
-        public static void SaveConfiguration<T>(T configuration) where T : class, new() => SaveConfiguration<T>(configuration, GetConfigFile(Assembly.GetCallingAssembly()));
-        public static void SaveConfiguration<T>(T configuration, string configFile) where T : class, new()
-        {
-            if (configuration != null) // Only save if configuration is not null.
-            {
-                try
-                {
-                    using (FileStream fs = new FileStream(configFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
-                        JsonSerializer.SerializeAsync<T>(fs, configuration, jso).Wait();
-                }
-                catch
-                {
-                }
-            }
-        }
+        //private static string GetConfigFile(Assembly a) => Path.Combine(new FileInfo(a.Location).DirectoryName, string.Format("{0}.cfg", Path.GetFileNameWithoutExtension(new FileInfo(a.Location).Name)));
+        //
+        //private static JsonSerializerOptions jso = new JsonSerializerOptions() { AllowTrailingCommas = true, ReadCommentHandling = JsonCommentHandling.Skip, WriteIndented = true };
+        //public static T LoadConfiguration<T>() where T : class, new() => LoadConfiguration<T>(GetConfigFile(Assembly.GetCallingAssembly()));
+        //public static T LoadConfiguration<T>(string configFile) where T : class, new()
+        //{
+        //    try
+        //    {
+        //        FileInfo configFileInfo = new FileInfo(configFile);
+        //        if (configFileInfo.Exists)
+        //            using (FileStream fs = new FileStream(configFileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+        //                return JsonSerializer.DeserializeAsync<T>(fs, jso).Result;
+        //        else
+        //            return new T(); // File did not exist, just return a new instance.
+        //    }
+        //    catch
+        //    {
+        //        return new T(); // An exception occurred when reading the file, return a new instance.
+        //    }
+        //}
+        //public static void SaveConfiguration<T>(T configuration) where T : class, new() => SaveConfiguration<T>(configuration, GetConfigFile(Assembly.GetCallingAssembly()));
+        //public static void SaveConfiguration<T>(T configuration, string configFile) where T : class, new()
+        //{
+        //    if (configuration != null) // Only save if configuration is not null.
+        //    {
+        //        try
+        //        {
+        //            using (FileStream fs = new FileStream(configFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+        //                JsonSerializer.SerializeAsync<T>(fs, configuration, jso).Wait();
+        //        }
+        //        catch
+        //        {
+        //        }
+        //    }
+        //}
 
         #endregion
 
@@ -119,7 +120,7 @@ namespace SRTPluginManager.Core
 
         public static void UpdateConfig(bool isManual = false)
         {
-            if (File.Exists(GetConfigFile(Assembly.GetCallingAssembly())))
+            if (File.Exists(Assembly.GetCallingAssembly().GetConfigFile()))
             {
                 Config = LoadConfiguration<PluginConfiguration>();
             }
@@ -144,7 +145,7 @@ namespace SRTPluginManager.Core
                     var version = GetVersionInfo(Config.ExtensionsConfig[i].tagURL, true);
                     Config.ExtensionsConfig[i].currentVersion = version.ToString();
                 }
-                SaveConfiguration(Config);
+                Config.SaveConfiguration();
             }
         }
 
@@ -195,7 +196,7 @@ namespace SRTPluginManager.Core
                     var version = GetVersionInfo(Config.PluginConfig[i].tagURL, true);
                     Config.PluginConfig[i].currentVersion = version.ToString();
                 }
-                SaveConfiguration(Config);
+                Config.SaveConfiguration();
             }
         }
 
@@ -207,7 +208,7 @@ namespace SRTPluginManager.Core
             if (IsUpdatedTimestamp(setting))
             {
                 Config.SRTConfig.currentVersion = GetVersionInfo(srtHostURL).ToString();
-                SaveConfiguration(Config);
+                Config.SaveConfiguration();
             }
             return Config.SRTConfig.currentVersion;
         }
@@ -380,7 +381,7 @@ namespace SRTPluginManager.Core
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.UserAgent = "SpeedrunToolHost";
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Dictionary<string, object> test = JsonSerializer.DeserializeAsync<Dictionary<string, object>>(Stream.Synchronized(response.GetResponseStream()), jso).Result;
+            Dictionary<string, object> test = JsonSerializer.DeserializeAsync<Dictionary<string, object>>(Stream.Synchronized(response.GetResponseStream()), JSO).Result;
             return test["tag_name"];
         }
 
@@ -394,7 +395,7 @@ namespace SRTPluginManager.Core
             try { response = (HttpWebResponse)request.GetResponse(); }
             catch { return "0.0.0.0"; }
 
-            Dictionary<string, object> version = JsonSerializer.DeserializeAsync<Dictionary<string, object>>(Stream.Synchronized(response.GetResponseStream()), jso).Result;
+            Dictionary<string, object> version = JsonSerializer.DeserializeAsync<Dictionary<string, object>>(Stream.Synchronized(response.GetResponseStream()), JSO).Result;
             return version["tag_name"];
         }
 
