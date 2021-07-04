@@ -22,7 +22,7 @@ namespace SRTPluginManager.MVVM.View
     {
         private VersionType HasDotNetCore = VersionType.None;
         private VersionType HasDotNetCore32 = VersionType.None;
-        private Plugins CurrentPlugin = Plugins.SRTPluginProviderRE1C;
+        private Plugins CurrentPlugin = Plugins.SRTPluginProviderRE0;
         public PluginConfiguration config;
         public RadioButton[] PluginSelection;
 
@@ -38,6 +38,7 @@ namespace SRTPluginManager.MVVM.View
             InitializeComponent();
 
             PluginSelection = new RadioButton[] {
+                ResidentEvil0,
                 ResidentEvil1,
                 ResidentEvil1HD,
                 ResidentEvil2,
@@ -219,6 +220,14 @@ namespace SRTPluginManager.MVVM.View
 
         private Plugins GetCurrentSelectedPlugin()
         {
+            if (ResidentEvil0.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username1.Text = "VideoGameRoulette";
+                UserPanel2.Visibility = Visibility.Collapsed;
+                UserPanel3.Visibility = Visibility.Collapsed;
+                return Plugins.SRTPluginProviderRE0;
+            }
             if (ResidentEvil1HD.IsChecked == true)
             {
                 User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
@@ -469,6 +478,7 @@ namespace SRTPluginManager.MVVM.View
         {
             switch (CurrentPlugin)
             {
+                case Plugins.SRTPluginProviderRE0:
                 case Plugins.SRTPluginProviderRE1:
                 case Plugins.SRTPluginProviderRE1C:
                 case Plugins.SRTPluginProviderRE2C:

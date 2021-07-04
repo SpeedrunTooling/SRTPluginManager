@@ -8,7 +8,7 @@
 
         public PluginConfiguration()
         {
-            PluginConfig = new PluginInfo[11];
+            PluginConfig = new PluginInfo[12];
             for (var i = 0; i < PluginConfig.Length; i++)
             {
                 PluginConfig[i] = new PluginInfo();

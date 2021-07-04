@@ -448,13 +448,23 @@
                         <ScrollViewer Grid.Row="1">
                             <StackPanel>
                                 <RadioButton
+                                    x:Name="ResidentEvil0"
+                                    Height="50"
+                                    Click="ListSelection_Click"
+                                    Content="Resident Evil 0 Remake"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    IsChecked="True"
+                                    Style="{StaticResource PluginButtonTheme}" />
+
+                                <RadioButton
                                     x:Name="ResidentEvil1"
                                     Height="50"
                                     Click="ListSelection_Click"
                                     Content="Resident Evil 1 Classic"
                                     FontSize="16"
                                     Foreground="White"
-                                    IsChecked="True"
+                                    IsChecked="False"
                                     Style="{StaticResource PluginButtonTheme}" />
                                 <!--  Command="{Binding RE1Cmd}"  -->
 

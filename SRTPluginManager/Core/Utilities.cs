@@ -84,6 +84,7 @@ namespace SRTPluginManager.Core
 
         public enum Plugins
         {
+            SRTPluginProviderRE0,
             SRTPluginProviderRE1C,
             SRTPluginProviderRE1,
             SRTPluginProviderRE2C,
@@ -187,7 +188,7 @@ namespace SRTPluginManager.Core
             var setting = isManual ? "LastUpdate2" : "LastUpdate";
             if (IsUpdatedTimestamp(setting))
             {
-                string[] names = { "SRTPluginProviderRE1C", "SRTPluginProviderRE1", "SRTPluginProviderRE2C", "SRTPluginProviderRE2", "SRTPluginProviderRE3C", "SRTPluginProviderRE3", "SRTPluginProviderRE4", "SRTPluginProviderRE5", "SRTPluginProviderRE6", "SRTPluginProviderRE7", "SRTPluginProviderRE8" };
+                string[] names = { "SRTPluginProviderRE0", "SRTPluginProviderRE1C", "SRTPluginProviderRE1", "SRTPluginProviderRE2C", "SRTPluginProviderRE2", "SRTPluginProviderRE3C", "SRTPluginProviderRE3", "SRTPluginProviderRE4", "SRTPluginProviderRE5", "SRTPluginProviderRE6", "SRTPluginProviderRE7", "SRTPluginProviderRE8" };
                 for (var i = 0; i < names.Length; i++)
                 {
                     Config.PluginConfig[i].pluginName = names[i];
