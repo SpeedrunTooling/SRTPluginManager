@@ -3,7 +3,7 @@
     public class PluginConfiguration
     {
         public PluginInfo[] PluginConfig { get; set; }
-        public PluginInfo SRTConfig { get; set; }
+        public SRTInfo SRTConfig { get; set; }
         public PluginInfo[] ExtensionsConfig { get; set; }
 
         public PluginConfiguration()
@@ -14,7 +14,7 @@
                 PluginConfig[i] = new PluginInfo();
             }
 
-            SRTConfig = new PluginInfo();
+            SRTConfig = new SRTInfo();
             SRTConfig.pluginName = "SRTHost";
             SRTConfig.currentVersion = "0.0.0.0";
 

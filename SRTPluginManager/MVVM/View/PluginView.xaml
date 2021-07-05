@@ -133,7 +133,7 @@
                                 Grid.ColumnSpan="2"
                                 Height="80"
                                 Margin="10,10,10,10"
-                                Click="GetUpdate_Click"
+                                Click="SRTGetUpdate_Click"
                                 Content="Install"
                                 FontFamily="/Fonts/#Teko"
                                 FontSize="30"

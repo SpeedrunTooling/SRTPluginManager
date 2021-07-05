@@ -495,7 +495,7 @@ namespace SRTPluginManager.MVVM.View
 
         private void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            DownloadFile("SRTHost.zip", "https://github.com/Squirrelies/SRTHost/releases/download/v3.0.0.0-DevPreRel/SRTHost_3000-DevPreRelease-Signed-Release.zip", GetUpdate, ApplicationPath);
+            DownloadFile("SRTHost.zip", config.SRTConfig.downloadURL, GetUpdate, ApplicationPath);
         }
     }
 }

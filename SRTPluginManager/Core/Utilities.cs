@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Xml.Serialization;
 using static SRTPluginBase.Extensions;
+using System.Net.Http;
 
 namespace SRTPluginManager.Core
 {
@@ -23,7 +24,7 @@ namespace SRTPluginManager.Core
         public static readonly string TempFolderPath = Path.Combine(ApplicationPath, "tmp");
         public static readonly string PluginFolderPath = Path.Combine(ApplicationPath, "plugins");
         public static readonly string WebSocketConfig = Path.Combine(Path.Combine(PluginFolderPath, "SRTPluginWebSocket"), "SRTPluginWebSocket.cfg");
-        public static readonly string srtHostURL = "https://api.github.com/repos/ResidentEvilSpeedrunning/SRTHost/releases/latest";
+        public static readonly string srtHostURL = "https://api.github.com/repos/Squirrelies/SRTHost/releases/latest";
         public static readonly string dotNetCorePath = @"C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App";
         public static readonly string dotNetCore32Path = @"C:\Program Files (x86)\dotnet\shared\Microsoft.WindowsDesktop.App";
         public static readonly string dotNetCore32URL = "https://download.visualstudio.microsoft.com/download/pr/f703f604-a973-4ab9-abe4-b4b2ec786e66/af8cea0988953ef074157ea99d30879a/windowsdesktop-runtime-3.1.16-win-x86.exe";
@@ -167,20 +168,22 @@ namespace SRTPluginManager.Core
         public static async Task DownloadFile(string fileName, string url, Button button, string destination)
         {
             var file = Path.Combine(TempFolderPath, fileName);
-            using (var wc = new WebClient())
+            using (var hc = new HttpClient())
             {
-                wc.DownloadFileCompleted += async (s, ev) =>
-                {
-                    await Task.Run(() =>
-                    {
-                        UnzipPackage(file, destination);
-                        autoResetEvent.Set();
-                    });
-                };
-                await Task.Run(() =>
-                {
-                    wc.DownloadFileAsync(new Uri(url), file);
-                });
+                using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+                    await fs.CopyToAsync(await hc.GetStreamAsync(url));
+
+                UnzipPackage(file, destination);
+                autoResetEvent.Set();
+                //wc.DownloadFileCompleted += async (s, ev) =>
+                //{
+                //    await Task.Run(() =>
+                //    {
+                //        UnzipPackage(file, destination);
+                //        autoResetEvent.Set();
+                //    });
+                //};
+                //await wc.DownloadFileAsync(new Uri(url), file);
             }
         }
 
