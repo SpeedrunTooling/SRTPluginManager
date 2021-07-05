@@ -372,7 +372,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void GetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFile(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath);
+            await DownloadFileAsync(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();
@@ -493,9 +493,9 @@ namespace SRTPluginManager.MVVM.View
             Update();
         }
 
-        private void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
+        private async void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            DownloadFile("SRTHost.zip", config.SRTConfig.downloadURL, GetUpdate, ApplicationPath);
+            await DownloadFileAsync("SRTHost.zip", config.SRTConfig.downloadURL, GetUpdate, ApplicationPath);
         }
     }
 }

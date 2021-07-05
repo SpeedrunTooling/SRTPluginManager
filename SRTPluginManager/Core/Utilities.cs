@@ -165,26 +165,29 @@ namespace SRTPluginManager.Core
             }
         }
 
-        public static async Task DownloadFile(string fileName, string url, Button button, string destination)
+        public static async Task DownloadFileAsync(string fileName, string url, Button button, string destination)
         {
             var file = Path.Combine(TempFolderPath, fileName);
-            using (var hc = new HttpClient())
-            {
-                using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
-                    await fs.CopyToAsync(await hc.GetStreamAsync(url));
 
-                UnzipPackage(file, destination);
-                autoResetEvent.Set();
-                //wc.DownloadFileCompleted += async (s, ev) =>
-                //{
-                //    await Task.Run(() =>
-                //    {
-                //        UnzipPackage(file, destination);
-                //        autoResetEvent.Set();
-                //    });
-                //};
-                //await wc.DownloadFileAsync(new Uri(url), file);
-            }
+            // Download file.
+            using (var hc = new HttpClient())
+            using (var s = await hc.GetStreamAsync(url))
+            using (var fs = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+                await s.CopyToAsync(fs);
+
+            // Unzip file.
+            UnzipPackage(file, destination);
+            autoResetEvent.Set();
+
+            //wc.DownloadFileCompleted += async (s, ev) =>
+            //{
+            //    await Task.Run(() =>
+            //    {
+            //        UnzipPackage(file, destination);
+            //        autoResetEvent.Set();
+            //    });
+            //};
+            //await wc.DownloadFileAsync(new Uri(url), file);
         }
 
         public static void GetPluginVersions(bool isManual)
