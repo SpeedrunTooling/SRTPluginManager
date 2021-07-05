@@ -530,6 +530,16 @@
                                     Foreground="White"
                                     IsChecked="False"
                                     Style="{StaticResource PluginButtonTheme}" />
+
+                                <RadioButton
+                                    x:Name="ResidentEvilCVX"
+                                    Height="50"
+                                    Click="ListSelection_Click"
+                                    Content="Resident Evil: Code Veronica X"
+                                    FontSize="16"
+                                    Foreground="White"
+                                    IsChecked="False"
+                                    Style="{StaticResource PluginButtonTheme}" />
                                 <!--  Command="{Binding RE2RCmd}"  -->
                             </StackPanel>
                         </ScrollViewer>

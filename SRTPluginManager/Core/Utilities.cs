@@ -34,6 +34,7 @@ namespace SRTPluginManager.Core
         public static readonly string willowSource = "pack://application:,,,/SRTPluginManager;component/Images/Willow.png";
         public static readonly string mysterionSource = "pack://application:,,,/SRTPluginManager;component/Images/Mysterion06.png";
         public static readonly string toastSource = "pack://application:,,,/SRTPluginManager;component/Images/CursedToast.png";
+        public static readonly string kapdapSource = "pack://application:,,,/SRTPluginManager;component/Images/Kapdap.png";
 
         public static PluginConfiguration Config { get; set; }
 
@@ -97,7 +98,8 @@ namespace SRTPluginManager.Core
             SRTPluginProviderRE5,
             SRTPluginProviderRE6,
             SRTPluginProviderRE7,
-            SRTPluginProviderRE8
+            SRTPluginProviderRE8,
+            SRTPluginProviderRECVX,
         }
 
         public enum VersionType
@@ -165,7 +167,7 @@ namespace SRTPluginManager.Core
             }
         }
 
-        public static async Task DownloadFileAsync(string fileName, string url, Button button, string destination)
+        public static async Task DownloadFileAsync(string fileName, string url, Button button, string destination, bool isSRT = false)
         {
             var file = Path.Combine(TempFolderPath, fileName);
 
@@ -176,18 +178,8 @@ namespace SRTPluginManager.Core
                 await s.CopyToAsync(fs);
 
             // Unzip file.
-            UnzipPackage(file, destination);
+            UnzipPackage(file, destination, isSRT);
             autoResetEvent.Set();
-
-            //wc.DownloadFileCompleted += async (s, ev) =>
-            //{
-            //    await Task.Run(() =>
-            //    {
-            //        UnzipPackage(file, destination);
-            //        autoResetEvent.Set();
-            //    });
-            //};
-            //await wc.DownloadFileAsync(new Uri(url), file);
         }
 
         public static void GetPluginVersions(bool isManual)
@@ -195,7 +187,7 @@ namespace SRTPluginManager.Core
             var setting = isManual ? "LastUpdate2" : "LastUpdate";
             if (IsUpdatedTimestamp(setting))
             {
-                string[] names = { "SRTPluginProviderRE0", "SRTPluginProviderRE1C", "SRTPluginProviderRE1", "SRTPluginProviderRE2C", "SRTPluginProviderRE2", "SRTPluginProviderRE3C", "SRTPluginProviderRE3", "SRTPluginProviderRE4", "SRTPluginProviderRE5", "SRTPluginProviderRE6", "SRTPluginProviderRE7", "SRTPluginProviderRE8" };
+                string[] names = { "SRTPluginProviderRE0", "SRTPluginProviderRE1C", "SRTPluginProviderRE1", "SRTPluginProviderRE2C", "SRTPluginProviderRE2", "SRTPluginProviderRE3C", "SRTPluginProviderRE3", "SRTPluginProviderRE4", "SRTPluginProviderRE5", "SRTPluginProviderRE6", "SRTPluginProviderRE7", "SRTPluginProviderRE8", "SRTPluginProviderRECVX" };
                 for (var i = 0; i < names.Length; i++)
                 {
                     Config.PluginConfig[i].pluginName = names[i];
@@ -205,8 +197,6 @@ namespace SRTPluginManager.Core
                 Config.SaveConfiguration();
             }
         }
-
-        
 
         public static string GetHostVersion(bool isManual)
         {
@@ -219,14 +209,33 @@ namespace SRTPluginManager.Core
             return Config.SRTConfig.currentVersion;
         }
 
-        public static void UnzipPackage(string file, string destination)
+        public static void UnzipPackage(string file, string destination, bool isSRT)
         {
             if (!Directory.Exists(file))
             {
                 ZipFile.ExtractToDirectory(file, TempFolderPath);
             }
-            var dirs = Directory.GetDirectories(TempFolderPath);
-            UpdatePackage(dirs[0], destination);
+
+            if (isSRT)
+            {
+                File.Delete(file);
+                UpdateSRTPackage(TempFolderPath, destination);
+            }
+            else
+            {
+                var dirs = Directory.GetDirectories(TempFolderPath);
+                UpdatePackage(dirs[0], destination);
+            }
+            
+        }
+
+        public static void UpdateSRTPackage(string source, string destination)
+        {
+            var filesSource = Directory.GetFiles(source);
+            CopyTmpFiles(filesSource, destination);
+            var directoriesSource = Directory.GetDirectories(source);
+            if (directoriesSource.Length > 0) CopyTmpFolders(directoriesSource, destination, source);
+            DeleteTmpFiles();
         }
 
         public static void UpdatePackage(string source, string destination)

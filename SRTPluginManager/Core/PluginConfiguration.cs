@@ -5,10 +5,9 @@
         public PluginInfo[] PluginConfig { get; set; }
         public SRTInfo SRTConfig { get; set; }
         public PluginInfo[] ExtensionsConfig { get; set; }
-
         public PluginConfiguration()
         {
-            PluginConfig = new PluginInfo[12];
+            PluginConfig = new PluginInfo[13];
             for (var i = 0; i < PluginConfig.Length; i++)
             {
                 PluginConfig[i] = new PluginInfo();

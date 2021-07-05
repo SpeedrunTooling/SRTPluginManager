@@ -47,6 +47,7 @@
     <None Remove="Images\Host.png" />
     <None Remove="Images\Hover.png" />
     <None Remove="Images\HoverChecked.png" />
+    <None Remove="Images\Kapdap.png" />
     <None Remove="Images\Laptop.png" />
     <None Remove="Images\Maximize.png" />
     <None Remove="Images\Minimize.png" />
@@ -99,6 +100,7 @@
     <Resource Include="Images\Host.png" />
     <Resource Include="Images\Hover.png" />
     <Resource Include="Images\HoverChecked.png" />
+    <Resource Include="Images\Kapdap.png" />
     <Resource Include="Images\Laptop.png" />
     <Resource Include="Images\Maximize.png" />
     <Resource Include="Images\Minimize.png" />

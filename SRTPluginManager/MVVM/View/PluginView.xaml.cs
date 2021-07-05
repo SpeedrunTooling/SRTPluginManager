@@ -48,7 +48,8 @@ namespace SRTPluginManager.MVVM.View
                 ResidentEvil5,
                 ResidentEvil6,
                 ResidentEvil7,
-                ResidentEvil8
+                ResidentEvil8,
+                ResidentEvilCVX
             };
 
             config = LoadConfiguration<PluginConfiguration>();
@@ -59,11 +60,11 @@ namespace SRTPluginManager.MVVM.View
 
         private void InitSRTData()
         {
-            CheckDotNet();
             SRTCurrentRelease.Text = GetFileVersionInfo(ApplicationPath, "SRTHost64.exe");
             SRTLatestRelease.Text = GetHostVersion(false).ToString();
             SRTInstalled = SRTCurrentRelease.Text != "0.0.0.0";
             SRTUpdated = IsUpdated(SRTCurrentRelease.Text, SRTLatestRelease.Text);
+            Update();
         }
 
         private void Update()
@@ -292,6 +293,18 @@ namespace SRTPluginManager.MVVM.View
                 Username3.Text = "Cursed Toast";
                 return Plugins.SRTPluginProviderRE8;
             }
+            else if (ResidentEvilCVX.IsChecked == true)
+            {
+                User1.ImageSource = new ImageSourceConverter().ConvertFromString(kapdapSource) as ImageSource;
+                Username1.Text = "Kapdap";
+                UserPanel2.Visibility = Visibility.Visible;
+                User2.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
+                Username2.Text = "Squirrelies";
+                UserPanel3.Visibility = Visibility.Visible;
+                User3.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
+                Username3.Text = "VideoGameRoulette";
+                return Plugins.SRTPluginProviderRECVX;
+            }
             else
             {
                 User1.ImageSource = new ImageSourceConverter().ConvertFromString(mysterionSource) as ImageSource;
@@ -451,6 +464,7 @@ namespace SRTPluginManager.MVVM.View
                 case Plugins.SRTPluginProviderRE3:
                 case Plugins.SRTPluginProviderRE7:
                 case Plugins.SRTPluginProviderRE8:
+                case Plugins.SRTPluginProviderRECVX:
                 default:
                     return GetSRT(Platform.x64);
             }
@@ -488,14 +502,10 @@ namespace SRTPluginManager.MVVM.View
             }
         }
 
-        private void CheckDotNet()
-        {
-            Update();
-        }
-
         private async void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync("SRTHost.zip", config.SRTConfig.downloadURL, GetUpdate, ApplicationPath);
+            await DownloadFileAsync("SRTHost.zip", config.SRTConfig.downloadURL, GetUpdate, ApplicationPath, true);
+            InitSRTData();
         }
     }
 }
