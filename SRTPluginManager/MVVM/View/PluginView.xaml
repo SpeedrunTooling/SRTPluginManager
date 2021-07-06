@@ -15,9 +15,11 @@
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="FontFamily" Value="/Fonts/#Teko" />
+            <Setter Property="Foreground" Value="White" />
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="/Fonts/#Teko" />
+            <Setter Property="Foreground" Value="White" />
         </Style>
     </UserControl.Resources>
     <!--  Container  -->
@@ -30,7 +32,6 @@
                 HorizontalAlignment="Left"
                 FontSize="28"
                 FontWeight="Bold"
-                Foreground="White"
                 Text="SRT Host" />
         </StackPanel>
 
@@ -60,26 +61,19 @@
                     <!--  Inner Container  -->
                     <StackPanel>
                         <!--  Title  -->
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="24"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Host Version Info" />
+                        <TextBlock Style="{StaticResource TitleTextTheme}" Text="Host Version Info" />
                         <TextBlock
                             x:Name="SRTName"
-                            Margin="20,0,10,0"
-                            FontSize="18"
-                            Foreground="White"
-                            Text="SRTHost64.exe"
-                            TextWrapping="Wrap" />
+                            Style="{StaticResource DescriptionTextTheme}"
+                            Text="SRTHost64.exe" />
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="100" />
                                 <RowDefinition Height="100" />
                                 <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
@@ -90,17 +84,10 @@
                                 Background="#272537"
                                 CornerRadius="10">
                                 <StackPanel>
-                                    <TextBlock
-                                        Margin="10,10,10,0"
-                                        FontSize="20"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Text="Current Version" />
+                                    <TextBlock Style="{StaticResource VersionTitleTextTheme}" Text="Current Version" />
                                     <TextBlock
                                         x:Name="SRTCurrentRelease"
-                                        Margin="20,10,10,0"
-                                        FontSize="18"
-                                        Foreground="White"
+                                        Style="{StaticResource VersionTextTheme}"
                                         Text="0.0.0.0"
                                         TextWrapping="Wrap" />
                                 </StackPanel>
@@ -112,56 +99,35 @@
                                 Background="#272537"
                                 CornerRadius="10">
                                 <StackPanel>
-                                    <TextBlock
-                                        Margin="10,10,10,0"
-                                        FontSize="20"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Text="Latest Version" />
+                                    <TextBlock Style="{StaticResource VersionTitleTextTheme}" Text="Latest Version" />
                                     <TextBlock
                                         x:Name="SRTLatestRelease"
-                                        Margin="20,10,10,0"
-                                        FontSize="18"
-                                        Foreground="White"
-                                        Text="0.0.0.0"
-                                        TextWrapping="Wrap" />
+                                        Style="{StaticResource VersionTextTheme}"
+                                        Text="0.0.0.0" />
                                 </StackPanel>
                             </Border>
                             <Button
                                 x:Name="SRTGetUpdate"
                                 Grid.Row="1"
                                 Grid.ColumnSpan="2"
-                                Height="80"
-                                Margin="10,10,10,10"
                                 Click="SRTGetUpdate_Click"
                                 Content="Install"
-                                FontFamily="/Fonts/#Teko"
-                                FontSize="30"
-                                Foreground="White"
                                 Style="{StaticResource ButtonTheme}"
                                 Visibility="Visible" />
                             <Button
                                 x:Name="StartSRTHost"
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Margin="5"
                                 Click="StartSRTHost_Click"
                                 Content="Start SRT"
-                                FontFamily="/Fonts/#Teko"
-                                FontSize="30"
-                                Foreground="White"
                                 Style="{StaticResource ButtonTheme}"
                                 Visibility="Collapsed" />
                             <Button
                                 x:Name="StopSRTHost"
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Margin="5"
                                 Click="CloseSRT"
                                 Content="Stop SRT"
-                                FontFamily="/Fonts/#Teko"
-                                FontSize="30"
-                                Foreground="White"
                                 Style="{StaticResource ButtonTheme}"
                                 Visibility="Collapsed" />
                         </Grid>
@@ -183,85 +149,9 @@
                     </Border.Background>
                     <StackPanel>
                         <!--  Title  -->
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="24"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Authors / Contributors" />
-                        <!--  Extension Name  -->
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-
-                            <StackPanel
-                                x:Name="UserPanel1"
-                                Margin="10,0,10,0"
-                                Orientation="Horizontal">
-                                <Ellipse Width="30" Height="30">
-                                    <Ellipse.Fill>
-                                        <ImageBrush x:Name="User1" ImageSource="/Images/Users.png" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                                <TextBlock
-                                    x:Name="Username1"
-                                    Margin="10"
-                                    FontSize="20"
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="Username" />
-                            </StackPanel>
-
-                            <StackPanel
-                                x:Name="UserPanel2"
-                                Grid.Row="1"
-                                Margin="10,0,10,0"
-                                Orientation="Horizontal">
-                                <Ellipse
-                                    Grid.Row="1"
-                                    Width="30"
-                                    Height="30">
-                                    <Ellipse.Fill>
-                                        <ImageBrush x:Name="User2" ImageSource="/Images/Users.png" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                                <TextBlock
-                                    x:Name="Username2"
-                                    Margin="10"
-                                    FontSize="20"
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="Username" />
-                            </StackPanel>
-
-                            <StackPanel
-                                x:Name="UserPanel3"
-                                Grid.Row="2"
-                                Margin="10,0,10,0"
-                                Orientation="Horizontal">
-                                <Ellipse
-                                    Grid.Row="1"
-                                    Width="30"
-                                    Height="30">
-                                    <Ellipse.Fill>
-                                        <ImageBrush x:Name="User3" ImageSource="/Images/Users.png" />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                                <TextBlock
-                                    x:Name="Username3"
-                                    Margin="10"
-                                    FontSize="20"
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="Username" />
-                            </StackPanel>
-                        </Grid>
+                        <TextBlock Style="{StaticResource TitleTextTheme}" Text="Authors / Contributors" />
+                        <!--  Contributor Names  -->
+                        <StackPanel x:Name="ContributorList" />
                     </StackPanel>
                 </Border>
 
@@ -277,23 +167,15 @@
                         </LinearGradientBrush>
                     </Border.Background>
                     <StackPanel>
-                        <TextBlock
-                            Margin="20,10,10,0"
-                            FontSize="24"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="Current Plugin" />
+                        <TextBlock Style="{StaticResource TitleTextTheme}" Text="Current Plugin" />
                         <TextBlock
                             x:Name="PluginName"
-                            Margin="20,0,10,0"
-                            FontSize="18"
-                            Foreground="White"
-                            Text="SRTPluginProviderRE1C.dll"
-                            TextWrapping="Wrap" />
+                            Style="{StaticResource DescriptionTextTheme}"
+                            Text="SRTPluginProviderRE1C.dll" />
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100" />
@@ -306,19 +188,11 @@
                                 Background="#272537"
                                 CornerRadius="10">
                                 <StackPanel>
-                                    <TextBlock
-                                        Margin="10,10,10,0"
-                                        FontSize="20"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Text="Current Version" />
+                                    <TextBlock Style="{StaticResource VersionTitleTextTheme}" Text="Current Version" />
                                     <TextBlock
                                         x:Name="CurrentRelease"
-                                        Margin="20,10,10,0"
-                                        FontSize="18"
-                                        Foreground="White"
-                                        Text="0.0.0.0"
-                                        TextWrapping="Wrap" />
+                                        Style="{StaticResource VersionTextTheme}"
+                                        Text="0.0.0.0" />
                                 </StackPanel>
                             </Border>
                             <Border
@@ -327,31 +201,19 @@
                                 Background="#272537"
                                 CornerRadius="10">
                                 <StackPanel>
-                                    <TextBlock
-                                        Margin="10,10,10,0"
-                                        FontSize="20"
-                                        FontWeight="Bold"
-                                        Foreground="White"
-                                        Text="Latest Plugin" />
+                                    <TextBlock Style="{StaticResource VersionTitleTextTheme}" Text="Latest Plugin" />
                                     <TextBlock
                                         x:Name="LatestRelease"
-                                        Margin="20,10,10,0"
-                                        FontSize="18"
-                                        Foreground="White"
-                                        Text="0.0.0.0"
-                                        TextWrapping="Wrap" />
+                                        Style="{StaticResource VersionTextTheme}"
+                                        Text="0.0.0.0" />
                                 </StackPanel>
                             </Border>
                             <Button
                                 x:Name="GetUpdate"
                                 Grid.Row="1"
                                 Grid.ColumnSpan="2"
-                                Margin="5"
                                 Click="GetUpdate_Click"
                                 Content="Install"
-                                FontFamily="/Fonts/#Teko"
-                                FontSize="30"
-                                Foreground="White"
                                 Style="{StaticResource ButtonTheme}" />
 
                             <TextBlock
@@ -361,7 +223,6 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 FontSize="20"
-                                Foreground="White"
                                 Text="Test"
                                 Visibility="Collapsed" />
                         </Grid>
@@ -391,157 +252,11 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel>
-                            <TextBlock
-                                Margin="20,10,10,0"
-                                FontSize="14"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="Available Plugins" />
+                            <TextBlock Style="{StaticResource TitleTextTheme}" Text="Supported Games" />
                         </StackPanel>
 
                         <ScrollViewer Grid.Row="1">
-                            <StackPanel>
-                                <RadioButton
-                                    x:Name="ResidentEvil0"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 0 Remake"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="True"
-                                    Style="{StaticResource PluginButtonTheme}" />
-
-                                <RadioButton
-                                    x:Name="ResidentEvil1"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 1 Classic"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE1Cmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil1HD"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 1 HD"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE1RCmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil2"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 2 Classic"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE2Cmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil2Remake"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 2 Remake"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE2RCmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil3"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 3 Classic"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE2Cmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil3Remake"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 3 Remake"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE2RCmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil4"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 4"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE2RCmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil5"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 5"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE2RCmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil6"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 6"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE2RCmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil7"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 7"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE2RCmd}"  -->
-
-                                <RadioButton
-                                    x:Name="ResidentEvil8"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil 8: Village"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-
-                                <RadioButton
-                                    x:Name="ResidentEvilCVX"
-                                    Height="50"
-                                    Click="ListSelection_Click"
-                                    Content="Resident Evil: Code Veronica X"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    IsChecked="False"
-                                    Style="{StaticResource PluginButtonTheme}" />
-                                <!--  Command="{Binding RE2RCmd}"  -->
-                            </StackPanel>
+                            <StackPanel x:Name="PluginList" />
                         </ScrollViewer>
                     </Grid>
                 </Border>
@@ -558,6 +273,9 @@
                         </LinearGradientBrush>
                     </Border.Background>
                     <StackPanel Margin="15,13,15,13">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource TitleTextTheme}" Text="Console Logs" />
+                        </StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
@@ -567,12 +285,7 @@
                                 <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
                             <!--  Title  -->
-                            <TextBlock
-                                Margin="20,10,10,0"
-                                FontSize="24"
-                                FontWeight="Bold"
-                                Foreground="White"
-                                Text="Console Logs" />
+
                             <Border
                                 Grid.Row="1"
                                 Background="#22202F"
@@ -586,7 +299,6 @@
                                         FontFamily="Consolas"
                                         FontSize="12"
                                         FontWeight="Bold"
-                                        Foreground="White"
                                         Text=""
                                         TextWrapping="Wrap" />
                                 </ScrollViewer>

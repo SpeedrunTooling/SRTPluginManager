@@ -23,48 +23,67 @@ namespace SRTPluginManager.MVVM.View
     /// </summary>
     public partial class ExtensionsView : UserControl
     {
-        private Extensions CurrentExtension = Extensions.SRTPluginUIJSON;
-        
-        private enum Extensions
-        {
-            SRTPluginUIJSON,
-            SRTPluginWebsocket
-        }
+        private int CurrentExtension = 0;
 
+        private RadioButton[] Extensions = new RadioButton[32];
+        private TextBlock[] Contributors = new TextBlock[8];
+ 
         public ExtensionsView()
         {
             InitializeComponent();
+
+            // INIT RADIO BUTTONS
+            for (var i = 0; i < Extensions.Length; i++)
+            {
+                Extensions[i] = new RadioButton();
+            }
+
+            // INIT TEXTBLOCKS
+            for (var j = 0; j < Contributors.Length; j++)
+            {
+                Contributors[j] = new TextBlock();
+            }
+
+            GetExtensions();
+            GetCurrentPluginData();
         }
 
-        private void StackPanel_Loaded(object sender, RoutedEventArgs e)
+        private void GetExtensions()
         {
-            GetCurrentPluginData();
+            var i = 0;
+            
+            foreach (PluginInfo pi in Config.ExtensionsConfig)
+            {
+                // ADD EXTENSION PLUGIN LIST ITEMS - PLUGINS
+                Extensions[i].Name = string.Format("ID_{0}", i);
+                Extensions[i].Content = pi.internalName;
+                Extensions[i].IsChecked = i == 0;
+                Extensions[i].Style = (Style)Application.Current.Resources["PluginButtonTheme"];
+                Extensions[i].Click += UpdateInfo_Click;
+                ExtensionList.Children.Add(Extensions[i]);
+                i++;
+            }
+        }
+
+        private void GetContributors()
+        {
+            ContributorList.Children.Clear();
+            var i = 0;
+            foreach (string name in Config.ExtensionsConfig[CurrentExtension].contributors)
+            {
+                Contributors[i].Name = string.Format("TID_{0}", i);
+                Contributors[i].Margin = new Thickness(30, 10, 0, 10);
+                Contributors[i].FontSize = 24;
+                Contributors[i].Text = name;
+                ContributorList.Children.Add(Contributors[i]);
+                i++;
+            }
         }
 
         private void GetCurrentPluginData()
         {
-            CurrentExtension = GetCurrentSelectedPlugin();
             SetData(Config.ExtensionsConfig[(int)CurrentExtension]);
-        }
-
-        private Extensions GetCurrentSelectedPlugin()
-        {
-            if (WebSocket.IsChecked == true) 
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username1.Text = "VideoGameRoulette";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
-                Username2.Text = "WillowTheWhisperSR";
-                return Extensions.SRTPluginWebsocket; 
-            }
-            else
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
-                Username1.Text = "Squirrelies";
-                UserPanel2.Visibility = Visibility.Collapsed;
-                return Extensions.SRTPluginUIJSON;
-            }
+            GetContributors();
         }
 
         private void SetData(PluginInfo pluginInfo)
@@ -109,7 +128,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync(CurrentExtension.ToString() + ".zip", Config.ExtensionsConfig[(int)CurrentExtension].downloadURL, InstallUpdate, PluginFolderPath);
+            await DownloadFileAsync(CurrentExtension.ToString() + ".zip", Config.ExtensionsConfig[CurrentExtension].downloadURL, InstallUpdate, PluginFolderPath);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();
@@ -119,24 +138,21 @@ namespace SRTPluginManager.MVVM.View
 
         private void GetExtensionData()
         {
-            CurrentExtension = GetCurrentSelectedExtension();
-            SetData(Config.ExtensionsConfig[(int)CurrentExtension]);
-        }
-
-        private Extensions GetCurrentSelectedExtension()
-        {
-            if (WebSocket.IsChecked == true) { return Extensions.SRTPluginWebsocket; }
-            return Extensions.SRTPluginUIJSON;
+            SetData(Config.ExtensionsConfig[CurrentExtension]);
         }
 
         private void Uninstall_Click(object sender, RoutedEventArgs e)
         {
-            UninstallExtension(PluginFolderPath, Config.ExtensionsConfig[(int)CurrentExtension].pluginName);
+            UninstallExtension(PluginFolderPath, Config.ExtensionsConfig[CurrentExtension].pluginName);
         }
 
         private void UpdateInfo_Click(object sender, RoutedEventArgs e)
         {
-            GetCurrentPluginData();
+            RadioButton obj = (RadioButton)e.Source;
+            var result = obj.Name.Split('_')[1];
+            CurrentExtension = Int32.Parse(result);
+            GetExtensionData();
+            GetContributors();
         }
     }
 }

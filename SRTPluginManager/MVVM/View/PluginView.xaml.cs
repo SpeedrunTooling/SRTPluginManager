@@ -21,8 +21,10 @@ namespace SRTPluginManager.MVVM.View
     /// </summary>
     public partial class PluginView : UserControl
     {
-        private Plugins CurrentPlugin = Plugins.SRTPluginProviderRE0;
-        public RadioButton[] PluginSelection;
+        private int CurrentPlugin = 0;
+
+        private RadioButton[] Plugins = new RadioButton[32];
+        private TextBlock[] Contributors = new TextBlock[8];
 
         private Process SRTProcess;
 
@@ -35,25 +37,56 @@ namespace SRTPluginManager.MVVM.View
         {
             InitializeComponent();
 
-            PluginSelection = new RadioButton[] {
-                ResidentEvil0,
-                ResidentEvil1,
-                ResidentEvil1HD,
-                ResidentEvil2,
-                ResidentEvil2Remake,
-                ResidentEvil3,
-                ResidentEvil3Remake,
-                ResidentEvil4,
-                ResidentEvil5,
-                ResidentEvil6,
-                ResidentEvil7,
-                ResidentEvil8,
-                ResidentEvilCVX
-            };
-
             UpdateConfig();
+
+            // INIT RADIO BUTTONS
+            for (var i = 0; i < Plugins.Length; i++)
+            {
+                Plugins[i] = new RadioButton();
+            }
+
+            // INIT TEXTBLOCKS
+            for (var j = 0; j < Contributors.Length; j++)
+            {
+                Contributors[j] = new TextBlock();
+            }
+
+            GetPlugins();
+            
             InitSRTData();
             GetCurrentPluginData();
+        }
+
+        private void GetPlugins()
+        {
+            var i = 0;
+
+            foreach (PluginInfo pi in Config.PluginConfig)
+            {
+                // ADD EXTENSION PLUGIN LIST ITEMS - PLUGINS
+                Plugins[i].Name = string.Format("ID_{0}", i);
+                Plugins[i].Content = pi.internalName;
+                Plugins[i].IsChecked = i == 0;
+                Plugins[i].Style = (Style)Application.Current.Resources["PluginButtonTheme"];
+                Plugins[i].Click += ListSelection_Click;
+                PluginList.Children.Add(Plugins[i]);
+                i++;
+            }
+        }
+
+        private void GetContributors()
+        {
+            ContributorList.Children.Clear();
+            var i = 0;
+            foreach (string name in Config.PluginConfig[CurrentPlugin].contributors)
+            {
+                Contributors[i].Name = string.Format("TID_{0}", i);
+                Contributors[i].Margin = new Thickness(30, 10, 0, 10);
+                Contributors[i].FontSize = 24;
+                Contributors[i].Text = name;
+                ContributorList.Children.Add(Contributors[i]);
+                i++;
+            }
         }
 
         private void InitSRTData()
@@ -68,7 +101,6 @@ namespace SRTPluginManager.MVVM.View
         private void Update()
         {
             UpdateHost();
-            UpdatePlugins();
             UpdateSRTState();
             GetPlatform();
         }
@@ -82,23 +114,6 @@ namespace SRTPluginManager.MVVM.View
             else
             {
                 SRTGetUpdate.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void UpdatePlugins()
-        {
-            var i = 0;
-            foreach (PluginInfo info in Config.PluginConfig)
-            {
-                if (info.currentVersion == "0.0.0.0")
-                {
-                    PluginSelection[i].Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    PluginSelection[i].Visibility = Visibility.Visible;
-                }
-                i++;
             }
         }
 
@@ -172,149 +187,9 @@ namespace SRTPluginManager.MVVM.View
 
         private void GetCurrentPluginData()
         {
-            CurrentPlugin = GetCurrentSelectedPlugin();
-            SetData(Config.PluginConfig[(int)CurrentPlugin]);
+            SetData(Config.PluginConfig[CurrentPlugin]);
+            GetContributors();
             Update();
-        }
-
-        private Plugins GetCurrentSelectedPlugin()
-        {
-            if (ResidentEvil0.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username1.Text = "VideoGameRoulette";
-                UserPanel2.Visibility = Visibility.Collapsed;
-                UserPanel3.Visibility = Visibility.Collapsed;
-                return Plugins.SRTPluginProviderRE0;
-            }
-            if (ResidentEvil1HD.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
-                Username1.Text = "Squirrelies";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Visible;
-                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
-                Username3.Text = "Cursed Toast";
-                return Plugins.SRTPluginProviderRE1;
-            }
-            else if (ResidentEvil2.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
-                Username1.Text = "Squirrelies";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Collapsed;
-                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
-                //Username3.Text = "WillowTheWhisperSR";
-                return Plugins.SRTPluginProviderRE2C;
-            }
-            else if (ResidentEvil2Remake.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
-                Username1.Text = "Squirrelies";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Visible;
-                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
-                Username3.Text = "Cursed Toast";
-                return Plugins.SRTPluginProviderRE2;
-            }
-            else if (ResidentEvil3.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
-                Username1.Text = "Squirrelies";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Collapsed;
-                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
-                //Username3.Text = "WillowTheWhisperSR";
-                return Plugins.SRTPluginProviderRE3C;
-            }
-            else if (ResidentEvil3Remake.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
-                Username1.Text = "Squirrelies";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Visible;
-                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
-                Username3.Text = "Cursed Toast";
-                return Plugins.SRTPluginProviderRE3;
-            }
-            else if (ResidentEvil4.IsChecked == true)
-            {
-                return Plugins.SRTPluginProviderRE4;
-            }
-            else if (ResidentEvil5.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(mysterionSource) as ImageSource;
-                Username1.Text = "Mysterion06";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Collapsed;
-                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
-                //Username3.Text = "WillowTheWhisperSR";
-                return Plugins.SRTPluginProviderRE5;
-            }
-            else if (ResidentEvil6.IsChecked == true)
-            {
-                return Plugins.SRTPluginProviderRE6;
-            }
-            else if (ResidentEvil7.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
-                Username1.Text = "Squirrelies";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Visible;
-                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
-                Username3.Text = "Cursed Toast";
-                return Plugins.SRTPluginProviderRE7;
-            }
-            else if (ResidentEvil8.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
-                Username1.Text = "Squirrelies";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Visible;
-                User3.ImageSource = new ImageSourceConverter().ConvertFromString(toastSource) as ImageSource;
-                Username3.Text = "Cursed Toast";
-                return Plugins.SRTPluginProviderRE8;
-            }
-            else if (ResidentEvilCVX.IsChecked == true)
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(kapdapSource) as ImageSource;
-                Username1.Text = "Kapdap";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(squirrelSource) as ImageSource;
-                Username2.Text = "Squirrelies";
-                UserPanel3.Visibility = Visibility.Visible;
-                User3.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username3.Text = "VideoGameRoulette";
-                return Plugins.SRTPluginProviderRECVX;
-            }
-            else
-            {
-                User1.ImageSource = new ImageSourceConverter().ConvertFromString(mysterionSource) as ImageSource;
-                Username1.Text = "Mysterion06";
-                UserPanel2.Visibility = Visibility.Visible;
-                User2.ImageSource = new ImageSourceConverter().ConvertFromString(vgrSource) as ImageSource;
-                Username2.Text = "VideoGameRoulette";
-                UserPanel3.Visibility = Visibility.Collapsed;
-                //User3.ImageSource = new ImageSourceConverter().ConvertFromString(willowSource) as ImageSource;
-                //Username3.Text = "WillowTheWhisperSR";
-                return Plugins.SRTPluginProviderRE1C;
-            }
         }
 
         private void SetData(PluginInfo pluginInfo)
@@ -361,6 +236,9 @@ namespace SRTPluginManager.MVVM.View
 
         private void ListSelection_Click(object sender, RoutedEventArgs e)
         {
+            RadioButton obj = (RadioButton)e.Source;
+            var result = obj.Name.Split('_')[1];
+            CurrentPlugin = Int32.Parse(result);
             GetCurrentPluginData();
             Update();
         }
@@ -438,25 +316,7 @@ namespace SRTPluginManager.MVVM.View
 
         private string GetPlatform()
         {
-            switch (CurrentPlugin)
-            {
-                case Plugins.SRTPluginProviderRE0:
-                case Plugins.SRTPluginProviderRE1:
-                case Plugins.SRTPluginProviderRE1C:
-                case Plugins.SRTPluginProviderRE2C:
-                case Plugins.SRTPluginProviderRE3C:
-                case Plugins.SRTPluginProviderRE4:
-                case Plugins.SRTPluginProviderRE5:
-                case Plugins.SRTPluginProviderRE6:
-                    return GetSRT(Platform.x86);
-                case Plugins.SRTPluginProviderRE2:
-                case Plugins.SRTPluginProviderRE3:
-                case Plugins.SRTPluginProviderRE7:
-                case Plugins.SRTPluginProviderRE8:
-                case Plugins.SRTPluginProviderRECVX:
-                default:
-                    return GetSRT(Platform.x64);
-            }
+            return GetSRT((Platform)Config.PluginConfig[CurrentPlugin].platform);
         }
 
         private string GetSRT(Platform platform)

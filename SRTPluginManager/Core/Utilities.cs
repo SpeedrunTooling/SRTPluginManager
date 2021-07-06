@@ -83,24 +83,8 @@ namespace SRTPluginManager.Core
         public enum Platform
         {
             x86,
-            x64
-        }
-
-        public enum Plugins
-        {
-            SRTPluginProviderRE0,
-            SRTPluginProviderRE1C,
-            SRTPluginProviderRE1,
-            SRTPluginProviderRE2C,
-            SRTPluginProviderRE2,
-            SRTPluginProviderRE3C,
-            SRTPluginProviderRE3,
-            SRTPluginProviderRE4,
-            SRTPluginProviderRE5,
-            SRTPluginProviderRE6,
-            SRTPluginProviderRE7,
-            SRTPluginProviderRE8,
-            SRTPluginProviderRECVX,
+            x64,
+            Any
         }
 
         public enum VersionType
