@@ -77,10 +77,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Squirrelies\SRTHost\SRTPluginBase\SRTPluginBase.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Fonts\Teko-Bold.ttf" />
     <Resource Include="Fonts\Teko-Light.ttf" />
     <Resource Include="Fonts\Teko-Medium.ttf" />

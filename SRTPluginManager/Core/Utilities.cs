@@ -9,13 +9,13 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using static SRTPluginBase.Extensions;
+using System;
 
 namespace SRTPluginManager.Core
 {
     public class Utilities
     {
-        public static readonly string ApplicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static readonly string ApplicationPath = AppContext.BaseDirectory;
         public static readonly string TempFolderPath = Path.Combine(ApplicationPath, "tmp");
         public static readonly string PluginFolderPath = Path.Combine(ApplicationPath, "plugins");
         public static readonly string WebSocketConfig = Path.Combine(Path.Combine(PluginFolderPath, "SRTPluginWebSocket"), "SRTPluginWebSocket.cfg");
@@ -37,6 +37,46 @@ namespace SRTPluginManager.Core
             Required,
             Optional
         }
+
+        #region Config
+
+        private static string GetConfigFile() => Path.Combine(AppContext.BaseDirectory, "SRTPluginManager.cfg");
+
+        public static readonly JsonSerializerOptions JSO = new JsonSerializerOptions() { AllowTrailingCommas = true, ReadCommentHandling = JsonCommentHandling.Skip, WriteIndented = true };
+
+        public static T LoadConfiguration<T>(string configFile) where T : class, new()
+        {
+            try
+            {
+                FileInfo configFileInfo = new FileInfo(configFile);
+                if (configFileInfo.Exists)
+                    using (FileStream fs = new FileStream(configFileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+                        return JsonSerializer.DeserializeAsync<T>(fs, JSO).Result;
+                else
+                    return new T(); // File did not exist, just return a new instance.
+            }
+            catch
+            {
+                return new T(); // An exception occurred when reading the file, return a new instance.
+            }
+        }
+
+        public static void SaveConfiguration<T>(T configuration, string configFile) where T : class, new()
+        {
+            if (configuration != null) // Only save if configuration is not null.
+            {
+                try
+                {
+                    using (FileStream fs = new FileStream(configFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+                        JsonSerializer.SerializeAsync<T>(fs, configuration, JSO).Wait();
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        #endregion
 
         public static Task IsRunningProcess(string file)
         {
