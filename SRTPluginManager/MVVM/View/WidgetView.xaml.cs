@@ -210,11 +210,18 @@ namespace SRTPluginManager.MVVM.View
             var uuid = result.Trim(new char[] { '{', '}' });
             AuthToken.Password = uuid;
             UpdateSetting("UUID", uuid);
-            if (File.Exists(WebSocketConfig))
+            if (Directory.Exists(Directory.GetParent(WebSocketConfig).FullName))
             {
-                var wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
-                wsc.Username = uuid;
-                wsc.SaveConfiguration(WebSocketConfig);
+                if (File.Exists(WebSocketConfig))
+                {
+                    var wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
+                    wsc.Username = uuid;
+                    wsc.SaveConfiguration(WebSocketConfig);
+                }
+                else
+                {
+                    MessageBox.Show("Error: SRTPluginWebSocket Config File Does Not Exist? Please reinstall plugin.", "Error Token Undefined");
+                }
             }
             else
             {
