@@ -2,26 +2,8 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SRTPluginManager.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="LastUpdate" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="SRTUpdate" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="ExtensionUpdate" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
     <Setting Name="UUID" Type="System.String" Scope="User">
       <Value Profile="(Default)">00000000-0000-0000-0000-000000000000</Value>
-    </Setting>
-    <Setting Name="LastUpdate2" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="SRTUpdate2" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="ExtensionUpdate2" Type="System.Int64" Scope="User">
-      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

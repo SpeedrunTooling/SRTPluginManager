@@ -80,19 +80,11 @@
                             Background="#272537"
                             CornerRadius="10">
                             <StackPanel>
-                                <TextBlock
-                                    Margin="10,10,10,0"
-                                    FontSize="20"
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="Current Version" />
+                                <TextBlock Style="{StaticResource VersionTitleTextTheme}" Text="Current Version" />
                                 <TextBlock
                                     x:Name="CurrentRelease"
-                                    Margin="20,10,10,0"
-                                    FontSize="18"
-                                    Foreground="White"
-                                    Text="0.0.0.0"
-                                    TextWrapping="Wrap" />
+                                    Style="{StaticResource VersionTextTheme}"
+                                    Text="0.0.0.0" />
                             </StackPanel>
                         </Border>
 
@@ -102,19 +94,11 @@
                             Background="#272537"
                             CornerRadius="10">
                             <StackPanel>
-                                <TextBlock
-                                    Margin="10,10,10,0"
-                                    FontSize="20"
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="Latest Version" />
+                                <TextBlock Style="{StaticResource VersionTitleTextTheme}" Text="Latest Version" />
                                 <TextBlock
                                     x:Name="LatestRelease"
-                                    Margin="20,10,10,0"
-                                    FontSize="18"
-                                    Foreground="White"
-                                    Text="0.0.0.0"
-                                    TextWrapping="Wrap" />
+                                    Style="{StaticResource VersionTextTheme}"
+                                    Text="0.0.0.0" />
                             </StackPanel>
                         </Border>
                         <!--  Install / Update Button  -->

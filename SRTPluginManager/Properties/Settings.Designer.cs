@@ -25,42 +25,6 @@ namespace SRTPluginManager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long LastUpdate {
-            get {
-                return ((long)(this["LastUpdate"]));
-            }
-            set {
-                this["LastUpdate"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long SRTUpdate {
-            get {
-                return ((long)(this["SRTUpdate"]));
-            }
-            set {
-                this["SRTUpdate"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long ExtensionUpdate {
-            get {
-                return ((long)(this["ExtensionUpdate"]));
-            }
-            set {
-                this["ExtensionUpdate"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("00000000-0000-0000-0000-000000000000")]
         public string UUID {
             get {
@@ -68,42 +32,6 @@ namespace SRTPluginManager.Properties {
             }
             set {
                 this["UUID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long LastUpdate2 {
-            get {
-                return ((long)(this["LastUpdate2"]));
-            }
-            set {
-                this["LastUpdate2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long SRTUpdate2 {
-            get {
-                return ((long)(this["SRTUpdate2"]));
-            }
-            set {
-                this["SRTUpdate2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public long ExtensionUpdate2 {
-            get {
-                return ((long)(this["ExtensionUpdate2"]));
-            }
-            set {
-                this["ExtensionUpdate2"] = value;
             }
         }
     }

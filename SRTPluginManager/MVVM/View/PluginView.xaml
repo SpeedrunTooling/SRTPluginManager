@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="1000"
     d:DesignWidth="1700"
+    Initialized="UserControl_Initialized"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -75,7 +76,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100" />
                                 <RowDefinition Height="100" />
-                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="50" />
                             </Grid.RowDefinitions>
 
                             <!--  Current Version  -->

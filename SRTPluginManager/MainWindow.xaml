@@ -9,6 +9,7 @@
     Width="1920"
     Height="1080"
     Background="Transparent"
+    Initialized="Window_Initialized"
     ResizeMode="NoResize"
     WindowState="Maximized"
     WindowStyle="None"
@@ -55,31 +56,6 @@
                         Margin="5,0,0,0"
                         Source="Images/SRTIconAlt.png" />
                 </StackPanel>
-
-                <Border
-                    Grid.Column="2"
-                    Grid.ColumnSpan="1"
-                    Margin="10"
-                    Background="#272537"
-                    CornerRadius="10"
-                    MouseLeftButtonDown="Border_MouseLeftButtonDown">
-                    <StackPanel
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                        <Image
-                            Width="20"
-                            Height="20"
-                            Margin="5"
-                            Source="Images/Refresh.png" />
-                        <TextBlock
-                            Margin="0,0,0,0"
-                            VerticalAlignment="Center"
-                            FontSize="18"
-                            Foreground="White"
-                            Text="Check For Updates" />
-                    </StackPanel>
-                </Border>
 
                 <StackPanel
                     Grid.Column="13"

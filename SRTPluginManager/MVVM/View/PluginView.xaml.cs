@@ -1,18 +1,12 @@
-﻿using System;
+﻿using SRTPluginManager.Core;
+using System;
+using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
-using System.Reflection;
-using System.Net;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Diagnostics;
-using SRTPluginManager.Core;
 using static SRTPluginManager.Core.Utilities;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Linq;
-using System.Windows.Media;
-using static SRTPluginBase.Extensions;
 
 namespace SRTPluginManager.MVVM.View
 {
@@ -36,9 +30,6 @@ namespace SRTPluginManager.MVVM.View
         public PluginView()
         {
             InitializeComponent();
-
-            UpdateConfig();
-
             // INIT RADIO BUTTONS
             for (var i = 0; i < Plugins.Length; i++)
             {
@@ -50,9 +41,12 @@ namespace SRTPluginManager.MVVM.View
             {
                 Contributors[j] = new TextBlock();
             }
+        }
 
+        private async void UserControl_Initialized(object sender, EventArgs e)
+        {
+            await UpdateConfig ();
             GetPlugins();
-            
             InitSRTData();
             GetCurrentPluginData();
         }
@@ -356,5 +350,6 @@ namespace SRTPluginManager.MVVM.View
             await DownloadFileAsync("SRTHost.zip", Config.SRTConfig.downloadURL, GetUpdate, ApplicationPath, true);
             InitSRTData();
         }
+
     }
 }
