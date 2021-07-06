@@ -219,7 +219,7 @@ namespace SRTPluginManager.MVVM.View
                 }
                 else
                 {
-                    MessageBox.Show("Error: SRTPluginWebSocket Config File Does Not Exist? Please reinstall plugin.", "Error Token Undefined");
+                    MessageBox.Show("Error: SRTPluginWebSocket Config File Does Not Exist? Please reinstall plugin.", "Error File Missing");
                 }
             }
             else
