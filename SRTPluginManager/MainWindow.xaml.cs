@@ -48,7 +48,7 @@ namespace SRTPluginManager
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            UpdateConfig(true);
+            UpdateConfig();
         }
 
         private void MaximizeWindow(object sender, RoutedEventArgs e)

@@ -22,7 +22,6 @@ namespace SRTPluginManager.MVVM.View
     public partial class PluginView : UserControl
     {
         private Plugins CurrentPlugin = Plugins.SRTPluginProviderRE0;
-        public PluginConfiguration config;
         public RadioButton[] PluginSelection;
 
         private Process SRTProcess;
@@ -52,16 +51,15 @@ namespace SRTPluginManager.MVVM.View
                 ResidentEvilCVX
             };
 
-            config = LoadConfiguration<PluginConfiguration>();
+            UpdateConfig();
             InitSRTData();
-            GetPluginVersions(false);
             GetCurrentPluginData();
         }
 
         private void InitSRTData()
         {
             SRTCurrentRelease.Text = GetFileVersionInfo(ApplicationPath, "SRTHost64.exe");
-            SRTLatestRelease.Text = GetHostVersion(false).ToString();
+            SRTLatestRelease.Text = Config.SRTConfig.currentVersion;
             SRTInstalled = SRTCurrentRelease.Text != "0.0.0.0";
             SRTUpdated = IsUpdated(SRTCurrentRelease.Text, SRTLatestRelease.Text);
             Update();
@@ -90,7 +88,7 @@ namespace SRTPluginManager.MVVM.View
         private void UpdatePlugins()
         {
             var i = 0;
-            foreach (PluginInfo info in config.PluginConfig)
+            foreach (PluginInfo info in Config.PluginConfig)
             {
                 if (info.currentVersion == "0.0.0.0")
                 {
@@ -175,7 +173,7 @@ namespace SRTPluginManager.MVVM.View
         private void GetCurrentPluginData()
         {
             CurrentPlugin = GetCurrentSelectedPlugin();
-            SetData(config.PluginConfig[(int)CurrentPlugin]);
+            SetData(Config.PluginConfig[(int)CurrentPlugin]);
             Update();
         }
 
@@ -335,16 +333,7 @@ namespace SRTPluginManager.MVVM.View
 
         private void SetVisibility(PluginInfo pluginInfo)
         {
-            if (!pluginInfo.hasPluginProvider)
-            {
-                GetUpdate.Visibility = Visibility.Collapsed;
-                StartSRTHost.Visibility = Visibility.Collapsed;
-                UpdateProgressBar.Text = "No Plugin Available";
-            }
-            else
-            {
-                VersionCheck(CurrentRelease.Text, LatestRelease.Text);
-            }
+            VersionCheck(CurrentRelease.Text, LatestRelease.Text);
             Update();
         }
 
@@ -385,7 +374,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void GetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync(CurrentPlugin.ToString() + ".zip", config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath);
+            await DownloadFileAsync(CurrentPlugin.ToString() + ".zip", Config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();
@@ -504,7 +493,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync("SRTHost.zip", config.SRTConfig.downloadURL, GetUpdate, ApplicationPath, true);
+            await DownloadFileAsync("SRTHost.zip", Config.SRTConfig.downloadURL, GetUpdate, ApplicationPath, true);
             InitSRTData();
         }
     }

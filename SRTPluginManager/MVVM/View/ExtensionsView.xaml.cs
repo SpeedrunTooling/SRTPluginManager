@@ -38,11 +38,6 @@ namespace SRTPluginManager.MVVM.View
 
         private void StackPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            bool results = Utilities.IsUpdatedTimestamp("ExtensionUpdate");
-            if (results)
-            {
-                GetExtensionVersions(false);
-            }
             GetCurrentPluginData();
         }
 
@@ -88,16 +83,7 @@ namespace SRTPluginManager.MVVM.View
 
         private void SetVisibility(PluginInfo pluginInfo)
         {
-            if (!pluginInfo.hasPluginProvider)
-            {
-                InstallUpdate.Visibility = Visibility.Collapsed;
-                Uninstall.Visibility = Visibility.Collapsed;
-                //UpdateProgressBar.Text = "No Plugin Available";
-            }
-            else
-            {
-                VersionCheck(CurrentRelease.Text, LatestRelease.Text);
-            }
+            VersionCheck(CurrentRelease.Text, LatestRelease.Text);
         }
 
         private void VersionCheck(string current, string latest)

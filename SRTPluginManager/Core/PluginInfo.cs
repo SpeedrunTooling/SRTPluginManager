@@ -10,12 +10,10 @@ namespace SRTPluginManager.Core
     {
         public string pluginName { get; set; }
         public string currentVersion { get; set; }
-        public string tagURL => "https://api.github.com/repos/SpeedrunTooling/" + pluginName + "/releases/latest";
-        public bool hasPluginProvider => currentVersion != "0.0.0.0";
-        public string downloadURL => hasPluginProvider ? "https://github.com/SpeedrunTooling/" + pluginName + "/releases/download/" + currentVersion + "/" + pluginName + "-v" + currentVersion + ".zip" : null;
+        public string tagURL { get; set; }
+        public string downloadURL { get; set; }
         public PluginInfo()
         {
-            currentVersion = "0.0.0.0";
         }
     }
 }

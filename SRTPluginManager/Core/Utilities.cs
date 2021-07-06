@@ -24,6 +24,7 @@ namespace SRTPluginManager.Core
         public static readonly string TempFolderPath = Path.Combine(ApplicationPath, "tmp");
         public static readonly string PluginFolderPath = Path.Combine(ApplicationPath, "plugins");
         public static readonly string WebSocketConfig = Path.Combine(Path.Combine(PluginFolderPath, "SRTPluginWebSocket"), "SRTPluginWebSocket.cfg");
+
         public static readonly string srtHostURL = "https://api.github.com/repos/Squirrelies/SRTHost/releases/latest";
         public static readonly string dotNetCorePath = @"C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App";
         public static readonly string dotNetCore32Path = @"C:\Program Files (x86)\dotnet\shared\Microsoft.WindowsDesktop.App";
@@ -121,35 +122,9 @@ namespace SRTPluginManager.Core
             });
         }
 
-        public static void UpdateConfig(bool isManual = false)
+        public static async Task UpdateConfig()
         {
-            if (File.Exists(Assembly.GetCallingAssembly().GetConfigFile()))
-            {
-                Config = LoadConfiguration<PluginConfiguration>();
-            }
-            else
-            {
-                Config = new PluginConfiguration();
-            }
-            GetHostVersion(isManual);
-            GetPluginVersions(isManual);
-            GetExtensionVersions(isManual);
-        }
-
-        public static void GetExtensionVersions(bool isManual)
-        {
-            var setting = isManual ? "ExtensionUpdate2" : "ExtensionUpdate";
-            if (IsUpdatedTimestamp(setting))
-            {
-                string[] names = { "SRTPluginUIJSON", "SRTPluginWebSocket" };
-                for (var i = 0; i < names.Length; i++)
-                {
-                    Config.ExtensionsConfig[i].pluginName = names[i];
-                    var version = GetVersionInfo(Config.ExtensionsConfig[i].tagURL, true);
-                    Config.ExtensionsConfig[i].currentVersion = version.ToString();
-                }
-                Config.SaveConfiguration();
-            }
+            Config = await GetConfigAsync();
         }
 
        public static void DownloadFile(string fileName, string url, Button button)
@@ -180,33 +155,6 @@ namespace SRTPluginManager.Core
             // Unzip file.
             UnzipPackage(file, destination, isSRT);
             autoResetEvent.Set();
-        }
-
-        public static void GetPluginVersions(bool isManual)
-        {
-            var setting = isManual ? "LastUpdate2" : "LastUpdate";
-            if (IsUpdatedTimestamp(setting))
-            {
-                string[] names = { "SRTPluginProviderRE0", "SRTPluginProviderRE1C", "SRTPluginProviderRE1", "SRTPluginProviderRE2C", "SRTPluginProviderRE2", "SRTPluginProviderRE3C", "SRTPluginProviderRE3", "SRTPluginProviderRE4", "SRTPluginProviderRE5", "SRTPluginProviderRE6", "SRTPluginProviderRE7", "SRTPluginProviderRE8", "SRTPluginProviderRECVX" };
-                for (var i = 0; i < names.Length; i++)
-                {
-                    Config.PluginConfig[i].pluginName = names[i];
-                    var version = GetVersionInfo(Config.PluginConfig[i].tagURL, true);
-                    Config.PluginConfig[i].currentVersion = version.ToString();
-                }
-                Config.SaveConfiguration();
-            }
-        }
-
-        public static string GetHostVersion(bool isManual)
-        {
-            var setting = isManual ? "SRTUpdate2" : "SRTUpdate";
-            if (IsUpdatedTimestamp(setting))
-            {
-                Config.SRTConfig.currentVersion = GetVersionInfo(srtHostURL).ToString();
-                Config.SaveConfiguration();
-            }
-            return Config.SRTConfig.currentVersion;
         }
 
         public static void UnzipPackage(string file, string destination, bool isSRT)
@@ -391,27 +339,41 @@ namespace SRTPluginManager.Core
             return "0.0.0.0";
         }
 
-        public static object GetVersionInfo(string url)
+        public static async Task<PluginConfiguration> GetConfigAsync()
         {
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.UserAgent = "SpeedrunToolHost";
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Dictionary<string, object> test = JsonSerializer.DeserializeAsync<Dictionary<string, object>>(Stream.Synchronized(response.GetResponseStream()), JSO).Result;
-            return test["tag_name"];
+            using (HttpClient httpClient = new HttpClient())
+            using (Stream stream = await httpClient.GetStreamAsync(@"https://raw.githubusercontent.com/SpeedrunTooling/SRTPlugins/main/SRTPluginManager.cfg"))
+                return await JsonSerializer.DeserializeAsync<PluginConfiguration>(stream, JSO);
         }
 
-        public static object GetVersionInfo(string url, bool isPluginProvider)
+        public static async Task<string> GetVersionInfo(string name)
         {
-            if (url == null) { return "0.0.0.0"; }
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.UserAgent = "SpeedrunToolHost";
-            HttpWebResponse response;
-
-            try { response = (HttpWebResponse)request.GetResponse(); }
-            catch { return "0.0.0.0"; }
-
-            Dictionary<string, object> version = JsonSerializer.DeserializeAsync<Dictionary<string, object>>(Stream.Synchronized(response.GetResponseStream()), JSO).Result;
-            return version["tag_name"];
+            Config = await GetConfigAsync();
+            if (name.Contains("SRTHost"))
+            {
+                return Config.SRTConfig.currentVersion;
+            }
+            else if (name.Contains("PluginProvider"))
+            {
+                foreach (PluginInfo pi in Config.PluginConfig)
+                {
+                    if (pi.pluginName == name)
+                    {
+                        return pi.currentVersion;
+                    }
+                }
+            }
+            else
+            {
+                foreach (PluginInfo pi in Config.ExtensionsConfig)
+                {
+                    if (pi.pluginName == name)
+                    {
+                        return pi.currentVersion;
+                    }
+                }
+            }
+            return "0.0.0.0";
         }
 
         public static bool IsUpdated(string current, string latest)
