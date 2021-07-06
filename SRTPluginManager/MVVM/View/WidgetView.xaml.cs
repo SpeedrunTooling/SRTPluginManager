@@ -18,7 +18,6 @@ namespace SRTPluginManager.MVVM.View
     {
         private List<string> paramList = new List<string>();
         private List<string> paramListInventory = new List<string>();
-        public PluginConfiguration config;
         public RadioButton[] PluginSelection;
 
         public WidgetView()
@@ -27,8 +26,6 @@ namespace SRTPluginManager.MVVM.View
             DataContext = new ComboBoxViewModel();
 
             AuthToken.Password = GetSetting("UUID").ToString();
-
-            config = LoadConfiguration<PluginConfiguration>();
             GetParams();
         }
 
