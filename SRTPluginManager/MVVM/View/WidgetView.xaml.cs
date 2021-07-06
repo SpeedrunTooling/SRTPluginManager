@@ -6,7 +6,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static SRTPluginBase.Extensions;
 using static SRTPluginManager.Core.Utilities;
 
 namespace SRTPluginManager.MVVM.View
@@ -214,7 +213,7 @@ namespace SRTPluginManager.MVVM.View
             {
                 var wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
                 wsc.Username = uuid;
-                wsc.SaveConfiguration(WebSocketConfig);
+                SaveConfiguration(wsc, WebSocketConfig);
             }
             else
             {
