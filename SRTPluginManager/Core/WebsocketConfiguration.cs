@@ -2,11 +2,11 @@
 {
     public class WebsocketConfiguration
     {
-        public string Username { get; set; }
+        public string Token { get; set; }
 
         public WebsocketConfiguration()
         {
-            Username = "";
+            Token = "";
         }
     }
 }

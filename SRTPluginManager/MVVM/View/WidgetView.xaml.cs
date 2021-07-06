@@ -214,7 +214,7 @@ namespace SRTPluginManager.MVVM.View
                 if (File.Exists(WebSocketConfig))
                 {
                     var wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
-                    wsc.Username = uuid;
+                    wsc.Token = uuid;
                     SaveConfiguration(wsc, WebSocketConfig);
                 }
                 else
