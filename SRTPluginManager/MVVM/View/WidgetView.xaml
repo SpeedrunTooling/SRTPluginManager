@@ -242,7 +242,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 Foreground="White"
-                                Text="Separate Player HUDS (Resident Evil 5 Only)" />
+                                Text="Separate Player HUDS (Resident Evil 5 and 6 Only)" />
                         </StackPanel>
                         <StackPanel
                             Grid.Row="8"
@@ -261,62 +261,9 @@
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 Foreground="White"
-                                Text="Is Sheva (Resident Evil 5 Only)" />
+                                Text="Is Player 2 (Resident Evil 5 and 6 Only)" />
                         </StackPanel>
                     </Grid>
-                    <TextBlock
-                        Margin="20,10,10,0"
-                        FontSize="28"
-                        FontWeight="Bold"
-                        Foreground="White"
-                        Text="Resident Evil 6 Character Select" />
-
-                    <Grid>
-                        <ComboBox
-                            x:Name="RE6NameBox"
-                            Width="680"
-                            Height="30"
-                            Margin="50,0,10,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Foreground="White"
-                            ItemsSource="{Binding RE6Names}"
-                            SelectionChanged="RE6NameBox_SelectionChanged">
-                            <ComboBox.Resources>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#272537" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#1D1C2E" />
-                            </ComboBox.Resources>
-                        </ComboBox>
-                        <Border
-                            Width="700"
-                            Margin="-45,-1,0,0"
-                            Padding="4,1"
-                            Background="#272537"
-                            CornerRadius="10"
-                            MouseDown="TestBlock_MouseDown">
-                            <Grid>
-                                <TextBlock
-                                    x:Name="TestBlock"
-                                    Height="30"
-                                    Margin="10,0,0,0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    Background="Transparent"
-                                    FontFamily="/Fonts/#Teko"
-                                    FontSize="20"
-                                    FontWeight="Bold"
-                                    Foreground="White"
-                                    Text="None" />
-                                <Image
-                                    Width="15"
-                                    Margin="0,0,10,0"
-                                    HorizontalAlignment="Right"
-                                    Source="/Images/DropBoxDownAlt.png" />
-                            </Grid>
-                        </Border>
-
-                    </Grid>
-
                     <TextBlock
                         Margin="20,10,10,0"
                         FontSize="28"

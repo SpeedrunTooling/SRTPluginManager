@@ -194,11 +194,6 @@ namespace SRTPluginManager.MVVM.View
                 inventoryLink += string.Format("&{0}=1", paramListInventory[i].ToString());
             }
 
-            if (TestBlock.Text != "None")
-            {
-                defaultLink += string.Format("&name={0}", RE6NameBox.SelectedIndex);
-            }
-
             WebURL.Text = defaultLink;
             InventoryURL.Text = inventoryLink;
         }
@@ -225,17 +220,6 @@ namespace SRTPluginManager.MVVM.View
         public void CopyToClipboard(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(WebURL.Text);
-        }
-
-        private void RE6NameBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            TestBlock.Text = RE6NameBox.SelectedItem.ToString();
-            GetParams();
-        }
-
-        private void TestBlock_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            RE6NameBox.IsDropDownOpen = true;
         }
     }
 }
