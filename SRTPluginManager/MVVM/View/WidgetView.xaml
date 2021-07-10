@@ -273,7 +273,8 @@
                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="700" />
+                                <ColumnDefinition Width="650" />
+                                <ColumnDefinition Width="50" />
                                 <ColumnDefinition Width="50" />
                             </Grid.ColumnDefinitions>
 
@@ -300,6 +301,15 @@
                                     Width="16"
                                     Height="16"
                                     Source="/Images/Refresh.png" />
+                            </Button>
+                            <Button
+                                Grid.Column="2"
+                                Click="SetAuthToken"
+                                Style="{StaticResource ButtonTheme}">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Source="/Images/Save.png" />
                             </Button>
                         </Grid>
                     </StackPanel>
@@ -330,6 +340,7 @@
                                     Text="https://residentevilspeedrunning.github.io/Game/Stats" />
                             </Border>
                             <Button
+                                x:Name="Stats"
                                 Grid.Column="1"
                                 Click="CopyToClipboard"
                                 Style="{StaticResource ButtonTheme}">
@@ -368,6 +379,7 @@
                                     Text="https://residentevilspeedrunning.github.io/Game/Inventory" />
                             </Border>
                             <Button
+                                x:Name="Inventory"
                                 Grid.Column="1"
                                 Click="CopyToClipboard"
                                 Style="{StaticResource ButtonTheme}">

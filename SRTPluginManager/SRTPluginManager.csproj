@@ -56,6 +56,7 @@
     <None Remove="Images\Power.png" />
     <None Remove="Images\Ram.png" />
     <None Remove="Images\Refresh.png" />
+    <None Remove="Images\Save.png" />
     <None Remove="Images\Server.png" />
     <None Remove="Images\Signal.png" />
     <None Remove="Images\Squirrelies.png" />
@@ -105,6 +106,7 @@
     <Resource Include="Images\Power.png" />
     <Resource Include="Images\Ram.png" />
     <Resource Include="Images\Refresh.png" />
+    <Resource Include="Images\Save.png" />
     <Resource Include="Images\Server.png" />
     <Resource Include="Images\Signal.png" />
     <Resource Include="Images\Squirrelies.png" />

@@ -206,8 +206,24 @@ namespace SRTPluginManager.MVVM.View
             UpdateSetting("UUID", uuid);
             if (Directory.Exists(Directory.GetParent(WebSocketConfig).FullName))
             {
-                var wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
+                WebsocketConfiguration wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
                 wsc.Token = uuid;
+                SaveConfiguration(wsc, WebSocketConfig);
+            }
+            else
+            {
+                MessageBox.Show("Error: SRTPluginWebSocket is not installed. Please switch to Extensions tab install.", "Error Extension Missing");
+            }
+            GetParams();
+        }
+
+        public void SetAuthToken(object sender, RoutedEventArgs e)
+        {
+            UpdateSetting("UUID", AuthToken.Password);
+            if (Directory.Exists(Directory.GetParent(WebSocketConfig).FullName))
+            {
+                WebsocketConfiguration wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
+                wsc.Token = AuthToken.Password;
                 SaveConfiguration(wsc, WebSocketConfig);
             }
             else
@@ -219,7 +235,9 @@ namespace SRTPluginManager.MVVM.View
 
         public void CopyToClipboard(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(WebURL.Text);
+            Button obj = (Button)e.Source;
+            if (obj.Name == "Stats") Clipboard.SetText(WebURL.Text);
+            else Clipboard.SetText(InventoryURL.Text);
         }
     }
 }
