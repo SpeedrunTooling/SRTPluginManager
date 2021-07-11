@@ -27,7 +27,7 @@
     <StackPanel>
         <!--  Header  -->
         <StackPanel Height="60" Orientation="Horizontal">
-            <Image Margin="10" Source="/Images/Plugins.png" />
+            <Image Margin="10" Source="/Images/Laptop.png" />
             <TextBlock
                 Margin="10,10,0,10"
                 HorizontalAlignment="Left"

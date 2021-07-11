@@ -185,6 +185,15 @@
 
                 <RadioButton
                     Height="50"
+                    Command="{Binding InterfaceViewCommand}"
+                    Content="User Interfaces"
+                    FontSize="16"
+                    Foreground="White"
+                    IsChecked="False"
+                    Style="{StaticResource MenuButtonTheme}" />
+
+                <RadioButton
+                    Height="50"
                     Command="{Binding WidgetViewCommand}"
                     Content="Widgets"
                     FontSize="16"

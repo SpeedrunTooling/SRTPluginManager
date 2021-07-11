@@ -24,8 +24,8 @@
                 <view:HomeView />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModel:HostViewModel}">
-                <view:HostView />
+            <DataTemplate DataType="{x:Type viewModel:InterfaceViewModel}">
+                <view:InterfaceView />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:PluginViewModel}">
