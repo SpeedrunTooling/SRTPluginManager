@@ -211,7 +211,7 @@
                             Margin="0,0,0,10"
                             Orientation="Horizontal">
                             <CheckBox
-                                x:Name="HideStats"
+                                x:Name="HidePosition"
                                 Width="30"
                                 Margin="40,0,0,0"
                                 Checked="GetParams"
@@ -223,7 +223,7 @@
                                 VerticalAlignment="Center"
                                 FontSize="20"
                                 Foreground="White"
-                                Text="Hide Misc Stats - Position, Chapter Stats, Other" />
+                                Text="Hide Position" />
                         </StackPanel>
                         <StackPanel
                             Grid.Row="7"
@@ -262,6 +262,25 @@
                                 FontSize="20"
                                 Foreground="White"
                                 Text="Is Player 2 (Resident Evil 5 and 6 Only)" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="9"
+                            Margin="0,0,0,10"
+                            Orientation="Horizontal">
+                            <CheckBox
+                                x:Name="IsLocal"
+                                Width="30"
+                                Margin="40,0,0,0"
+                                Checked="GetParams"
+                                IsChecked="False"
+                                Style="{StaticResource CheckBoxTheme}"
+                                Unchecked="GetParams" />
+                            <TextBlock
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="Enable Local Host Server" />
                         </StackPanel>
                     </Grid>
                     <TextBlock

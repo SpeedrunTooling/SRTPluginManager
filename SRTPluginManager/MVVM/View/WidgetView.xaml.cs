@@ -38,7 +38,7 @@ namespace SRTPluginManager.MVVM.View
             string defaultLink = "https://speedruntooling.github.io/StatsHUD";
             string inventoryLink = "https://speedruntooling.github.io/InventoryHUD";
 
-            if (AuthToken.Password != "")
+            if (!(bool)IsLocal.IsChecked && AuthToken.Password != "")
             {
                 defaultLink += string.Format("?token={0}", AuthToken.Password);
                 inventoryLink += string.Format("?token={0}", AuthToken.Password);
@@ -83,16 +83,16 @@ namespace SRTPluginManager.MVVM.View
             }
 
             // HIDE MISC STATS
-            if ((bool)HideStats.IsChecked)
+            if ((bool)HidePosition.IsChecked)
             {
-                if (!paramList.Contains("hidestats"))
+                if (!paramList.Contains("hideposition"))
                 {
-                    paramList.Add("hidestats");
+                    paramList.Add("hideposition");
                 }
             }
             else
             {
-                paramList.Remove("hidestats");
+                paramList.Remove("hideposition");
             }
 
             // SEPARATE PLAYER STATS
