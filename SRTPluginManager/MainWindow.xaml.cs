@@ -14,9 +14,9 @@ namespace SRTPluginManager
             InitializeComponent();
         }
 
-        private async void Window_Initialized(object sender, System.EventArgs e)
+        private void Window_Initialized(object sender, System.EventArgs e)
         {
-            await UpdateConfig();
+
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
