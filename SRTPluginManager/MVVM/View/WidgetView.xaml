@@ -332,6 +332,46 @@
                             </Button>
                         </Grid>
                     </StackPanel>
+                    <!--  Secret Key  -->
+                    <TextBlock
+                        Margin="20,10,10,0"
+                        FontSize="28"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Text="Secret Key (Patreon's Only)" />
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="700" />
+                                <ColumnDefinition Width="50" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Border
+                                Margin="10,5,0,5"
+                                Background="#272537"
+                                CornerRadius="10">
+                                <PasswordBox
+                                    x:Name="SecretKey"
+                                    Margin="10,0,10,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="20"
+                                    Foreground="White"
+                                    Password="" />
+                            </Border>
+                            <Button
+                                Grid.Column="2"
+                                Click="SetSecretKey"
+                                Style="{StaticResource ButtonTheme}">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Source="/Images/Save.png" />
+                            </Button>
+                        </Grid>
+                    </StackPanel>
                     <!--  Stats URL  -->
                     <TextBlock
                         Margin="20,0,10,0"

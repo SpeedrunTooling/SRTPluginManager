@@ -25,6 +25,7 @@ namespace SRTPluginManager.MVVM.View
             DataContext = new ComboBoxViewModel();
 
             AuthToken.Password = GetSetting("UUID").ToString();
+            SecretKey.Password = GetSetting("SecretKey").ToString();
             GetParams();
         }
 
@@ -224,6 +225,22 @@ namespace SRTPluginManager.MVVM.View
             {
                 WebsocketConfiguration wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
                 wsc.Token = AuthToken.Password;
+                SaveConfiguration(wsc, WebSocketConfig);
+            }
+            else
+            {
+                MessageBox.Show("Error: SRTPluginWebSocket is not installed. Please switch to Extensions tab install.", "Error Extension Missing");
+            }
+            GetParams();
+        }
+
+        public void SetSecretKey(object sender, RoutedEventArgs e)
+        {
+            UpdateSetting("SecretKey", SecretKey.Password);
+            if (Directory.Exists(Directory.GetParent(WebSocketConfig).FullName))
+            {
+                WebsocketConfiguration wsc = LoadConfiguration<WebsocketConfiguration>(WebSocketConfig);
+                wsc.Key = SecretKey.Password;
                 SaveConfiguration(wsc, WebSocketConfig);
             }
             else

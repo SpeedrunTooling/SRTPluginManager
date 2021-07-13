@@ -10,8 +10,8 @@
     <Copyright>Copyright © 2021 VideoGameRoulette</Copyright>
     <Product>SRT Host Plugin Manager</Product>
     <Description>A plugin manager for SRT Host.</Description>
-    <Version>1.0.0.2</Version>
-    <FileVersion>1.0.0.2</FileVersion>
+    <Version>1.0.0.3</Version>
+    <FileVersion>1.0.0.3</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <CopyDestionationPath>$(SolutionDir)..\..\..\Squirrelies\SRTHost\SRTHost\bin\$(Configuration)\net5.0-windows\</CopyDestionationPath>
     
