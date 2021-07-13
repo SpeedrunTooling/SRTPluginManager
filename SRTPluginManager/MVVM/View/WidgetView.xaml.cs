@@ -26,7 +26,7 @@ namespace SRTPluginManager.MVVM.View
 
             AuthToken.Password = GetSetting("UUID").ToString();
             SecretKey.Password = GetSetting("SecretKey").ToString();
-            GetParams();
+            //GetParams();
         }
 
         public void GetParams(object sender, RoutedEventArgs e)
@@ -195,8 +195,10 @@ namespace SRTPluginManager.MVVM.View
                 inventoryLink += string.Format("&{0}=1", paramListInventory[i].ToString());
             }
 
-            WebURL.Text = defaultLink;
-            InventoryURL.Text = inventoryLink;
+            if (WebURL != null)
+                WebURL.Text = defaultLink;
+            if (InventoryURL != null)
+                InventoryURL.Text = inventoryLink;
         }
 
         public void GenerateAuthToken(object sender, RoutedEventArgs e)
