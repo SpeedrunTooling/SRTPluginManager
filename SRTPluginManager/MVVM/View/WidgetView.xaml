@@ -338,7 +338,7 @@
                         FontSize="28"
                         FontWeight="Bold"
                         Foreground="White"
-                        Text="Secret Key (Patreon's Only)"
+                        Text="Secret Key"
                         Visibility="Collapsed" />
                     <StackPanel
                         HorizontalAlignment="Center"
