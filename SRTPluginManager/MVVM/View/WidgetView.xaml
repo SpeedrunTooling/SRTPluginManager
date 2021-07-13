@@ -272,7 +272,7 @@
                                 Width="30"
                                 Margin="40,0,0,0"
                                 Checked="GetParams"
-                                IsChecked="False"
+                                IsChecked="True"
                                 Style="{StaticResource CheckBoxTheme}"
                                 Unchecked="GetParams" />
                             <TextBlock
@@ -338,8 +338,12 @@
                         FontSize="28"
                         FontWeight="Bold"
                         Foreground="White"
-                        Text="Secret Key (Patreon's Only)" />
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        Text="Secret Key (Patreon's Only)"
+                        Visibility="Collapsed" />
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Visibility="Collapsed">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="700" />
