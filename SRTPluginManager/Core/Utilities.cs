@@ -13,7 +13,7 @@ using System;
 
 namespace SRTPluginManager.Core
 {
-    public class Utilities
+    public static class Utilities
     {
         public static readonly string ApplicationPath = AppContext.BaseDirectory;
         public static readonly string TempFolderPath = Path.Combine(ApplicationPath, "tmp");
@@ -280,5 +280,19 @@ namespace SRTPluginManager.Core
             Settings.Default[setting] = value;
             Settings.Default.Save();
         }
+
+        public static void LogInfoWriteLine(this StreamWriter sw, string message)
+        {
+            sw.WriteLine(string.Format("[INFO]: {0}", message));
+        }
+        public static void LogInfoWriteLine(this StreamWriter sw, string format, params object?[] args) => LogInfoWriteLine(sw, string.Format(format, args));
+
+        public static void LogDebugWriteLine(this StreamWriter sw, string message)
+        {
+#if DEBUG
+            sw.WriteLine(string.Format("[DEBUG]: {0}", message));
+#endif
+        }
+        public static void LogDebugWriteLine(this StreamWriter sw, string format, params object?[] args) => LogDebugWriteLine(sw, string.Format(format, args));
     }
 }
