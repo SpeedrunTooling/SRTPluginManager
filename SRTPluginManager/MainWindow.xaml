@@ -56,7 +56,12 @@
                         Margin="5,0,0,0"
                         Source="Images/SRTIconAlt.png" />
                 </StackPanel>
-
+                <Button
+                    x:Name="InstallUpdate"
+                    Grid.Column="2"
+                    Click="InstallUpdate_Click"
+                    Content="Update Manager"
+                    Style="{StaticResource ButtonTheme}" />
                 <StackPanel
                     Grid.Column="13"
                     Grid.ColumnSpan="2"
