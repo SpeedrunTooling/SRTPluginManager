@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using System.IO;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SRTPluginManager
 {
@@ -14,7 +15,8 @@ namespace SRTPluginManager
     {
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
-            await UpdateConfig(); // Get latest config from github.
+            Task wait = Task.Run(async () => await UpdateConfig()); // Get latest config from github.
+            wait.Wait();
 
             // For each command-line argument, do things?
             foreach (string[] arg in e.Args.Select(a => a.Split('=', StringSplitOptions.RemoveEmptyEntries)))
@@ -29,6 +31,7 @@ namespace SRTPluginManager
                         Process currentProcess = Process.GetCurrentProcess(); // Get our current process object.
                         FileInfo processFile = new FileInfo(currentProcess.MainModule.FileName); // Get the full path to our exe.
                         string newPath = Path.Combine(processFile.Directory.Parent.FullName, processFile.Name); // Get the path where we intend to copy our exe to.
+                        await Task.Delay(2000); // Wait 2 seconds for the callee to exit.
                         processFile.CopyTo(newPath, true); // Copy the exe.
                         Process.Start(newPath); // Start the new version.
                         Environment.Exit(0); // Exit gracefully.
