@@ -15,7 +15,8 @@ namespace SRTPluginManager
     {
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
-            await UpdateConfig(); // Get latest config from github.
+            Task wait = Task.Run(async () => await UpdateConfig()); // Get latest config from github.
+            wait.Wait();
 
             // For each command-line argument, do things?
             foreach (string[] arg in e.Args.Select(a => a.Split('=', StringSplitOptions.RemoveEmptyEntries)))
