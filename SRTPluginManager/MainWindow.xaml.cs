@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using static SRTPluginManager.Core.Utilities;
 
@@ -14,9 +17,15 @@ namespace SRTPluginManager
             InitializeComponent();
         }
 
-        private async void Window_Initialized(object sender, System.EventArgs e)
+        private void Window_Initialized(object sender, System.EventArgs e)
         {
-            await UpdateConfig();
+            var current = GetFileVersionInfo(AppContext.BaseDirectory, "SRTPluginManager.exe");
+            var latest = Config.ManagerConfig.currentVersion;
+            var results = IsUpdated(current, latest);
+            if (results)
+                InstallUpdate.Visibility = Visibility.Collapsed;
+            else
+                InstallUpdate.Visibility = Visibility.Visible;
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -48,6 +57,13 @@ namespace SRTPluginManager
             {
                 WindowState = WindowState.Maximized;
             }
+        }
+
+        private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            await DownloadManagerAsync("ManagerUpdate.zip", Config.ManagerConfig.downloadURL, InstallUpdate, TempFolderPath);
+            Process.Start(Path.Combine(TempFolderPath, "SRTPluginManager.exe"), "--LoadUpdate");
+            Environment.Exit(0);
         }
     }
 }

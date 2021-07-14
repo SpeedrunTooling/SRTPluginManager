@@ -13,7 +13,7 @@ using System;
 
 namespace SRTPluginManager.Core
 {
-    public class Utilities
+    public static class Utilities
     {
         public static readonly string ApplicationPath = AppContext.BaseDirectory;
         public static readonly string TempFolderPath = Path.Combine(ApplicationPath, "tmp");
@@ -93,6 +93,30 @@ namespace SRTPluginManager.Core
         public static async Task UpdateConfig()
         {
             Config = await GetConfigAsync();
+        }
+
+        public static async Task DownloadManagerAsync(string fileName, string url, Button button, string destination)
+        {
+            var file = Path.Combine(TempFolderPath, fileName);
+
+            // Download file.
+            using (var hc = new HttpClient())
+            using (var s = await hc.GetStreamAsync(url))
+            using (var fs = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+                await s.CopyToAsync(fs);
+
+            // Unzip file.
+            UnzipPackage(file, destination);
+            autoResetEvent.Set();
+        }
+
+        public static void UnzipPackage(string file, string destination)
+        {
+            if (!Directory.Exists(file))
+            {
+                ZipFile.ExtractToDirectory(file, TempFolderPath);
+            }
+            File.Delete(file); // deletes temp zip
         }
 
         public static async Task DownloadFileAsync(string fileName, string url, Button button, string destination, bool isSRT = false)
@@ -256,5 +280,19 @@ namespace SRTPluginManager.Core
             Settings.Default[setting] = value;
             Settings.Default.Save();
         }
+
+        public static void LogInfoWriteLine(this StreamWriter sw, string message)
+        {
+            sw.WriteLine(string.Format("[INFO]: {0}", message));
+        }
+        public static void LogInfoWriteLine(this StreamWriter sw, string format, params object?[] args) => LogInfoWriteLine(sw, string.Format(format, args));
+
+        public static void LogDebugWriteLine(this StreamWriter sw, string message)
+        {
+#if DEBUG
+            sw.WriteLine(string.Format("[DEBUG]: {0}", message));
+#endif
+        }
+        public static void LogDebugWriteLine(this StreamWriter sw, string format, params object?[] args) => LogDebugWriteLine(sw, string.Format(format, args));
     }
 }
