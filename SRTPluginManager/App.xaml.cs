@@ -52,6 +52,13 @@ namespace SRTPluginManager
                         }
                     }
                 }
+
+                FileInfo srtPluginManagerExeTmp;
+                if ((srtPluginManagerExeTmp = new FileInfo(Path.Combine(TempFolderPath, "SRTPluginManager.exe"))).Exists)
+                {
+                    logSW.WriteLine("\t[Debug] Deleting tmp version of SRTPluginManager.exe...");
+                    srtPluginManagerExeTmp?.Delete();
+                }
             }
         }
     }
