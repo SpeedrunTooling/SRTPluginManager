@@ -95,6 +95,30 @@ namespace SRTPluginManager.Core
             Config = await GetConfigAsync();
         }
 
+        public static async Task DownloadManagerAsync(string fileName, string url, Button button, string destination)
+        {
+            var file = Path.Combine(TempFolderPath, fileName);
+
+            // Download file.
+            using (var hc = new HttpClient())
+            using (var s = await hc.GetStreamAsync(url))
+            using (var fs = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+                await s.CopyToAsync(fs);
+
+            // Unzip file.
+            UnzipPackage(file, destination);
+            autoResetEvent.Set();
+        }
+
+        public static void UnzipPackage(string file, string destination)
+        {
+            if (!Directory.Exists(file))
+            {
+                ZipFile.ExtractToDirectory(file, TempFolderPath);
+            }
+            File.Delete(file); // deletes temp zip
+        }
+
         public static async Task DownloadFileAsync(string fileName, string url, Button button, string destination, bool isSRT = false)
         {
             var file = Path.Combine(TempFolderPath, fileName);
