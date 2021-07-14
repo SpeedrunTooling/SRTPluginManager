@@ -60,7 +60,8 @@
                     x:Name="InstallUpdate"
                     Grid.Column="2"
                     Click="InstallUpdate_Click"
-                    Content="Update Manager"
+                    Content="New Update Available"
+                    FontSize="15"
                     Style="{StaticResource ButtonTheme}" />
                 <StackPanel
                     Grid.Column="13"
