@@ -337,7 +337,7 @@ namespace SRTPluginManager.MVVM.View
         public void Log(string line)
         {
             ConsoleBox.AppendText(string.Format("{0}\r\n", line));
-            ConsoleBox.ScrollToEnd();
+            ConsoleBox.ScrollToLine(ConsoleBox.LineCount - 1);
         }
 
         public void Log(string[] lines)
