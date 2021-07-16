@@ -34,12 +34,11 @@ namespace SRTPluginManager
                         await Task.Delay(2000); // Wait 2 seconds for the callee to exit.
                         processFile.CopyTo(newPath, true); // Copy the exe.
                         Process.Start(newPath); // Start the new version.
+
                         Environment.Exit(0); // Exit gracefully.
                     }
                 }
             }
-
-
         }
     }
 }
