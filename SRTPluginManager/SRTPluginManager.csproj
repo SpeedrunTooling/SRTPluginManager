@@ -47,11 +47,13 @@
     <None Remove="Images\Host.png" />
     <None Remove="Images\Hover.png" />
     <None Remove="Images\HoverChecked.png" />
+    <None Remove="Images\Internet.png" />
     <None Remove="Images\Kapdap.png" />
     <None Remove="Images\Laptop.png" />
     <None Remove="Images\Maximize.png" />
     <None Remove="Images\Minimize.png" />
     <None Remove="Images\Mysterion06.png" />
+    <None Remove="Images\OpenFolder.png" />
     <None Remove="Images\Plugins.png" />
     <None Remove="Images\Power.png" />
     <None Remove="Images\Ram.png" />
@@ -97,11 +99,13 @@
     <Resource Include="Images\Host.png" />
     <Resource Include="Images\Hover.png" />
     <Resource Include="Images\HoverChecked.png" />
+    <Resource Include="Images\Internet.png" />
     <Resource Include="Images\Kapdap.png" />
     <Resource Include="Images\Laptop.png" />
     <Resource Include="Images\Maximize.png" />
     <Resource Include="Images\Minimize.png" />
     <Resource Include="Images\Mysterion06.png" />
+    <Resource Include="Images\OpenFolder.png" />
     <Resource Include="Images\Plugins.png" />
     <Resource Include="Images\Power.png" />
     <Resource Include="Images\Ram.png" />

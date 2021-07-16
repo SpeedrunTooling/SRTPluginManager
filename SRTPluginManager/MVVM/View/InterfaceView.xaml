@@ -56,7 +56,20 @@
                 <!--  Inner Container  -->
                 <StackPanel>
                     <!--  Title  -->
-                    <TextBlock Style="{StaticResource TitleTextTheme}" Text="Current Extension" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource TitleTextTheme}" Text="Current Extension" />
+                        <Button
+                            Margin="0,13,0,2"
+                            Click="OpenParentFolder"
+                            Style="{StaticResource LinkButtonTheme}"
+                            ToolTip="Open Parent Directory">
+                            <Image
+                                Width="20"
+                                Margin="5"
+                                Source="/Images/OpenFolder.png" />
+                        </Button>
+                    </StackPanel>
+
                     <!--  Extension Name  -->
                     <TextBlock
                         x:Name="ExtensionName"
