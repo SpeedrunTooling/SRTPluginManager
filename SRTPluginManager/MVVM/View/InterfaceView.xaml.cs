@@ -146,5 +146,11 @@ namespace SRTPluginManager.MVVM.View
             GetContributors();
         }
 
+        private void OpenParentFolder(object sender, RoutedEventArgs e)
+        {
+            var dllPath = Path.Combine(PluginFolderPath, Config.InterfaceConfig[(int)CurrentInterface].pluginName);
+            if (Directory.Exists(dllPath))
+                Process.Start("explorer.exe", dllPath);
+        }
     }
 }

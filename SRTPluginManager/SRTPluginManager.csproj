@@ -10,8 +10,8 @@
     <Copyright>Copyright © 2021 VideoGameRoulette</Copyright>
     <Product>SRT Host Plugin Manager</Product>
     <Description>A plugin manager for SRT Host.</Description>
-    <Version>1.0.0.3</Version>
-    <FileVersion>1.0.0.3</FileVersion>
+    <Version>1.0.0.4</Version>
+    <FileVersion>1.0.0.4</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <CopyDestionationPath>$(SolutionDir)..\..\..\Squirrelies\SRTHost\SRTHost\bin\$(Configuration)\net5.0-windows\</CopyDestionationPath>
     
@@ -47,11 +47,13 @@
     <None Remove="Images\Host.png" />
     <None Remove="Images\Hover.png" />
     <None Remove="Images\HoverChecked.png" />
+    <None Remove="Images\Internet.png" />
     <None Remove="Images\Kapdap.png" />
     <None Remove="Images\Laptop.png" />
     <None Remove="Images\Maximize.png" />
     <None Remove="Images\Minimize.png" />
     <None Remove="Images\Mysterion06.png" />
+    <None Remove="Images\OpenFolder.png" />
     <None Remove="Images\Plugins.png" />
     <None Remove="Images\Power.png" />
     <None Remove="Images\Ram.png" />
@@ -97,11 +99,13 @@
     <Resource Include="Images\Host.png" />
     <Resource Include="Images\Hover.png" />
     <Resource Include="Images\HoverChecked.png" />
+    <Resource Include="Images\Internet.png" />
     <Resource Include="Images\Kapdap.png" />
     <Resource Include="Images\Laptop.png" />
     <Resource Include="Images\Maximize.png" />
     <Resource Include="Images\Minimize.png" />
     <Resource Include="Images\Mysterion06.png" />
+    <Resource Include="Images\OpenFolder.png" />
     <Resource Include="Images\Plugins.png" />
     <Resource Include="Images\Power.png" />
     <Resource Include="Images\Ram.png" />
