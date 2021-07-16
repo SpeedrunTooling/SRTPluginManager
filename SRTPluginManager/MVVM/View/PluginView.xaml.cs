@@ -123,6 +123,7 @@ namespace SRTPluginManager.MVVM.View
                 {
                     SRTGetUpdate.Content = "Update";
                     SRTGetUpdate.Visibility = Visibility.Visible;
+                    StopSRTHost.Visibility = Visibility.Visible;
                 }
 
                 if (CurrentPluginUpdated) 
@@ -150,7 +151,6 @@ namespace SRTPluginManager.MVVM.View
                 {
                     SRTGetUpdate.Content = "Update";
                     SRTGetUpdate.Visibility = Visibility.Visible;
-                    StartSRTHost.Visibility = Visibility.Visible;
                 }
 
                 if (!CurrentPluginInstalled)
@@ -168,6 +168,8 @@ namespace SRTPluginManager.MVVM.View
                     UpdateProgressBar.SetValue(Grid.RowProperty, 2);
                     UpdateProgressBar.Text = "Update Pending";
                     UpdateProgressBar.Visibility = Visibility.Visible;
+                    StartSRTHost.Visibility = Visibility.Visible;
+                    StopSRTHost.Visibility = Visibility.Visible;
                 }
                 else
                 {

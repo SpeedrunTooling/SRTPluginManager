@@ -47,7 +47,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="350" />
+                    <RowDefinition Height="380" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
@@ -76,7 +76,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="100" />
                                 <RowDefinition Height="100" />
-                                <RowDefinition Height="50" />
+                                <RowDefinition Height="80" />
                             </Grid.RowDefinitions>
 
                             <!--  Current Version  -->
@@ -117,7 +117,7 @@
                                 Visibility="Visible" />
                             <Button
                                 x:Name="StartSRTHost"
-                                Grid.Row="1"
+                                Grid.Row="2"
                                 Grid.Column="0"
                                 Click="StartSRTHost_Click"
                                 Content="Start SRT"
@@ -125,7 +125,7 @@
                                 Visibility="Collapsed" />
                             <Button
                                 x:Name="StopSRTHost"
-                                Grid.Row="1"
+                                Grid.Row="2"
                                 Grid.Column="1"
                                 Click="CloseSRT"
                                 Content="Stop SRT"

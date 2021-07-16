@@ -5,8 +5,8 @@
     xmlns:local="clr-namespace:SRTPluginManager"
     xmlns:view="clr-namespace:SRTPluginManager.MVVM.View"
     xmlns:viewModel="clr-namespace:SRTPluginManager.MVVM.ViewModel"
-    StartupUri="MainWindow.xaml"
-    Startup="Application_Startup">
+    Startup="Application_Startup"
+    StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
