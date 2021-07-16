@@ -21,6 +21,15 @@
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="/Fonts/#Teko" />
             <Setter Property="Foreground" Value="White" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <!--  Container  -->
@@ -291,10 +300,13 @@
                                 Grid.Row="1"
                                 Background="#22202F"
                                 CornerRadius="10">
-                                <ScrollViewer Margin="10" CanContentScroll="True">
+                                <ScrollViewer
+                                    Height="450"
+                                    Margin="10"
+                                    CanContentScroll="True">
                                     <TextBox
                                         x:Name="ConsoleBox"
-                                        Margin="0,0,-17,0"
+                                        Margin="0,0,0,0"
                                         Background="Transparent"
                                         BorderBrush="Transparent"
                                         FontFamily="Consolas"
