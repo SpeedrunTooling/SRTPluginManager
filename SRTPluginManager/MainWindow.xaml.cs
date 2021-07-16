@@ -65,5 +65,14 @@ namespace SRTPluginManager
             Process.Start("SRTPluginManager.exe", "--LoadUpdate");
             Environment.Exit(0);
         }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                Left = 0;
+                Top = 0;
+            }
+        }
     }
 }

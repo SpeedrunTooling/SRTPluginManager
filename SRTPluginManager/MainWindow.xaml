@@ -13,6 +13,7 @@
     Background="Transparent"
     Initialized="Window_Initialized"
     ResizeMode="CanResize"
+    StateChanged="Window_StateChanged"
     WindowStyle="None"
     mc:Ignorable="d">
 
