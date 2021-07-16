@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SRTPluginManager.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="1000"
-    d:DesignWidth="1700"
+    d:DesignHeight="640"
+    d:DesignWidth="1024"
     mc:Ignorable="d">
 
 
@@ -34,16 +34,15 @@
                 Text="User Interface Manager" />
         </StackPanel>
         <!--  Middle Container  -->
-        <Grid Height="940">
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="530" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="350" />
                 <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" MinHeight="280" />
             </Grid.RowDefinitions>
 
             <!--  Top Left Container  -->

@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SRTPluginManager.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="1000"
-    d:DesignWidth="1700"
+    d:DesignHeight="640"
+    d:DesignWidth="1024"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -46,10 +46,9 @@
                 Foreground="White"
                 Text="Widgets Manager" />
         </StackPanel>
-        <StackPanel />
-        <Grid Height="940">
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" MinWidth="530" />
+                <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
@@ -82,8 +81,6 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
@@ -283,181 +280,155 @@
                                 Text="Enable Local Host Server" />
                         </StackPanel>
                     </Grid>
+                </StackPanel>
+            </Border>
+
+            <!--  Right Container  -->
+            <Border
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Margin="15,13,15,13"
+                CornerRadius="10">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Offset="0.0" Color="#151527" />
+                        <GradientStop Offset="1" Color="#1D1C2E" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <!--  Inner Container  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <!--  User Token  -->
                     <TextBlock
                         Margin="20,10,10,0"
                         FontSize="28"
                         FontWeight="Bold"
                         Foreground="White"
                         Text="User Token" />
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="650" />
-                                <ColumnDefinition Width="50" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
+                    <!--  TextBox  -->
+                    <Border
+                        Grid.Row="1"
+                        Margin="10,5,10,5"
+                        Background="#272537"
+                        CornerRadius="10">
+                        <PasswordBox
+                            x:Name="AuthToken"
+                            Margin="10,0,10,0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Foreground="White"
+                            Password="0000000" />
+                    </Border>
+                    <!--  Refresh Button  -->
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Click="GenerateAuthToken"
+                        Style="{StaticResource ButtonTheme}">
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Source="/Images/Refresh.png" />
+                    </Button>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <Border
-                                Margin="10,5,0,5"
-                                Background="#272537"
-                                CornerRadius="10">
-                                <PasswordBox
-                                    x:Name="AuthToken"
-                                    Margin="10,0,10,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="White"
-                                    Password="0000000" />
-                            </Border>
-                            <Button
-                                Grid.Column="1"
-                                Click="GenerateAuthToken"
-                                Style="{StaticResource ButtonTheme}">
-                                <Image
-                                    Width="16"
-                                    Height="16"
-                                    Source="/Images/Refresh.png" />
-                            </Button>
-                            <Button
-                                Grid.Column="2"
-                                Click="SetAuthToken"
-                                Style="{StaticResource ButtonTheme}">
-                                <Image
-                                    Width="16"
-                                    Height="16"
-                                    Source="/Images/Save.png" />
-                            </Button>
-                        </Grid>
-                    </StackPanel>
-                    <!--  Secret Key  -->
+                    <!--  Save Button  -->
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Click="SetAuthToken"
+                        Style="{StaticResource ButtonTheme}">
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Source="/Images/Save.png" />
+                    </Button>
+
+                    <!--  Stats URL  -->
                     <TextBlock
+                        Grid.Row="2"
                         Margin="20,10,10,0"
                         FontSize="28"
                         FontWeight="Bold"
                         Foreground="White"
-                        Text="Secret Key"
-                        Visibility="Collapsed" />
-                    <StackPanel
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal"
-                        Visibility="Collapsed">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="700" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <Border
-                                Margin="10,5,0,5"
-                                Background="#272537"
-                                CornerRadius="10">
-                                <PasswordBox
-                                    x:Name="SecretKey"
-                                    Margin="10,0,10,0"
-                                    VerticalAlignment="Center"
-                                    FontSize="20"
-                                    Foreground="White"
-                                    Password="" />
-                            </Border>
-                            <Button
-                                Grid.Column="2"
-                                Click="SetSecretKey"
-                                Style="{StaticResource ButtonTheme}">
-                                <Image
-                                    Width="16"
-                                    Height="16"
-                                    Source="/Images/Save.png" />
-                            </Button>
-                        </Grid>
-                    </StackPanel>
-                    <!--  Stats URL  -->
-                    <TextBlock
-                        Margin="20,0,10,0"
-                        FontSize="28"
-                        FontWeight="Bold"
-                        Foreground="White"
                         Text="Stats URL" />
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="700" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <Border
-                                Margin="10,5,0,5"
-                                Background="#272537"
-                                CornerRadius="10">
-                                <TextBox
-                                    x:Name="WebURL"
-                                    FontSize="20"
-                                    Text="https://residentevilspeedrunning.github.io/Game/Stats" />
-                            </Border>
-                            <Button
-                                x:Name="Stats"
-                                Grid.Column="1"
-                                Click="CopyToClipboard"
-                                Style="{StaticResource ButtonTheme}">
-                                <Image
-                                    Width="16"
-                                    Height="16"
-                                    Source="/Images/Clipboard.png" />
-                            </Button>
-                        </Grid>
+                    <!--  TextBox  -->
+                    <Border
+                        Grid.Row="3"
+                        Margin="10,5,10,5"
+                        Background="#272537"
+                        CornerRadius="10">
+                        <TextBox
+                            x:Name="WebURL"
+                            FontSize="20"
+                            Text="https://residentevilspeedrunning.github.io/Game/Stats" />
+                    </Border>
 
-                    </StackPanel>
+                    <!--  CopyToClipboard  -->
+                    <Button
+                        x:Name="Stats"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Click="CopyToClipboard"
+                        Style="{StaticResource ButtonTheme}">
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Source="/Images/Clipboard.png" />
+                    </Button>
+
                     <!--  Inventory URL  -->
                     <TextBlock
-                        Margin="20,0,10,0"
+                        Grid.Row="4"
+                        Margin="20,10,10,0"
                         FontSize="28"
                         FontWeight="Bold"
                         Foreground="White"
                         Text="Inventory URL" />
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="700" />
-                                <ColumnDefinition Width="50" />
-                            </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <Border
-                                Margin="10,5,0,5"
-                                Background="#272537"
-                                CornerRadius="10">
-                                <TextBox
-                                    x:Name="InventoryURL"
-                                    FontSize="20"
-                                    Text="https://residentevilspeedrunning.github.io/Game/Inventory" />
-                            </Border>
-                            <Button
-                                x:Name="Inventory"
-                                Grid.Column="1"
-                                Click="CopyToClipboard"
-                                Style="{StaticResource ButtonTheme}">
-                                <Image
-                                    Width="16"
-                                    Height="16"
-                                    Source="/Images/Clipboard.png" />
-                            </Button>
-                        </Grid>
+                    <!--  TextBox  -->
+                    <Border
+                        Grid.Row="5"
+                        Margin="10,5,10,5"
+                        Background="#272537"
+                        CornerRadius="10">
+                        <TextBox
+                            x:Name="InventoryURL"
+                            FontSize="20"
+                            Text="https://residentevilspeedrunning.github.io/Game/Inventory" />
+                    </Border>
 
-                    </StackPanel>
-                </StackPanel>
+                    <!--  CopyToClipboard  -->
+                    <Button
+                        x:Name="Inventory"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Click="CopyToClipboard"
+                        Style="{StaticResource ButtonTheme}">
+                        <Image
+                            Width="16"
+                            Height="16"
+                            Source="/Images/Clipboard.png" />
+                    </Button>
+                </Grid>
             </Border>
 
-            <!--  Right Container  -->
         </Grid>
     </StackPanel>
 </UserControl>

@@ -6,12 +6,13 @@
     xmlns:local="clr-namespace:SRTPluginManager"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:SRTPluginManager.MVVM.ViewModel"
-    Width="1920"
-    Height="1080"
+    Width="1280"
+    Height="720"
+    MinWidth="1280"
+    MinHeight="720"
     Background="Transparent"
     Initialized="Window_Initialized"
-    ResizeMode="NoResize"
-    WindowState="Maximized"
+    ResizeMode="CanResize"
     WindowStyle="None"
     mc:Ignorable="d">
 
@@ -32,8 +33,11 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition />
+                <ColumnDefinition
+                    Width="2*"
+                    MinWidth="100"
+                    MaxWidth="200" />
+                <ColumnDefinition Width="8*" />
             </Grid.ColumnDefinitions>
 
             <Grid
@@ -41,9 +45,8 @@
                 Background="#151527"
                 MouseDown="Grid_MouseDown">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200" />
                     <ColumnDefinition />
-                    <ColumnDefinition Width="320" />
+                    <ColumnDefinition Width="160" />
                     <ColumnDefinition Width="160" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -58,12 +61,13 @@
                 </StackPanel>
                 <Button
                     x:Name="InstallUpdate"
-                    Grid.Column="2"
+                    Grid.Column="1"
                     Click="InstallUpdate_Click"
-                    Content="Update Manager"
+                    Content="New Update Available"
+                    FontSize="15"
                     Style="{StaticResource ButtonTheme}" />
                 <StackPanel
-                    Grid.Column="13"
+                    Grid.Column="2"
                     Grid.ColumnSpan="2"
                     Orientation="Horizontal">
                     <Button
