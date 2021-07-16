@@ -39,8 +39,6 @@
 name: TestDevBranch
 
 on:
-  push:
-    branches: [ build-action-test ]
   pull_request:
     branches: [ build-action-test ]
 
@@ -78,3 +76,9 @@ jobs:
     # Execute all unit tests in the solution
     - name: Execute unit tests
       run: dotnet test
+      
+    # Pusblish App Self-Contained
+    #- name: Publishing Application
+    #  run: dotnet publish --self-contained
+      
+    # Deploy to Releases?
