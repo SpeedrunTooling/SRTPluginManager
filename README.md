@@ -19,6 +19,7 @@ Under Constructions
 
 ### UI JSON
 Initiallizes local JSON Server for communications between game and local web servers for web HUD's.
+[LocalHost](http://localhost:7190)
 
 ### UI Websocket
 Initiallizes Websocket Server for communications between game and online web servers for web HUD's.
