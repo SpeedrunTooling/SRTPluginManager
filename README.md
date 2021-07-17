@@ -27,5 +27,9 @@ Initiallizes Websocket Server for communications between game and online web ser
 ## User Interfaces
 ![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865878463856640010/unknown.png)
 
+### Direct X 
+Initiallizes in-game overlay using Direct X protocals using SharpDX.\
+![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865883096922849320/unknown.png)
+
 ## Widgets
 ![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865878482801262622/unknown.png)
