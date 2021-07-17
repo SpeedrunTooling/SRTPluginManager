@@ -21,11 +21,7 @@ namespace SRTPluginManager
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-#if DEBUG
-            logFS = new FileStream(string.Format(@"SRTPluginManager_{0}.log", DateTime.UtcNow.ToString("yyyy-MM-dd_HH-mm-ss-fffffff")), FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete);
-#else
             logFS = new FileStream(@"SRTPluginManager.log", FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete);
-#endif
             logSW = new StreamWriter(logFS, Encoding.UTF8) { AutoFlush = true };
 
             logSW.LogInfoWriteLine("Evaluating command-line arguments...");
