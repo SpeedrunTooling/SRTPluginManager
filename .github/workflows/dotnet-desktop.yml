@@ -1,0 +1,28 @@
+name: "Publish"
+
+on:
+  pull-request:
+    branches:
+      - "main"
+
+jobs:
+  pre-release:
+    name: "Pre Release"
+    runs-on: "windows-latest"
+
+    steps:
+      # ...
+      - name: "Build & test"
+        run: |
+          dotnet publish --self-contained
+          echo "done!"
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            SRTPluginManager/bin/Release/net5.0-windows/publish/SRTPluginManager.exe
+            LICENSE.txt

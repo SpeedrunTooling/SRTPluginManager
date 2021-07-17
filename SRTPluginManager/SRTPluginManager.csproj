@@ -4,7 +4,6 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    
     <Authors>VideoGameRoulette</Authors>
     <Company>VideoGameRoulette</Company>
     <Copyright>Copyright © 2021 VideoGameRoulette</Copyright>
@@ -14,11 +13,7 @@
     <FileVersion>1.0.0.4</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <CopyDestionationPath>$(SolutionDir)..\..\..\Squirrelies\SRTHost\SRTHost\bin\$(Configuration)\net5.0-windows\</CopyDestionationPath>
-    
     <DebugType>embedded</DebugType>
-    <PublishProtocol>FileSystem</PublishProtocol>
-    <PublishDir>bin\Release\net5.0-windows\publish\</PublishDir>
-    <SelfContained>false</SelfContained>
     <ApplicationIcon>SRTIconTaskbar.ico</ApplicationIcon>
   </PropertyGroup>
 
