@@ -13,18 +13,39 @@ jobs:
       working-directory: .
 
     steps:
-      # ...
-      - name: "Build & test"
-        run: |
-          dotnet publish SRTPluginManager.sln /p:PublishProfile=x86
-          echo "done!"
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Development Build"
-          files: |
-            SRTPluginManager/bin/Release/net5.0-windows/publish/SRTPluginManager.exe
-            LICENSE.txt
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    #- name: Setup MSBuild.exe
+    #  uses: microsoft/setup-msbuild@v1.0.2
+
+    # Restore the application
+    #- name:  Restore the application to populate the obj folder
+    #  run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
+    #  env:
+    #    Configuration: ${{ matrix.configuration }}
+    #    RuntimeIdentifier: win-${{ matrix.targetplatform }}
+      
+    - name: "Build & test"
+      run: |
+        dotnet publish SRTPluginManager.sln /p:PublishProfile=x86
+        echo "done!"
+
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          SRTPluginManager/bin/Release/net5.0-windows/publish/SRTPluginManager.exe
+          LICENSE.txt
