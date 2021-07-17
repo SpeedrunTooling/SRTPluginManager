@@ -12,7 +12,7 @@ Under Constructions
 
 # Sections
 ## SRT Host
-[TEST](https://cdn.discordapp.com/attachments/551840398016774193/865877964464586772/unknown.png)
+![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865877964464586772/unknown.png)
 
 ## Extensions
 Under Constructions
