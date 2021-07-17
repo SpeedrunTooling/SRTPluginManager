@@ -18,8 +18,8 @@ Under Constructions
 ![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865878441153134622/unknown.png)
 
 ### UI JSON
-Initiallizes local JSON Server for communications between game and local web servers for web HUD's.
-[LocalHost](http://localhost:7190)
+Initiallizes local JSON Server for communications between game and local web servers for web HUD's.\
+[Local Host API](http://localhost:7190)
 
 ### UI Websocket
 Initiallizes Websocket Server for communications between game and online web servers for web HUD's.
