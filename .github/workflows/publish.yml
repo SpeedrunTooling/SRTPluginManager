@@ -6,42 +6,66 @@ on:
       - "main"
 
 jobs:
-  pre-release:
-    name: "Pre Release"
+  release:
+    name: "Release"
     runs-on: "windows-latest"
     env:
       working-directory: .
+      project-name: SRTPluginManager
+      program-exe: ${{env.project-name}}.exe
+      solution: ${{env.project-name}}.sln
+      project: ${{env.project-name}}/${{env.project-name}}.csproj
+      publish-directory: ${{env.project-name}}/bin/Release/net5.0-windows/publish/
+      publish-profile-name: x86
+      is-prerelease: true
 
     steps:
+    # Checkout latest code
     - name: Checkout
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
 
+    # Install .NET
     - name: Install .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-      
-    - name: "Build & test"
-      run: |
-        dotnet publish SRTPluginManager.sln /p:PublishProfile=x86
 
-    - name: Zip the publish files
+    # Get the project's version number
+    - name: Get project version
+      id: get_version
+      uses: greenygh0st/net-proj-release-version@v1
+      with:
+        PROJ_FILE: $env:project
+
+    # Sets the zip-filename environment variable based on the project version
+    - name: Set the zip-filename environment variable
+      env:
+        zip-filename: ${{env.project-name}}-v${{steps.get_version.outputs.RELEASE_VERSION}}.zip
+
+    # Compiles the program and runs the publish profile
+    - name: Compile and run publish profile
+      run: |
+        dotnet publish $env:solution /p:PublishProfile=$env:publish-profile-name
+
+    # Zip the publish artifacts
+    - name: Zip the publish artifacts
       run: |
         Add-Type -assembly 'System.IO.Compression'
         Add-Type -assembly 'System.IO.Compression.FileSystem'
-        [System.IO.Compression.ZipArchive]$zipFile = [System.IO.Compression.ZipFile]::Open('publish.zip', ([System.IO.Compression.ZipArchiveMode]::Create))
-        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, 'SRTPluginManager/bin/Release/net5.0-windows/publish/SRTPluginManager.exe', 'SRTPluginManager.exe')
+        [System.IO.Compression.ZipArchive]$zipFile = [System.IO.Compression.ZipFile]::Open('$env:zip-filename', ([System.IO.Compression.ZipArchiveMode]::Create))
+        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, '${{env.publish-directory}}${{program-exe}}', '${{program-exe}}')
         [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, 'LICENSE', 'LICENSE')
         $zipFile.Dispose()
-      
-    - uses: "marvinpinto/action-automatic-releases@latest"
-      name: Publish release
+
+    # Pushes the release
+    - name: Publish release
+      uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
-        prerelease: true
-        title: "Development Build"
+        prerelease: $env:is-prerelease
+        title: 'Automated Build - v${{steps.get_version.outputs.RELEASE_VERSION}}'
         files: |
-          publish.zip
+          '$env:zip-filename'
