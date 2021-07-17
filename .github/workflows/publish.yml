@@ -38,8 +38,6 @@ jobs:
       uses: greenygh0st/net-proj-release-version@v1
       with:
         PROJ_FILE: $env:project
-      run: |
-        echo 'zip-filename=${{env.project-name}}-v${{steps.get_version.outputs.RELEASE_VERSION}}.zip' >> $GITHUB_ENV
 
     # Sets the zip-filename environment variable based on the project version
     - name: Set the zip-filename environment variable
