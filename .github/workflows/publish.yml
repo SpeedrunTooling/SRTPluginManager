@@ -64,6 +64,7 @@ jobs:
         [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, '${{steps.generated-variables-1.outputs.publish-directory}}${{steps.generated-variables-1.outputs.program-exe}}', '${{steps.generated-variables-1.outputs.program-exe}}')
         [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, 'LICENSE', 'LICENSE')
         $zipFile.Dispose()
+        dir
 
     # Pushes the release
     - name: Publish release
