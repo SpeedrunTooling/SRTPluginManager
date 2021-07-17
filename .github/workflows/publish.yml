@@ -46,6 +46,8 @@ jobs:
       run: zip -j publish.zip SRTPluginManager.exe
       
     - uses: "marvinpinto/action-automatic-releases@latest"
+      env:
+        working-directory: SRTPluginManager/bin/Release/net5.0-windows/publish/
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
