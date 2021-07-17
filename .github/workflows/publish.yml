@@ -9,6 +9,8 @@ jobs:
   pre-release:
     name: "Pre Release"
     runs-on: "windows-latest"
+    env:
+      working-directory: .
 
     steps:
       # ...
