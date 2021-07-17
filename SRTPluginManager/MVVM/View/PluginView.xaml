@@ -21,15 +21,7 @@
         <Style TargetType="TextBox">
             <Setter Property="FontFamily" Value="/Fonts/#Teko" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                </Trigger>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
     </UserControl.Resources>
     <!--  Container  -->

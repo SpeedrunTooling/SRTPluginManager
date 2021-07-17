@@ -332,12 +332,27 @@ namespace SRTPluginManager.MVVM.View
         public void ClearLog()
         {
             ConsoleBox.Clear();
+            string[] lines = {
+                ":'######::'########::'########:'##::::'##::'#######:::'######::'########:",
+                "'##... ##: ##.... ##:... ##..:: ##:::: ##:'##.... ##:'##... ##:... ##..::",
+                " ##:::..:: ##:::: ##:::: ##:::: ##:::: ##: ##:::: ##: ##:::..::::: ##::::",
+                ". ######:: ########::::: ##:::: #########: ##:::: ##:. ######::::: ##::::",
+                ":..... ##: ##.. ##:::::: ##:::: ##.... ##: ##:::: ##::..... ##:::: ##::::",
+                "'##::: ##: ##::. ##::::: ##:::: ##:::: ##: ##:::: ##:'##::: ##:::: ##::::",
+                ". ######:: ##:::. ##:::: ##:::: ##:::: ##:. #######::. ######::::: ##::::",
+                ":......:::..:::::..:::::..:::::..:::::..:::.......::::......::::::..:::::"
+            };
+
+            foreach (string line in lines)
+            {
+                ConsoleBox.AppendText(string.Format("{0}\r\n", line));
+            }
         }
 
         public void Log(string line)
         {
             ConsoleBox.AppendText(string.Format("{0}\r\n", line));
-            ConsoleBox.ScrollToEnd();
+            ConsoleBox.ScrollToLine(ConsoleBox.LineCount - 1);
         }
 
         public void Log(string[] lines)
@@ -350,6 +365,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
         {
+            SRTGetUpdate.Content = "Please Wait! Installing...";
             await DownloadFileAsync("SRTHost.zip", Config.SRTConfig.downloadURL, GetUpdate, ApplicationPath, true);
             InitSRTData();
         }

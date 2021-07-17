@@ -186,13 +186,19 @@ namespace SRTPluginManager.MVVM.View
             // SET PARAMS STATS HUD
             for (var i = 0; i < paramList.Count; i++)
             {
-                defaultLink += string.Format("&{0}=1", paramList[i].ToString());
+                if ((bool)IsLocal.IsChecked && i == 0)
+                    defaultLink += string.Format("?{0}=1", paramList[i].ToString());
+                else
+                    defaultLink += string.Format("&{0}=1", paramList[i].ToString());
             }
 
             // SET PARAMS INVENTORY HUD
             for (var i = 0; i < paramListInventory.Count; i++)
             {
-                inventoryLink += string.Format("&{0}=1", paramListInventory[i].ToString());
+                if ((bool)IsLocal.IsChecked && i == 0)
+                    inventoryLink += string.Format("?{0}=1", paramListInventory[i].ToString());
+                else
+                    inventoryLink += string.Format("&{0}=1", paramListInventory[i].ToString());
             }
 
             if (WebURL != null)
