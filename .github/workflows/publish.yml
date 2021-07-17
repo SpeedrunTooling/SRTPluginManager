@@ -59,7 +59,7 @@ jobs:
         Add-Type -assembly 'System.IO.Compression'
         Add-Type -assembly 'System.IO.Compression.FileSystem'
         [System.IO.Compression.ZipArchive]$zipFile = [System.IO.Compression.ZipFile]::Open('$env:zip-filename', ([System.IO.Compression.ZipArchiveMode]::Create))
-        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, '${{env.publish-directory}}${{program-exe}}', '${{program-exe}}')
+        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, '${{env.publish-directory}}${{env.program-exe}}', '${{env.program-exe}}')
         [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, 'LICENSE', 'LICENSE')
         $zipFile.Dispose()
 
