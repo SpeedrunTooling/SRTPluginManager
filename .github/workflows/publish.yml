@@ -71,7 +71,7 @@ jobs:
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
-        prerelease: $env:is-prerelease
+        prerelease: ${{env.is-prerelease}}
         title: 'Automated Build - v${{steps.get_version.outputs.RELEASE_VERSION}}'
         files: |
           '${{steps.generated-variables-2.outputs.zip-filename}}'
