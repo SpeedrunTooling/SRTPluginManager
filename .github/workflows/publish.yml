@@ -14,11 +14,6 @@ jobs:
       project-name: SRTPluginManager
       publish-profile-name: x86
       is-prerelease: true
-      program-exe: ''
-      solution: ''
-      project: ''
-      publish-directory: ''
-      zip-filename: ''
 
     steps:
     # Checkout latest code
@@ -27,25 +22,27 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Set the main environment variables based on other environment variables
+    # Set some output variables
     - name: Set the main environment variables based on other environment variables
+      id: generated-variables-1
       run: |
-        echo 'program-exe=${{env.project-name}}.exe' >> $GITHUB_ENV
-        echo 'solution=${{env.project-name}}.sln' >> $GITHUB_ENV
-        echo 'project=${{env.project-name}}/${{env.project-name}}.csproj' >> $GITHUB_ENV
-        echo 'publish-directory=${{env.project-name}}/bin/Release/net5.0-windows/publish/' >> $GITHUB_ENV
+        echo '::set-output name=program-exe::${{env.project-name}}.exe'
+        echo '::set-output name=solution::${{env.project-name}}.sln'
+        echo '::set-output name=project::${{env.project-name}}/${{env.project-name}}.csproj'
+        echo '::set-output name=publish-directory::${{env.project-name}}/bin/Release/net5.0-windows/publish/'
 
     # Get the project's version number
     - name: Get project version
       id: get_version
       uses: greenygh0st/net-proj-release-version@v1
       with:
-        PROJ_FILE: $env:project
+        PROJ_FILE: ${{steps.generated-variables-1.outputs.project}}
 
-    # Sets the zip-filename environment variable based on the project version
+    # Sets the zip-filename output variable based on the project version
     - name: Sets the zip-filename environment variable based on the project version
+      id: generated-variables-2
       run: |
-        echo 'zip-filename=${{env.project-name}}-v${{steps.get_version.outputs.RELEASE_VERSION}}.zip' >> $GITHUB_ENV
+        echo '::set-output name=zip-filename::${{env.project-name}}-v${{steps.get_version.outputs.RELEASE_VERSION}}.zip'
 
     # Install .NET
     - name: Install .NET Core
@@ -56,15 +53,15 @@ jobs:
     # Compiles the program and runs the publish profile
     - name: Compile and run publish profile
       run: |
-        dotnet publish $env:solution /p:PublishProfile=$env:publish-profile-name
+        dotnet publish ${{steps.generated-variables-1.outputs.solution}} /p:PublishProfile=${{env.publish-profile-name}}
 
     # Zip the publish artifacts
     - name: Zip the publish artifacts
       run: |
         Add-Type -assembly 'System.IO.Compression'
         Add-Type -assembly 'System.IO.Compression.FileSystem'
-        [System.IO.Compression.ZipArchive]$zipFile = [System.IO.Compression.ZipFile]::Open('$env:zip-filename', ([System.IO.Compression.ZipArchiveMode]::Create))
-        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, '${{env.publish-directory}}${{env.program-exe}}', '${{env.program-exe}}')
+        [System.IO.Compression.ZipArchive]$zipFile = [System.IO.Compression.ZipFile]::Open('${{steps.generated-variables-1.outputs.zip-filename}}', ([System.IO.Compression.ZipArchiveMode]::Create))
+        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, '${{steps.generated-variables-1.outputs.publish-directory}}${{steps.generated-variables-1.outputs.program-exe}}', '${{steps.generated-variables-1.outputs.program-exe}}')
         [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, 'LICENSE', 'LICENSE')
         $zipFile.Dispose()
 
@@ -77,4 +74,4 @@ jobs:
         prerelease: $env:is-prerelease
         title: 'Automated Build - v${{steps.get_version.outputs.RELEASE_VERSION}}'
         files: |
-          '$env:zip-filename'
+          '${{steps.generated-variables-1.outputs.zip-filename}}'
