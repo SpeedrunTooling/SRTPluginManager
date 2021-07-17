@@ -16,8 +16,7 @@ jobs:
       # ...
       - name: "Build & test"
         run: |
-          echo "${{env.working-directory}}"
-          dotnet publish SRTPluginManager/SRTPluginManager.csproj --self-contained
+          dotnet publish SRTPluginManager.sln /p:PublishProfile=x86
           echo "done!"
 
       - uses: "marvinpinto/action-automatic-releases@latest"
