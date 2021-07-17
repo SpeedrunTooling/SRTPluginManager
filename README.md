@@ -17,6 +17,12 @@ Under Constructions
 ## Extensions
 ![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865878441153134622/unknown.png)
 
+### UI JSON
+Initiallizes local JSON Server for communications between game and local web servers for web HUD's.
+
+### UI Websocket
+Initiallizes Websocket Server for communications between game and online web servers for web HUD's.
+
 ## User Interfaces
 ![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865878463856640010/unknown.png)
 
