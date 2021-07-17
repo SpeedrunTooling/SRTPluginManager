@@ -10,15 +10,15 @@
 # How To Install
 Under Constructions
 
-## Sections
-# SRT Host
+# Sections
+## SRT Host
 Under Constructions
 
-# Extensions
+## Extensions
 Under Constructions
 
-# User Interfaces
+## User Interfaces
 Under Constructions
 
-# Widgets
+## Widgets
 Under Constructions
