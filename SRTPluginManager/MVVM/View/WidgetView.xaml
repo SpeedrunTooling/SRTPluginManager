@@ -377,7 +377,7 @@
                         <TextBox
                             x:Name="WebURL"
                             FontSize="20"
-                            Text="https://residentevilspeedrunning.github.io/Game/Stats" />
+                            Text="https://speedruntooling.github.io/StatsHUD" />
                     </Border>
 
                     <!--  CopyToClipboard  -->
@@ -411,7 +411,7 @@
                         <TextBox
                             x:Name="InventoryURL"
                             FontSize="20"
-                            Text="https://residentevilspeedrunning.github.io/Game/Inventory" />
+                            Text="https://speedruntooling.github.io/InventoryHUD" />
                     </Border>
 
                     <!--  CopyToClipboard  -->
