@@ -64,7 +64,6 @@ jobs:
         [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, '${{steps.generated-variables-1.outputs.publish-directory}}${{steps.generated-variables-1.outputs.program-exe}}', '${{steps.generated-variables-1.outputs.program-exe}}')
         [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, 'LICENSE', 'LICENSE')
         $zipFile.Dispose()
-        dir
 
     # Pushes the release
     - name: Publish release
@@ -75,4 +74,4 @@ jobs:
         prerelease: ${{env.is-prerelease}}
         title: 'Automated Build - v${{steps.get_version.outputs.RELEASE_VERSION}}'
         files: |
-          '${{steps.generated-variables-2.outputs.zip-filename}}'
+          ${{steps.generated-variables-2.outputs.zip-filename}}
