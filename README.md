@@ -7,7 +7,23 @@
 # Join Me Live On Twitch
 ![Twitch](https://img.shields.io/twitch/status/videogameroulette?style=for-the-badge)
 
-# How To Install
+# Table of Contents
+- [How to Install](https://github.com/SpeedrunTooling/SRTPluginManager#how-to-install)
+- [How to Use](https://github.com/SpeedrunTooling/SRTPluginManager#how-to-use)
+  - [Start SRT](https://github.com/SpeedrunTooling/SRTPluginManager#start-srt)
+  - [Stop SRT](https://github.com/SpeedrunTooling/SRTPluginManager#stop-srt)
+- [SRTHost](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README.md#srt-host)
+- [Extensions](https://github.com/SpeedrunTooling/SRTPluginManager#extensions)
+  - [UI JSON](https://github.com/SpeedrunTooling/SRTPluginManager#ui-json)
+  - [UI Websocket](https://github.com/SpeedrunTooling/SRTPluginManager#ui-websocket)
+- [User Interfaces](https://github.com/SpeedrunTooling/SRTPluginManager#user-interfaces)
+  - [Direct X](https://github.com/SpeedrunTooling/SRTPluginManager#direct-x)
+  - [WPF](https://github.com/SpeedrunTooling/SRTPluginManager#wpf-windows-presentation-foundation)
+- [Widgets](https://github.com/SpeedrunTooling/SRTPluginManager#widgets)
+  - [Stats HUD](https://github.com/SpeedrunTooling/SRTPluginManager#stats-hud)
+  - [Inventory HUD](https://github.com/SpeedrunTooling/SRTPluginManager#inventory-hud)
+
+# How to Install
 - Download latest release at [Latest Release](https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest)
 - Extract contents of zip to any desired folder ex. "C:/SRTHost"
 - Run SRTPluginManager.exe
@@ -37,20 +53,6 @@
 - Navigate to SRTHost tab
 - Choose Game from Supported Game List
 - Click Stop SRT
-
-# Sections
-- [SRTHost](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README.md#srt-host)
-  - [Start SRT](https://github.com/SpeedrunTooling/SRTPluginManager#start-srt)
-  - [Stop SRT](https://github.com/SpeedrunTooling/SRTPluginManager#stop-srt)
-- [Extensions](https://github.com/SpeedrunTooling/SRTPluginManager#extensions)
-  - [UI JSON](https://github.com/SpeedrunTooling/SRTPluginManager#ui-json)
-  - [UI Websocket](https://github.com/SpeedrunTooling/SRTPluginManager#ui-websocket)
-- [User Interfaces](https://github.com/SpeedrunTooling/SRTPluginManager#user-interfaces)
-  - [Direct X](https://github.com/SpeedrunTooling/SRTPluginManager#direct-x)
-  - [WPF](https://github.com/SpeedrunTooling/SRTPluginManager#wpf-windows-presentation-foundation)
-- [Widgets](https://github.com/SpeedrunTooling/SRTPluginManager#widgets)
-  - [Stats HUD](https://github.com/SpeedrunTooling/SRTPluginManager#stats-hud)
-  - [Inventory HUD](https://github.com/SpeedrunTooling/SRTPluginManager#inventory-hud)
 
 ## SRT Host
 ![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865877964464586772/unknown.png)
