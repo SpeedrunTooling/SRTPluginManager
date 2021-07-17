@@ -1,7 +1,7 @@
 # SRTPluginManager
 ![TestDevBranch](https://img.shields.io/github/workflow/status/SpeedrunTooling/SRTPluginManager/Publish?label=ultima%20compilación&style=for-the-badge)
 ![Release](https://img.shields.io/github/v/release/SpeedrunTooling/SRTPluginManager?label=lanzamiento%20actual&style=for-the-badge)
-![Date](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?style=for-the-badge)
+![Date](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?label=fecha%20de%20lanzamiento&style=for-the-badge)
 ![Downloads](https://img.shields.io/github/downloads/SpeedrunTooling/SRTPluginManager/total?color=%23007EC6&style=for-the-badge)
 
 # Únete a mis directos en Twitch
