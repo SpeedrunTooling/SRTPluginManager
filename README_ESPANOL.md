@@ -12,7 +12,7 @@
 - [Cómo utilizar](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#c%C3%B3mo-utilizar)
   - [Iniciar SRT](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#iniciar-srt)
   - [Detener SRT](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#detener-srt)
-- [SRTHost](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README.md#srt-host)
+- [SRTHost](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#srt-host)
 - [Extensiones](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#extensiones)
   - [UI JSON](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#ui-json)
   - [UI Websocket](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#ui-websocket)
