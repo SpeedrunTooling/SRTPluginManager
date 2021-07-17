@@ -131,8 +131,8 @@ Initiallizes External HUD Application using WPF.\
 
 ### Stats HUD
 [Stats HUD](https://speedruntooling.github.io/StatsHUD)
-![screenshot]()
+![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865890495401164801/unknown.png)
 
 ### Inventory HUD
 [Inventory HUD](https://speedruntooling.github.io/InventoryHUD)
-![screenshot]()
+![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865890549995536414/unknown.png)
