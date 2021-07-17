@@ -12,10 +12,6 @@ jobs:
     env:
       working-directory: .
       project-name: SRTPluginManager
-      program-exe: ${{env.project-name}}.exe
-      solution: ${{env.project-name}}.sln
-      project: ${{env.project-name}}/${{env.project-name}}.csproj
-      publish-directory: ${{env.project-name}}/bin/Release/net5.0-windows/publish/
       publish-profile-name: x86
       is-prerelease: true
 
@@ -26,11 +22,13 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Install .NET
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
+    # Set the main environment variables based on other environment variables
+    - name: Set the main environment variables based on other environment variables
+      run: |
+        echo 'program-exe=${{env.project-name}}.exe' >> $GITHUB_ENV
+        echo 'solution=${{env.project-name}}.sln' >> $GITHUB_ENV
+        echo 'project=${{env.project-name}}/${{env.project-name}}.csproj' >> $GITHUB_ENV
+        echo 'publish-directory=${{env.project-name}}/bin/Release/net5.0-windows/publish/' >> $GITHUB_ENV
 
     # Get the project's version number
     - name: Get project version
@@ -40,9 +38,15 @@ jobs:
         PROJ_FILE: $env:project
 
     # Sets the zip-filename environment variable based on the project version
-    - name: Set the zip-filename environment variable
+    - name: Sets the zip-filename environment variable based on the project version
       run: |
         echo 'zip-filename=${{env.project-name}}-v${{steps.get_version.outputs.RELEASE_VERSION}}.zip' >> $GITHUB_ENV
+
+    # Install .NET
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
 
     # Compiles the program and runs the publish profile
     - name: Compile and run publish profile
