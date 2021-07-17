@@ -10,7 +10,6 @@
     Height="720"
     MinWidth="1280"
     MinHeight="720"
-    AllowsTransparency="True"
     Background="Transparent"
     Initialized="Window_Initialized"
     ResizeMode="CanResize"
