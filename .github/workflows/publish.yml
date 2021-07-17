@@ -39,7 +39,7 @@ jobs:
       run: |
         dotnet publish SRTPluginManager.sln /p:PublishProfile=x86
         echo "done!"
-        
+
     - name: "Zipping Contents"
       env:
         working-directory: SRTPluginManager/bin/Release/net5.0-windows/publish/
