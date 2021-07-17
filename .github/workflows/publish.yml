@@ -14,6 +14,7 @@ jobs:
       # ...
       - name: "Build & test"
         run: |
+          echo "%CD%"
           dotnet publish SRTPluginManager/SRTPluginManager.csproj --self-contained
           echo "done!"
 
