@@ -12,7 +12,7 @@
 - Extract contents of zip to any desired folder ex. "C:/SRTHost"
 - Run SRTPluginManager.exe
 - Navigate to SRTHost tab
-- In Host Version Info Panel click Install to install latest SRT Host or alternatively Update to update it when available\ (Be careful this is a big download so its delayed click only once and let it do its thing you'll know when its done and install button disappears if you click twice it will crash the program)
+- In Host Version Info Panel click Install to install latest SRT Host or alternatively Update to update it when available (Be careful this is a big download so its delayed click only once and let it do its thing you'll know when its done and install button disappears if you click twice it will crash the program)
 - Select Game you want to install from Supported Games List
 - In Current Plugin Panel click Install to install latest PluginProvider or alternatively Update to update it when available
 - Navigate to Extension tab
