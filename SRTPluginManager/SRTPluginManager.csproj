@@ -10,15 +10,11 @@
     <Copyright>Copyright © 2021 VideoGameRoulette</Copyright>
     <Product>SRT Host Plugin Manager</Product>
     <Description>A plugin manager for SRT Host.</Description>
-    <Version>1.0.0.5</Version>
-    <FileVersion>1.0.0.5</FileVersion>
+    <Version>1.0.0.6</Version>
+    <FileVersion>1.0.0.6</FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <CopyDestionationPath>$(SolutionDir)..\..\..\Squirrelies\SRTHost\SRTHost\bin\$(Configuration)\net5.0-windows\</CopyDestionationPath>
-    
     <DebugType>embedded</DebugType>
-    <PublishProtocol>FileSystem</PublishProtocol>
-    <PublishDir>bin\Release\net5.0-windows\publish\</PublishDir>
-    <SelfContained>false</SelfContained>
+    <CopyDestionationPath>$(SolutionDir)..\..\..\Squirrelies\SRTHost\SRTHost\bin\$(Configuration)\net5.0-windows\</CopyDestionationPath>
     <ApplicationIcon>SRTIconTaskbar.ico</ApplicationIcon>
   </PropertyGroup>
 

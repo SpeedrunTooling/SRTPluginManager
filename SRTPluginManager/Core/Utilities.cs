@@ -119,7 +119,7 @@ namespace SRTPluginManager.Core
             File.Delete(file); // deletes temp zip
         }
 
-        public static async Task DownloadFileAsync(string fileName, string url, Button button, string destination, bool isSRT = false)
+        public static async Task DownloadFileAsync(string fileName, string url, Button button, string destination, bool isSRT)
         {
             var file = Path.Combine(TempFolderPath, fileName);
 

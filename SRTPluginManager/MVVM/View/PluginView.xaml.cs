@@ -248,7 +248,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void GetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync(CurrentPlugin.ToString() + ".zip", Config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath);
+            await DownloadFileAsync(CurrentPlugin.ToString() + ".zip", Config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath, false);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();

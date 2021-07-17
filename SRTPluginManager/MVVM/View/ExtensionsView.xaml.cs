@@ -119,7 +119,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync(CurrentExtension.ToString() + ".zip", Config.ExtensionsConfig[CurrentExtension].downloadURL, InstallUpdate, PluginFolderPath);
+            await DownloadFileAsync(CurrentExtension.ToString() + ".zip", Config.ExtensionsConfig[CurrentExtension].downloadURL, InstallUpdate, PluginFolderPath, false);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();
