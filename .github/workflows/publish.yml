@@ -14,6 +14,11 @@ jobs:
       project-name: SRTPluginManager
       publish-profile-name: x86
       is-prerelease: true
+      program-exe: ''
+      solution: ''
+      project: ''
+      publish-directory: ''
+      zip-filename: ''
 
     steps:
     # Checkout latest code
