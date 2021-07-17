@@ -8,7 +8,35 @@
 ![Twitch](https://img.shields.io/twitch/status/videogameroulette?style=for-the-badge)
 
 # How To Install
-Under Constructions
+- Download latest release at [Latest Release](https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest)
+- Extract contents of zip to any desired folder ex. "C:/SRTHost"
+- Run SRTPluginManager.exe
+- Navigate to SRTHost tab
+- In Host Version Info Panel click Install to install latest SRT Host or alternatively Update to update it when available\ (Be careful this is a big download so its delayed click only once and let it do its thing you'll know when its done and install button disappears if you click twice it will crash the program)
+- Select Game you want to install from Supported Games List
+- In Current Plugin Panel click Install to install latest PluginProvider or alternatively Update to update it when available
+- Navigate to Extension tab
+- Install U JSON
+- Install U Websocket (Optional only required if you have 2 pc steam setup, outputting ui to tourney, or want to view srt HUD from phone / tablet)
+- Navigate to User Interfaces tab
+- Install any desired User Interfaces for each game supported more info below.
+- Navigate to Widgets tab
+- Select options for Web UI (Note some options are game specific not all work for all games at this time)
+- IF WEBSOCKET INSTALLED. Make sure you uncheck "Enable Local Host Server"
+- IF WEBSOCKET INSTALLED. Make sure to generate User Token by clicking the refresh button beside the User Token box or manually typing one in from tourney provider and clicking save button.
+- Copy links for stats or inventory url and paste into web browser or OBS.
+
+# How to Use
+
+## Start SRT
+- Navigate to SRTHost tab
+- Choose Game from Supported Game List
+- Click Start SRT
+
+## Stop SRT
+- Navigate to SRTHost tab
+- Choose Game from Supported Game List
+- Click Stop SRT
 
 # Sections
 ## SRT Host
