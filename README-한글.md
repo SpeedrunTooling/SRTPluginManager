@@ -4,7 +4,7 @@
 ![날짜](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?label=날짜&style=for-the-badge)
 ![다운로드](https://img.shields.io/github/downloads/SpeedrunTooling/SRTPluginManager/total?label=다운로드&color=%23007EC6&style=for-the-badge)
 
-## 번역자: 다주경
+**번역자:** [다주경](https://www.twitch.tv/dajukyung)
 
 # 트위치 생방송 접속
 ![트위치](https://img.shields.io/twitch/status/videogameroulette?label=트위치&style=for-the-badge)
