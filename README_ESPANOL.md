@@ -2,12 +2,12 @@
 ![TestDevBranch](https://img.shields.io/github/workflow/status/SpeedrunTooling/SRTPluginManager/Publish?label=ultima%20compilación&style=for-the-badge)
 ![Release](https://img.shields.io/github/v/release/SpeedrunTooling/SRTPluginManager?label=lanzamiento%20actual&style=for-the-badge)
 ![Date](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?label=fecha%20de%20lanzamiento&style=for-the-badge)
-![Downloads](https://img.shields.io/github/downloads/SpeedrunTooling/SRTPluginManager/total?color=%23007EC6&style=for-the-badge)
+![Downloads](https://img.shields.io/github/downloads/SpeedrunTooling/SRTPluginManager/total?label=descargas&color=%23007EC6&style=for-the-badge)
 
 # Únete a mis directos en Twitch
 ![Twitch](https://img.shields.io/twitch/status/videogameroulette?style=for-the-badge)
 
-# Table de Contenidos
+# Tabla de Contenidos
 - [Cómo instalar](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#c%C3%B3mo-instalar)
 - [Cómo utilizar](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#c%C3%B3mo-utilizar)
   - [Iniciar SRT](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#iniciar-srt)
@@ -33,13 +33,13 @@
 - En el Panel "Current Plugin Panel" haga clic en Instalar para instalar el último PluginProvider o, alternativamente, Actualizar para actualizarlo cuando esté disponible
 - Vaya a la pestaña Extensión
 - Instala U JSON
-- Instala U Websocket (Opcional solo se requiere si tiene una configuración de stream con 2pcs, enviar una IU a un torneo o desea ver srt HUD desde el teléfono / tableta)
+- Instala U Websocket (Opcional solo se requiere si tiene una configuración de stream con 2pcs, enviar una IU a un torneo o si desea ver srt HUD desde el teléfono / tableta)
 - Vaya a la pestaña "User Interfaces"
 - Instale las "User Interfaces" que desee para cada juego compatible. Más información a continuación.
 - Vaya a la pestaña Widgets
 - Seleccionar opciones para Web UI (Tenga en cuenta que algunas opciones son específicas del juego, no todas funcionan para todos los juegos en este momento)
 - SI ESTÁ INSTALADO WEBSOCKET. Asegúrate de desmarcar "Enable Local Host Server"
-- SI ESTÁ ISNTALADO WEBSOCKET. Asegurate de genearar un "User Token" haciendo clic en el botón de actualización junto al "User Token" o escribiendo manualmente uno del proveedor del torneo y haciendo clic en el botón Guardar.
+- SI ESTÁ INSTALADO WEBSOCKET. Asegurate de genearar un "User Token" haciendo clic en el botón de actualización junto al "User Token" o escribiendo manualmente uno del proveedor del torneo y haciendo clic en el botón Guardar.
 - Copie enlaces para los Stats o URL de inventario y péguelos en el navegador web o en OBS.
 
 # Cómo utilizar
