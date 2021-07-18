@@ -4,7 +4,7 @@
 ![ReleaseDate](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?label=fecha%20de%20lanzamiento&style=for-the-badge)
 ![Downloads](https://img.shields.io/github/downloads/SpeedrunTooling/SRTPluginManager/total?label=descargas&color=%23007EC6&style=for-the-badge)
 
-**Traducido por: Ares**
+**Traducido por:** [Ares](https://www.twitch.tv/aresaurio)
 
 # Únete a mis directos en Twitch
 ![Twitch](https://img.shields.io/twitch/status/videogameroulette?style=for-the-badge)
