@@ -19,7 +19,7 @@
   - [UI JSON](#ui-json)
   - [UI Websocket](#ui-websocket)
 - [Interfaz de usuario](#interfaz-de-usuario)
-  - [Direct X](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#direct-x)
+  - [Direct X](#direct-x)
   - [WPF](#wpf-windows-presentation-foundation)
 - [Widgets](#widgets)
   - [HUD de Stats](#hud-de-stats)
