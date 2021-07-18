@@ -4,7 +4,7 @@
 ![Date](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?label=date%20de%20sortie&style=for-the-badge)
 ![Téléchargements](https://img.shields.io/github/downloads/SpeedrunTooling/SRTPluginManager/total?label=telechargements&color=%23007EC6&style=for-the-badge)
 
-**Traduit par: GVirus**
+**Traduit par:** [GVirus](https://www.twitch.tv/itgvirus)
 
 # Joignez-vous à moi en direct sur Twitch!
 ![Twitch](https://img.shields.io/twitch/status/videogameroulette?style=for-the-badge)
