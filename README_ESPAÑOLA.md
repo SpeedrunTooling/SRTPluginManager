@@ -1,30 +1,32 @@
 # SRTPluginManager
-![TestDevBranch](https://img.shields.io/github/workflow/status/SpeedrunTooling/SRTPluginManager/Publish?label=ultima%20compilación&style=for-the-badge)
+![LatestBuild](https://img.shields.io/github/workflow/status/SpeedrunTooling/SRTPluginManager/Publish?label=ultima%20compilación&style=for-the-badge)
 ![Release](https://img.shields.io/github/v/release/SpeedrunTooling/SRTPluginManager?label=lanzamiento%20actual&style=for-the-badge)
-![Date](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?label=fecha%20de%20lanzamiento&style=for-the-badge)
+![ReleaseDate](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?label=fecha%20de%20lanzamiento&style=for-the-badge)
 ![Downloads](https://img.shields.io/github/downloads/SpeedrunTooling/SRTPluginManager/total?label=descargas&color=%23007EC6&style=for-the-badge)
+
+**Traducido por: Ares**
 
 # Únete a mis directos en Twitch
 ![Twitch](https://img.shields.io/twitch/status/videogameroulette?style=for-the-badge)
 
 # Tabla de Contenidos
-- [Cómo instalar](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#c%C3%B3mo-instalar)
-- [Cómo utilizar](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#c%C3%B3mo-utilizar)
-  - [Iniciar SRT](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#iniciar-srt)
-  - [Detener SRT](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#detener-srt)
-- [SRTHost](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#srt-host)
-- [Extensiones](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#extensiones)
-  - [UI JSON](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#ui-json)
-  - [UI Websocket](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#ui-websocket)
-- [Interfaz de usuario](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#interfaz-de-usuario)
+- [Cómo instalar](#c%C3%B3mo-instalar)
+- [Cómo utilizar](#c%C3%B3mo-utilizar)
+  - [Iniciar SRT](#iniciar-srt)
+  - [Detener SRT](#detener-srt)
+- [SRTHost](#srt-host)
+- [Extensiones](#extensiones)
+  - [UI JSON](#ui-json)
+  - [UI Websocket](#ui-websocket)
+- [Interfaz de usuario](#interfaz-de-usuario)
   - [Direct X](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#direct-x)
-  - [WPF](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#wpf-windows-presentation-foundation)
-- [Widgets](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#widgets)
-  - [HUD de Stats](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#hud-de-stats)
-  - [HUD del Inventario](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README_ESPANOL.md#hud-del-inventario)
+  - [WPF](#wpf-windows-presentation-foundation)
+- [Widgets](#widgets)
+  - [HUD de Stats](#hud-de-stats)
+  - [HUD del Inventario](#hud-del-inventario)
 
 # Cómo instalar
-- Descarga la última versión en [Latest Release](https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest)
+- Descarga la última versión en [Último Lanzamiento](https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest)
 - Extraiga el contenido del archivo zip a cualquier carpeta deseada, ej. "C:/SRTHost"
 - Ejecuta SRTPluginManager.exe
 - Vaya a la pestaña SRTHost
@@ -62,7 +64,7 @@
 
 ### UI JSON
 Inicia el servidor JSON local para las comunicaciones entre el juego y los servidores web locales para los HUD web.\
-[Local Host API](http://localhost:7190)
+[Anfitriona Local API](http://localhost:7190)
 <details>
   <summary>Ejemplo</summary>
 
