@@ -248,7 +248,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void GetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync(CurrentPlugin.ToString() + ".zip", Config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath, false);
+            await DownloadFileAsync(Config.PluginConfig[(int)CurrentPlugin].pluginName, Config.PluginConfig[(int)CurrentPlugin].pluginName + ".zip", Config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath, false);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();
@@ -292,13 +292,6 @@ namespace SRTPluginManager.MVVM.View
             {
                 KillSRT(); // If the process has not been tracked by us, try to just kill existing processes the spicy way.
             }
-        }
-
-        private void KillSRT()
-        {
-            Process[] processes = Process.GetProcessesByName("SRTHost64").Concat(Process.GetProcessesByName("SRTHost32")).ToArray();
-            foreach (Process process in processes)
-                process.Kill();
         }
 
         private void P_OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -366,7 +359,7 @@ namespace SRTPluginManager.MVVM.View
         private async void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
         {
             SRTGetUpdate.Content = "Please Wait! Installing...";
-            await DownloadFileAsync("SRTHost.zip", Config.SRTConfig.downloadURL, GetUpdate, ApplicationPath, true);
+            await DownloadFileAsync("SRTHost", "SRTHost.zip", Config.SRTConfig.downloadURL, GetUpdate, ApplicationPath, true);
             InitSRTData();
         }
 
