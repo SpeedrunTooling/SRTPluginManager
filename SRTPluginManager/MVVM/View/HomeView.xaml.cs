@@ -19,17 +19,8 @@ namespace SRTPluginManager.MVVM.View
 
         private void StackPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            GetDirectory(TempFolderPath);
-            GetDirectory(PluginFolderPath);
-        }
-
-        private void GetDirectory(string path)
-        {
-            if (Directory.Exists(path))
-            {
-                return;
-            }
-            Directory.CreateDirectory(path);
+            Directory.CreateDirectory(TempFolderPath);
+            Directory.CreateDirectory(PluginFolderPath);
         }
 
         private void Github(object sender, RoutedEventArgs e)
