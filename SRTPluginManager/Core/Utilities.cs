@@ -152,15 +152,19 @@ namespace SRTPluginManager.Core
 
             if (!isSRT)
             {
-                // Save plugin config file.
-                FileInfo configFile = new DirectoryInfo(Path.Combine(destination, pluginName)).EnumerateFiles(string.Format("{0}.cfg", pluginName), SearchOption.TopDirectoryOnly).FirstOrDefault();
+                DirectoryInfo pluginDirectory = new DirectoryInfo(Path.Combine(destination, pluginName));
+                if (pluginDirectory.Exists)
+                {
+                    // Save plugin config file.
+                    FileInfo configFile = pluginDirectory.EnumerateFiles(string.Format("{0}.cfg", pluginName), SearchOption.TopDirectoryOnly).FirstOrDefault();
 
-                // If the config file exists, copy it to the temp folder until after the delete and unzip completes.
-                if (configFile != default && configFile.Exists)
-                    configFile.CopyTo(Path.Combine(TempFolderPath, configFile.Name), true);
+                    // If the config file exists, copy it to the temp folder until after the delete and unzip completes.
+                    if (configFile != default && configFile.Exists)
+                        configFile.CopyTo(Path.Combine(TempFolderPath, configFile.Name), true);
 
-                // Delete the plugin folder to ensure a clean slate.
-                Directory.Delete(Path.Combine(destination, pluginName), true);
+                    // Delete the plugin folder to ensure a clean slate.
+                    pluginDirectory.Delete(true);
+                }
             }
 
             ZipFile.ExtractToDirectory(file, destination, true);
