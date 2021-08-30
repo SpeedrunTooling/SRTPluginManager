@@ -24,6 +24,10 @@
   - [Inventory HUD](https://github.com/SpeedrunTooling/SRTPluginManager#inventory-hud)
 
 # How to Install
+[Install Guide Video on YouTube](https://www.youtube.com/watch?v=sU_ibNIQnQ8)
+
+or
+
 - Download latest release at [Latest Release](https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest)
 - Extract contents of zip to any desired folder ex. "C:/SRTHost"
 - Run SRTPluginManager.exe
@@ -32,8 +36,8 @@
 - Select Game you want to install from Supported Games List
 - In Current Plugin Panel click Install to install latest PluginProvider or alternatively Update to update it when available
 - Navigate to Extension tab
-- Install U JSON
-- Install U Websocket (Optional only required if you have 2 pc steam setup, outputting ui to tourney, or want to view srt HUD from phone / tablet)
+- Install UI JSON
+- Install UI Websocket (Optional; only required if you have 2 pc stream setup, are outputting UI to tourney, or want to view the SRT HUD from a phone, tablet, or another device's browser)
 - Navigate to User Interfaces tab
 - Install any desired User Interfaces for each game supported more info below.
 - Navigate to Widgets tab
