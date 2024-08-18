@@ -19,6 +19,8 @@ namespace SRTPluginManager
         private static FileStream logFS;
         public static StreamWriter logSW;
 
+
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             logFS = new FileStream(@"SRTPluginManager.log", FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete);
@@ -68,6 +70,7 @@ namespace SRTPluginManager
 
             logSW.LogInfoWriteLine("Getting latest SRTPlugins config...");
             Task.Run(async () => await UpdateConfig()).Wait(); // Get latest config from github.
+
         }
     }
 }

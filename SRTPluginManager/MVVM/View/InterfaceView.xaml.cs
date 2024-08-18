@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -71,10 +72,66 @@ namespace SRTPluginManager.MVVM.View
             }
         }
 
+        private async Task UpdateDownloadCount()
+        {
+            string downloadUrl = Config.InterfaceConfig[CurrentInterface].downloadURL;
+            string repoInfo = ExtractRepoInfoFromDownloadUrl(downloadUrl);
+            string url = $"https://img.shields.io/github/downloads/{repoInfo}/total?color=%23007EC6&style=for-the-badge";
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string svgContent = await client.GetStringAsync(url);
+                    string downloadCount = ParseDownloadCountFromSVG(svgContent);
+                    Dispatcher.Invoke(() =>
+                    {
+                        DownloadsTextBlock.Text = $"Total Downloads: {downloadCount}";
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        DownloadsTextBlock.Text = "Failed to load download count.";
+                    });
+                }
+            }
+        }
+
+        private string ExtractRepoInfoFromDownloadUrl(string downloadUrl)
+        {
+            var uri = new Uri(downloadUrl);
+            var segments = uri.Segments;
+
+            if (segments.Length >= 3)
+            {
+                string orgName = segments[1].TrimEnd('/');
+                string repoName = segments[2].TrimEnd('/');
+                return $"{orgName}/{repoName}";
+            }
+
+            return string.Empty;
+        }
+
+        private string ParseDownloadCountFromSVG(string svgContent)
+        {
+            var startIndex = svgContent.IndexOf("font-weight=\"bold\">") + "font-weight=\"bold\">".Length;
+            var endIndex = svgContent.IndexOf("</text>", startIndex);
+
+            if (startIndex > 0 && endIndex > startIndex)
+            {
+                return svgContent.Substring(startIndex, endIndex - startIndex).Trim();
+            }
+
+            return "N/A";
+        }
+
         private void GetCurrentPluginData()
         {
             SetData(Config.InterfaceConfig[(int)CurrentInterface]);
             GetContributors();
+            UpdateDownloadCount();
         }
 
         private void SetData(PluginInfo pluginInfo)
@@ -130,6 +187,7 @@ namespace SRTPluginManager.MVVM.View
         private void GetExtensionData()
         {
             SetData(Config.InterfaceConfig[CurrentInterface]);
+            UpdateDownloadCount();  // Ensure download count is updated
         }
 
         private void Uninstall_Click(object sender, RoutedEventArgs e)

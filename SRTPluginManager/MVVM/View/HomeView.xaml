@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SRTPluginManager.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="660"
+    d:DesignHeight="640"
     d:DesignWidth="1024"
     mc:Ignorable="d">
 
@@ -94,7 +94,7 @@
                         <RowDefinition MinHeight="250" MaxHeight="300" />
                     </Grid.RowDefinitions>
                     <!--  Section 1  -->
-                    <Border Margin="10" CornerRadius="10">
+                    <Border Margin="10,10,10,41" CornerRadius="10">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                                 <GradientStop Offset="0.0" Color="#151527" />
@@ -125,7 +125,7 @@
                     <!--  Section 2  -->
                     <Border
                         Grid.Column="1"
-                        Margin="10"
+                        Margin="10,10,10,41"
                         CornerRadius="10">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -157,7 +157,7 @@
                     <!--  Section 3  -->
                     <Border
                         Grid.Column="2"
-                        Margin="10"
+                        Margin="10,10,10,41"
                         CornerRadius="10">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -185,9 +185,92 @@
                                 Text="We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about SRTHost."
                                 TextWrapping="Wrap" />
                         </StackPanel>
+
                     </Border>
+
+                    <Button
+    x:Name="CheckForUpdatesButton"
+    Content="Check for Updates"
+    Padding="10"
+    FontSize="18"
+    FontWeight="Bold"
+    Foreground="White"
+    BorderBrush="#1D1C2E"
+    BorderThickness="1"
+    Click="CheckForUpdatesButton_Click"
+    Width="680"
+    Margin="171,267,173,-15"
+    Grid.ColumnSpan="3">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Offset="0.0" Color="#151527" />
+                                            <GradientStop Offset="1.0" Color="#1D1C2E" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="BorderBrush" Value="#1D1C2E"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="Padding" Value="10"/>
+                                <Setter Property="FontSize" Value="18"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10"
+                            Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Offset="0.0" Color="#1D1C2E" />
+                                                    <GradientStop Offset="1.0" Color="#2A2A3A" />
+                                                </LinearGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="BorderBrush" Value="#2A2A3A"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Offset="0.0" Color="#1D1C2E" />
+                                                    <GradientStop Offset="1.0" Color="#2A2A3A" />
+                                                </LinearGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="BorderBrush" Value="#3A3A4A"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+
                 </Grid>
             </StackPanel>
+
+
+
         </Grid>
     </StackPanel>
 </UserControl>

@@ -9,7 +9,6 @@
     d:DesignWidth="1024"
     mc:Ignorable="d">
 
-
     <UserControl.Resources>
         <Style TargetType="ScrollBar">
             <Setter Property="Opacity" Value="0" />
@@ -20,10 +19,22 @@
         </Style>
     </UserControl.Resources>
 
-    <!--  Container  -->
-    <StackPanel>
-        <!--  Header  -->
-        <StackPanel Height="60" Orientation="Horizontal">
+    <!-- Container -->
+    <Grid>
+        <!-- Define rows and columns -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <!-- Header Row -->
+            <RowDefinition Height="*" />
+            <!-- Content Row -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Image Margin="10" Source="/Images/Plugins.png" />
             <TextBlock
                 Margin="10,10,0,10"
@@ -33,29 +44,29 @@
                 Foreground="White"
                 Text="User Interface Manager" />
         </StackPanel>
-        <!--  Middle Container  -->
-        <Grid>
+
+        <!-- Content -->
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" MinHeight="280" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" MinHeight="280" />
             </Grid.RowDefinitions>
 
-            <!--  Top Left Container  -->
-            <Border Margin="15,13,15,13" CornerRadius="10">
+            <!-- Top Left Container -->
+            <Border Grid.Column="0" Grid.Row="0" Margin="15" CornerRadius="10">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
                         <GradientStop Offset="1" Color="#1D1C2E" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <!--  Inner Container  -->
                 <StackPanel>
-                    <!--  Title  -->
+                    <!-- Title -->
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource TitleTextTheme}" Text="Current Extension" />
                         <Button
@@ -70,7 +81,7 @@
                         </Button>
                     </StackPanel>
 
-                    <!--  Extension Name  -->
+                    <!-- Extension Name -->
                     <TextBlock
                         x:Name="ExtensionName"
                         Style="{StaticResource DescriptionTextTheme}"
@@ -84,10 +95,10 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100" />
                             <RowDefinition Height="100" />
-                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <!--  Current Version  -->
+                        <!-- Current Version -->
                         <Border
                             Margin="10"
                             Background="#272537"
@@ -114,7 +125,7 @@
                                     Text="0.0.0.0" />
                             </StackPanel>
                         </Border>
-                        <!--  Install / Update Button  -->
+                        <!-- Install / Update Button -->
                         <Button
                             x:Name="InstallUpdate"
                             Grid.Row="1"
@@ -122,7 +133,7 @@
                             Click="InstallUpdate_Click"
                             Content="Install"
                             Style="{StaticResource ButtonTheme}" />
-                        <!--  Uninstall Button  -->
+                        <!-- Uninstall Button -->
                         <Button
                             x:Name="Uninstall"
                             Grid.Row="1"
@@ -135,55 +146,44 @@
                 </StackPanel>
             </Border>
 
-            <!--  Bottom Left Container  -->
-            <Border
-                Grid.Row="1"
-                Margin="15,13,15,13"
-                CornerRadius="10">
+            <!-- Bottom Left Container -->
+            <Border Grid.Row="1" Grid.Column="0" Margin="15" CornerRadius="10">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
                         <GradientStop Offset="1" Color="#1D1C2E" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <StackPanel>
-                    <!--  Title  -->
-                    <TextBlock Style="{StaticResource TitleTextTheme}" Text="Authors / Contributors" />
-                    <!--  Extension Name  -->
-                    <StackPanel x:Name="ContributorList" />
-                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                        <!-- Title -->
+                        <TextBlock Style="{StaticResource TitleTextTheme}" Text="Authors / Contributors" />
+                        <!-- Contributor List -->
+                        <StackPanel x:Name="ContributorList" />
+                        <TextBlock Style="{StaticResource TitleTextTheme}" Text="Downloads" />
+                        <!-- Total Downloads -->
+                        <TextBlock x:Name="DownloadsTextBlock" FontSize="24" Foreground="White" Margin="30,10,0,10"/>
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
-            <!--  Right Container  -->
-            <Border
-                Grid.RowSpan="2"
-                Grid.Column="1"
-                Grid.ColumnSpan="1"
-                Margin="15,13,15,13"
-                CornerRadius="10">
+
+            <!-- Right Container -->
+            <Border Grid.RowSpan="2" Grid.Column="1" Margin="15" CornerRadius="10">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
                         <GradientStop Offset="1" Color="#1D1C2E" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <!--  Header  -->
-                    <TextBlock Style="{StaticResource TitleTextTheme}" Text="Available User Interfaces" />
-                    <ScrollViewer Grid.Row="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                        <!-- Header -->
+                        <TextBlock Style="{StaticResource TitleTextTheme}" Text="Available User Interfaces" />
+                        <!-- Interface List -->
                         <StackPanel x:Name="InterfaceList" />
-                    </ScrollViewer>
-                </Grid>
-
-
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
         </Grid>
-    </StackPanel>
+    </Grid>
 </UserControl>

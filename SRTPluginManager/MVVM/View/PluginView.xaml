@@ -10,6 +10,7 @@
     Initialized="UserControl_Initialized"
     mc:Ignorable="d">
 
+
     <UserControl.Resources>
         <Style TargetType="ScrollBar">
             <Setter Property="Opacity" Value="0" />
@@ -50,7 +51,7 @@
             </Grid.RowDefinitions>
 
             <!--  SRT Host Container  -->
-            <Border Margin="15,13,15,13" CornerRadius="10">
+            <Border Margin="15,288,15,1" CornerRadius="10" Grid.Column="1" Grid.RowSpan="2">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
@@ -58,14 +59,14 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <!--  Inner Container  -->
-                <StackPanel>
+                <StackPanel Margin="5,0,5,0">
                     <!--  Title  -->
                     <TextBlock Style="{StaticResource TitleTextTheme}" Text="Host Version Info" />
                     <TextBlock
                         x:Name="SRTName"
                         Style="{StaticResource DescriptionTextTheme}"
                         Text="SRTHost64.exe" />
-                    <Grid>
+                    <Grid Height="168">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="1*" />
@@ -115,20 +116,20 @@
                             Visibility="Visible" />
                         <Button
                             x:Name="StartSRTHost"
-                            Grid.Row="2"
+                            Grid.Row="1"
                             Grid.Column="0"
                             Click="StartSRTHost_Click"
                             Content="Start SRT"
                             Style="{StaticResource ButtonTheme}"
-                            Visibility="Collapsed" />
+                            Visibility="Collapsed" Height="60" Margin="5,0,4,0" VerticalAlignment="Center" />
                         <Button
                             x:Name="StopSRTHost"
-                            Grid.Row="2"
+                            Grid.Row="1"
                             Grid.Column="1"
                             Click="CloseSRT"
                             Content="Stop SRT"
                             Style="{StaticResource ButtonTheme}"
-                            Visibility="Collapsed" />
+                            Visibility="Collapsed" Margin="6,5,5,5" />
                     </Grid>
                 </StackPanel>
             </Border>
@@ -137,28 +138,35 @@
             <Border
                 x:Name="AuthorContainer"
                 Grid.Column="2"
-                Grid.ColumnSpan="2"
-                Margin="15,13,15,13"
-                CornerRadius="10">
+                Margin="15,13,15,0"
+                CornerRadius="10" Grid.RowSpan="2">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
                         <GradientStop Offset="1" Color="#1D1C2E" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <StackPanel>
-                    <!--  Title  -->
-                    <TextBlock Style="{StaticResource TitleTextTheme}" Text="Authors / Contributors" />
-                    <!--  Contributor Names  -->
-                    <StackPanel x:Name="ContributorList" />
-                </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Height="542" VerticalAlignment="Bottom">
+                    <StackPanel>
+                        <!--  Title  -->
+                        <TextBlock Style="{StaticResource TitleTextTheme}" Text="Authors / Contributors" />
+                        <!--  Contributor Names  -->
+                        <StackPanel x:Name="ContributorList" />
+
+                        <!-- Downloads Section -->
+                        <TextBlock Style="{StaticResource TitleTextTheme}" Text="Downloads:" Margin="20,20,0,0"/>
+                        <TextBlock x:Name="DownloadCount" Margin="30,10, 0, 10" FontSize="24" />
+
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
+
 
             <!--  Plugin Info Container  -->
             <Border
                 Grid.Column="1"
-                Margin="15,13,15,13"
-                CornerRadius="10">
+                Margin="15,13,15,0"
+                CornerRadius="10" Height="266" VerticalAlignment="Top">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
@@ -171,7 +179,7 @@
                         x:Name="PluginName"
                         Style="{StaticResource DescriptionTextTheme}"
                         Text="SRTPluginProviderRE1C.dll" />
-                    <Grid>
+                    <Grid Height="195">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="1*" />
@@ -231,9 +239,8 @@
             <!--  Available Plugin List  -->
             <Border
                 x:Name="PluginBox"
-                Grid.Row="1"
-                Margin="15,13,15,13"
-                CornerRadius="10">
+                Margin="15,13,15,0"
+                CornerRadius="10" Height="337" VerticalAlignment="Top">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
@@ -254,16 +261,14 @@
                         <TextBlock Style="{StaticResource TitleTextTheme}" Text="Supported Games" />
                     </StackPanel>
 
-                    <ScrollViewer Grid.Row="1" Height="160">
+                    <ScrollViewer Grid.Row="1" Height="297" VerticalAlignment="Bottom">
                         <StackPanel x:Name="PluginList" />
                     </ScrollViewer>
                 </Grid>
             </Border>
             <Border
                 Grid.Row="1"
-                Grid.Column="1"
-                Grid.ColumnSpan="3"
-                Margin="15,13,15,13"
+                Margin="15,10,0,1"
                 CornerRadius="10">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">

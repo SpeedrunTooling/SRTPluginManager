@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,11 +46,79 @@ namespace SRTPluginManager.MVVM.View
 
         private async void UserControl_Initialized(object sender, EventArgs e)
         {
-            await UpdateConfig ();
+            await UpdateConfig();
             GetPlugins();
             InitSRTData();
             GetCurrentPluginData();
+            await UpdateDownloadCount(); // New Method Call
         }
+
+        private async Task UpdateDownloadCount()
+        {
+            string pluginName = Config.PluginConfig[CurrentPlugin].pluginName;
+
+            // Extract the repository path from the download URL
+            string downloadUrl = Config.PluginConfig[CurrentPlugin].downloadURL;
+            string repoInfo = ExtractRepoInfoFromDownloadUrl(downloadUrl);
+
+            // Construct the shields.io URL
+            string url = $"https://img.shields.io/github/downloads/{repoInfo}/total?color=%23007EC6&style=for-the-badge";
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string svgContent = await client.GetStringAsync(url);
+                    string downloadCount = ParseDownloadCountFromSVG(svgContent);
+                    Dispatcher.Invoke(() =>
+                    {
+                        DownloadCount.Text = $"Total Downloads: {downloadCount}";
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions (e.g., network errors)
+                    Dispatcher.Invoke(() =>
+                    {
+                        DownloadCount.Text = "Failed to load download count.";
+                    });
+                }
+            }
+        }
+
+        private string ExtractRepoInfoFromDownloadUrl(string downloadUrl)
+        {
+            // Example download URL: https://github.com/SpeedrunTooling/SRTPluginProviderED/releases/download/1.0.0.2/SRTPluginProviderED.zip
+            var uri = new Uri(downloadUrl);
+            var segments = uri.Segments;
+
+            if (segments.Length >= 3)
+            {
+                // Combine the organization/user name and the repository name
+                string orgName = segments[1].TrimEnd('/');
+                string repoName = segments[2].TrimEnd('/');
+                return $"{orgName}/{repoName}";
+            }
+
+            return string.Empty; // Return empty if the URL format is unexpected
+        }
+
+        private string ParseDownloadCountFromSVG(string svgContent)
+        {
+            // Find the section where the download count is located
+            var startIndex = svgContent.IndexOf("font-weight=\"bold\">") + "font-weight=\"bold\">".Length;
+            var endIndex = svgContent.IndexOf("</text>", startIndex);
+
+            if (startIndex > 0 && endIndex > startIndex)
+            {
+                return svgContent.Substring(startIndex, endIndex - startIndex).Trim();
+            }
+
+            return "N/A"; // Return "N/A" if the count cannot be found
+        }
+
+
+
 
         private void GetPlugins()
         {
@@ -157,9 +226,7 @@ namespace SRTPluginManager.MVVM.View
                 {
                     GetUpdate.Content = "Install";
                     GetUpdate.Visibility = Visibility.Visible;
-                    UpdateProgressBar.SetValue(Grid.RowProperty, 2);
-                    UpdateProgressBar.Text = "Not Installed";
-                    UpdateProgressBar.Visibility = Visibility.Visible;
+                    UpdateProgressBar.Visibility = Visibility.Collapsed;
                 }
                 else if (CurrentPluginInstalled && !CurrentPluginUpdated)
                 {
@@ -186,7 +253,9 @@ namespace SRTPluginManager.MVVM.View
             SetData(Config.PluginConfig[CurrentPlugin]);
             GetContributors();
             Update();
+            UpdateDownloadCount(); // New Method Call
         }
+
 
         private void SetData(PluginInfo pluginInfo)
         {
