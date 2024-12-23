@@ -51,7 +51,7 @@
             </Grid.RowDefinitions>
 
             <!--  SRT Host Container  -->
-            <Border Margin="15,288,15,1" CornerRadius="10" Grid.Column="1" Grid.RowSpan="2">
+            <Border Margin="15,284,15,5" CornerRadius="10" Grid.Column="2" Grid.RowSpan="2">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
@@ -137,16 +137,16 @@
             <!--  Author Container  -->
             <Border
                 x:Name="AuthorContainer"
-                Grid.Column="2"
+                Grid.Column="1"
                 Margin="15,13,15,0"
-                CornerRadius="10" Grid.RowSpan="2">
+                CornerRadius="10" Grid.RowSpan="2" Height="357" VerticalAlignment="Top">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
                         <GradientStop Offset="1" Color="#1D1C2E" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Height="542" VerticalAlignment="Bottom">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Height="357" VerticalAlignment="Center">
                     <StackPanel>
                         <!--  Title  -->
                         <TextBlock Style="{StaticResource TitleTextTheme}" Text="Authors / Contributors" />
@@ -164,7 +164,7 @@
 
             <!--  Plugin Info Container  -->
             <Border
-                Grid.Column="1"
+                Grid.Column="2"
                 Margin="15,13,15,0"
                 CornerRadius="10" Height="266" VerticalAlignment="Top">
                 <Border.Background>
@@ -239,15 +239,15 @@
             <!--  Available Plugin List  -->
             <Border
                 x:Name="PluginBox"
-                Margin="15,13,15,0"
-                CornerRadius="10" Height="337" VerticalAlignment="Top">
+                Margin="15,13,15,94"
+                CornerRadius="10">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />
                         <GradientStop Offset="1" Color="#1D1C2E" />
                     </LinearGradientBrush>
                 </Border.Background>
-                <Grid>
+                <Grid Margin="0,0,0,10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition />
@@ -261,15 +261,14 @@
                         <TextBlock Style="{StaticResource TitleTextTheme}" Text="Supported Games" />
                     </StackPanel>
 
-                    <ScrollViewer Grid.Row="1" Height="297" VerticalAlignment="Bottom">
+                    <ScrollViewer Grid.Row="1" Height="297" VerticalAlignment="Top" Margin="0,10,0,0">
                         <StackPanel x:Name="PluginList" />
                     </ScrollViewer>
                 </Grid>
             </Border>
             <Border
-                Grid.Row="1"
-                Margin="15,10,0,1"
-                CornerRadius="10">
+                Margin="15,378,10,10"
+                CornerRadius="10" Grid.RowSpan="2" Grid.ColumnSpan="2">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Offset="0.0" Color="#151527" />

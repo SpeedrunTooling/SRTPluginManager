@@ -9,11 +9,13 @@ namespace SRTPluginManager.MVVM.ViewModel
         public RelayCommand ExtensionViewCommand { get; set; }
         public RelayCommand WidgetViewCommand { get; set; }
         public RelayCommand InterfaceViewCommand { get; set; }
+        public RelayCommand ContactUsViewCommand { get; set; }
         public HomeViewModel HomeVM { get; set; }
         public PluginViewModel PluginVM { get; set; }
         public ExtensionsViewModel ExtensionVM { get; set; }
         public WidgetViewModel WidgetVM { get; set; }
         public InterfaceViewModel InterfaceVM { get; set; }
+        public ContactUsViewModel ContactUsVM { get; set; }
 
         private object _currentView;
         public object CurrentView 
@@ -32,6 +34,7 @@ namespace SRTPluginManager.MVVM.ViewModel
             ExtensionVM = new ExtensionsViewModel();
             WidgetVM = new WidgetViewModel();
             InterfaceVM = new InterfaceViewModel();
+            ContactUsVM = new ContactUsViewModel();
 
             CurrentView = HomeVM;
 
@@ -58,6 +61,11 @@ namespace SRTPluginManager.MVVM.ViewModel
             InterfaceViewCommand = new RelayCommand(o =>
             {
                 CurrentView = InterfaceVM;
+            });
+
+            ContactUsViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = ContactUsVM;
             });
         }
     }

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
     <UseWPF>true</UseWPF>
     
     <Authors>VideoGameRoulette</Authors>
@@ -35,6 +35,7 @@
     <None Remove="Images\Close.png" />
     <None Remove="Images\Cog.png" />
     <None Remove="Images\CursedToast.png" />
+    <None Remove="Images\DiscordLogo.png" />
     <None Remove="Images\Download.png" />
     <None Remove="Images\DropBoxDown.png" />
     <None Remove="Images\DropBoxDownAlt.png" />
@@ -67,6 +68,7 @@
     <None Remove="Images\Users.png" />
     <None Remove="Images\VGR.png" />
     <None Remove="Images\Willow.png" />
+    <None Remove="Images\XLogo.png" />
     <None Remove="SRTIcon.ico" />
     <None Remove="SRTIconAlt.ico" />
   </ItemGroup>
@@ -91,6 +93,7 @@
     <Resource Include="Images\Close.png" />
     <Resource Include="Images\Cog.png" />
     <Resource Include="Images\CursedToast.png" />
+    <Resource Include="Images\DiscordLogo.png" />
     <Resource Include="Images\Download.png" />
     <Resource Include="Images\DropBoxDown.png" />
     <Resource Include="Images\DropBoxDownAlt.png" />
@@ -123,6 +126,7 @@
     <Resource Include="Images\Users.png" />
     <Resource Include="Images\VGR.png" />
     <Resource Include="Images\Willow.png" />
+    <Resource Include="Images\XLogo.png" />
   </ItemGroup>
 
   <ItemGroup>

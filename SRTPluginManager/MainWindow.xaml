@@ -211,6 +211,14 @@
                     Foreground="White"
                     IsChecked="False"
                     Style="{StaticResource MenuButtonTheme}" />
+                <RadioButton
+                    Height="50"
+                    Command="{Binding ContactUsViewCommand}"
+                    Content="Contact Us"
+                    FontSize="16"
+                    Foreground="White"
+                    IsChecked="False"
+                    Style="{StaticResource MenuButtonTheme}" />
             </StackPanel>
             <ContentControl
                 Grid.Row="1"

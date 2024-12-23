@@ -269,8 +269,6 @@
                 </Grid>
             </StackPanel>
 
-
-
         </Grid>
     </StackPanel>
 </UserControl>

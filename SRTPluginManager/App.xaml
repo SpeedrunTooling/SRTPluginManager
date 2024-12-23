@@ -41,6 +41,10 @@
                 <view:WidgetView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:ContactUsViewModel}">
+                <view:ContactUsView />
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
