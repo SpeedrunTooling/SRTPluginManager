@@ -78,6 +78,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Memory.dll.x86" Version="1.2.27" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 

@@ -185,6 +185,17 @@
                     IsChecked="False"
                     Style="{StaticResource MenuButtonTheme}" />
 
+                <!--
+                <RadioButton
+                    Height="50"
+                    Command="{Binding TrainerViewCommand}"
+                    Content="Trainer"
+                    FontSize="16"
+                    Foreground="White"
+                    IsChecked="False"
+                    Style="{StaticResource MenuButtonTheme}" />
+                -->
+
                 <RadioButton
                     Height="50"
                     Command="{Binding ExtensionViewCommand}"
@@ -207,6 +218,14 @@
                     Height="50"
                     Command="{Binding WidgetViewCommand}"
                     Content="Widgets"
+                    FontSize="16"
+                    Foreground="White"
+                    IsChecked="False"
+                    Style="{StaticResource MenuButtonTheme}" />
+                <RadioButton
+                    Height="50"
+                    Command="{Binding UpdatesViewCommand}"
+                    Content="Updates"
                     FontSize="16"
                     Foreground="White"
                     IsChecked="False"

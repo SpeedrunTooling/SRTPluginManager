@@ -16,6 +16,7 @@
     </UserControl.Resources>
 
     <StackPanel>
+        <!-- Header -->
         <StackPanel Height="60" Orientation="Horizontal">
             <Image Margin="10" Source="/Images/Home.png" />
             <TextBlock
@@ -29,10 +30,12 @@
 
         <!-- Main Content -->
         <StackPanel Orientation="Vertical" Margin="10">
+            <!-- Description -->
             <Border Background="#151527" Padding="15" CornerRadius="10" Margin="0,0,0,20">
-                <TextBlock FontSize="18" TextWrapping="Wrap" Text="Feel free to contact us using the following platforms or by adding one of the developers on discord" />
+                <TextBlock FontSize="18" TextWrapping="Wrap" Text="Feel free to contact us using the following platforms or by adding one of the developers on Discord or Twitch." />
             </Border>
 
+            <!-- Social Buttons -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
                 <Button
                     Width="105"
@@ -62,28 +65,92 @@
                     <Image Source="/Images/Github.png" Width="100" Height="100" Stretch="Uniform" />
                 </Button>
             </StackPanel>
+
+            <!-- User Grid -->
             <Grid Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
-                <Border Grid.Column="0" Background="#151527" Padding="15" CornerRadius="10" Margin="10,10,10,-299">
+
+                <!-- User 1 -->
+                <Border Grid.Column="0" Grid.Row="0" Background="#151527" Padding="15" CornerRadius="10" Margin="10">
                     <StackPanel>
-                        <TextBlock FontSize="30" FontWeight="Bold" Text="Squirrelies" HorizontalAlignment="Center"/>
-                        <TextBlock FontSize="20" Text="Developer" Margin="0,10,0,0" />
-                        <TextBlock FontSize="20" Text="Discord: squirrelies" />
+                        <TextBlock FontSize="24" FontWeight="Bold" Text="Squirrelies" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="18" Text="Founder/Developer" Margin="0,10,0,0" />
+                        <TextBlock FontSize="16" Text="Discord: squirrelies" />
+                        <TextBlock FontSize="16" Text="Twitch: twitch.tv/squirrelies" />
                     </StackPanel>
                 </Border>
-                <Border Grid.Column="1" Background="#151527" Padding="15" CornerRadius="10" Margin="10,10,10,-299">
+
+                <!-- User 2 -->
+                <Border Grid.Column="2" Grid.Row="0" Background="#151527" Padding="15" CornerRadius="10" Margin="10,10,10,10">
                     <StackPanel>
-                        <TextBlock FontSize="30" FontWeight="Bold" Text="Mysterion" HorizontalAlignment="Center"/>
-                        <TextBlock FontSize="20" Text="Developer" Margin="0,10,0,0" />
-                        <TextBlock FontSize="20" Text="Discord: mysterion352" />
+                        <TextBlock FontSize="24" FontWeight="Bold" Text="Mysterion" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="18" Text="Developer" Margin="0,10,0,0" />
+                        <TextBlock FontSize="16" Text="Discord: mysterion352" />
+                        <TextBlock FontSize="16" Text="Twitch: twitch.tv/mysterion352" />
                     </StackPanel>
                 </Border>
+
+                <!-- User 3 -->
+                <Border Grid.Column="1" Grid.Row="0" Background="#151527" Padding="15" CornerRadius="10" Margin="10,10,10,10">
+                    <StackPanel>
+                        <TextBlock FontSize="24" FontWeight="Bold" Text="VideoGameRoulette" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="18" Text="Founder/Developer" Margin="0,10,0,0" />
+                        <TextBlock FontSize="16" Text="Discord: videogameroulette" />
+                        <TextBlock FontSize="16" Text="Twitch: twitch.tv/videogameroulette" />
+                    </StackPanel>
+                </Border>
+
+                <!-- User 4 -->
+                <Border Grid.Column="3" Grid.Row="0" Background="#151527" Padding="15" CornerRadius="10" Margin="10">
+                    <StackPanel>
+                        <TextBlock FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"><Run Text="CursedToast"/></TextBlock>
+                        <TextBlock FontSize="18" Text="Developer" Margin="0,10,0,0" />
+                        <TextBlock FontSize="16" Text="Discord: cursedtoast" />
+                        <TextBlock FontSize="16" Text="Twitch: twitch.tv/cursedtoast" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Additional Users -->
+                <!-- User 5 -->
+                <Border Grid.Column="0" Grid.Row="1" Background="#151527" Padding="15" CornerRadius="10" Margin="136,10,135,10" Grid.ColumnSpan="2">
+                    <StackPanel>
+                        <TextBlock FontSize="24" FontWeight="Bold" Text="DeathHound" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="18" Text="Developer" Margin="0,10,0,0" />
+                        <TextBlock FontSize="16" Text="Discord: deathhound246" />
+                        <TextBlock FontSize="16" Text="Twitch: twitch.tv/deathhound246" />
+                    </StackPanel>
+                </Border>
+
+                <!-- User 6 -->
+                <Border Grid.Column="1" Grid.Row="1" Background="#151527" Padding="15" CornerRadius="10" Margin="136,10,135,10" Grid.ColumnSpan="2">
+                    <StackPanel>
+                        <TextBlock FontSize="24" FontWeight="Bold" Text="TheDementedSalad" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="18" Text="Developer" Margin="0,10,0,0" />
+                        <TextBlock FontSize="16" Text="Discord: thedementedsalad" />
+                        <TextBlock FontSize="16" Text="Twitch: twitch.tv/thedementedsalad" />
+                    </StackPanel>
+                </Border>
+
+                <!-- User 7 -->
+                <Border Grid.Column="2" Grid.Row="1" Background="#151527" Padding="15" CornerRadius="10" Margin="136,10,135,10" Grid.ColumnSpan="2">
+                    <StackPanel>
+                        <TextBlock FontSize="24" FontWeight="Bold" Text="Kapdap" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="18" Text="Developer" Margin="0,10,0,0" />
+                        <TextBlock FontSize="16" Text="Discord: kapdap" />
+                        <TextBlock FontSize="16" Text="Twitch: twitch.tv/kapdap" />
+                    </StackPanel>
+                </Border>
+
+                <!-- User 8 -->
             </Grid>
         </StackPanel>
     </StackPanel>

@@ -29,6 +29,10 @@
                 <view:InterfaceView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:TrainerViewModel}">
+                <view:TrainerView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModel:PluginViewModel}">
                 <view:PluginView />
             </DataTemplate>
@@ -45,6 +49,10 @@
                 <view:ContactUsView />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:UpdatesViewModel}">
+                <view:UpdatesView />
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

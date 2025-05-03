@@ -1,0 +1,146 @@
+﻿<UserControl
+    x:Class="SRTPluginManager.MVVM.View.TrainerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    d:DesignHeight="640"
+    d:DesignWidth="1024">
+
+    <Grid>
+        <!-- Header -->
+        <Border Height="60" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                <Image Margin="10" Source="/Images/Plugins.png" />
+                <TextBlock Text="SuperTrainer"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="White" Height="37" />
+                <TextBlock x:Name="ConnectionStatus"
+                           Text="Not Connected"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Foreground="Red"
+                           Margin="10,5,0,0"
+                           VerticalAlignment="Center" />
+                <TextBlock x:Name="OperationStatus"
+                           Text=""
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Margin="10,5,0,0"
+                           VerticalAlignment="Center"
+                           Foreground="Gray" />
+            </StackPanel>
+        </Border>
+
+        <!-- Main Layout -->
+        <Grid Margin="0,60,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Game Selection -->
+            <Border Grid.Column="0" Background="#151527" CornerRadius="10" Margin="10" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Supported Games:" 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="White" 
+                               Margin="0,0,0,10" />
+                    <ListBox x:Name="GameListBox"
+                             Background="Transparent"
+                             Foreground="White"
+                             BorderThickness="0"
+                             SelectionChanged="GameListBox_SelectionChanged"
+                             Margin="0,10,0,0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#2D2D3C"
+                                        CornerRadius="8"
+                                        Margin="0,5"
+                                        Padding="10">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="/Images/GameIconPlaceholder.png"
+                                               Width="30" Height="30"
+                                               Margin="0,0,10,0" />
+                                        <TextBlock Text="{Binding}" 
+                                                   FontSize="16" 
+                                                   FontWeight="Bold" 
+                                                   Foreground="White" 
+                                                   VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.Resources>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="5" />
+                                <Setter Property="Margin" Value="0,5" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border Background="{TemplateBinding Background}" 
+                                                    CornerRadius="8">
+                                                <ContentPresenter HorizontalAlignment="Stretch" 
+                                                                  VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#3A3A4A" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#4A4A5A" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Resources>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+
+            <!-- Trainer Options -->
+            <Border Grid.Column="1" Background="#151527" CornerRadius="10" Margin="10" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Trainer Options -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="0">
+                        <StackPanel x:Name="TrainerOptionsPanel">
+                            <TextBlock Text="Trainer Options"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,0,0,20" />
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Creator Information -->
+                    <Border Grid.Row="1" Background="#2D2D3C" CornerRadius="8" Padding="10" Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Trainer Creator:"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,0,0,5" />
+                            <TextBlock x:Name="TrainerCreator"
+                           Text="N/A"
+                           FontSize="16"
+                           Foreground="Gray" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
