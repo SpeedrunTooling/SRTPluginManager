@@ -12,7 +12,6 @@ namespace SRTPluginManager.MVVM.View
     public partial class UpdatesView : UserControl
     {
         private const string updateJsonUrl = "https://github.com/SpeedrunTooling/SRTPluginManager/releases/download/1.0.0.0U/Update.json";
-        private const string currentVersion = "1.0.1.1"; // Ensure this matches your actual current version
 
         public UpdatesView()
         {
@@ -43,7 +42,7 @@ namespace SRTPluginManager.MVVM.View
                         return;
                     }
 
-                    if (IsNewVersionAvailable(currentVersion, latestVersion))
+                    if (IsNewVersionAvailable(App.currentVersion, latestVersion))
                     {
                         MessageBoxResult result = MessageBox.Show(
                             $"A new version {latestVersion} is available.\n\nRelease Notes:\n{releaseNotes}\n\nDo you want to update?",

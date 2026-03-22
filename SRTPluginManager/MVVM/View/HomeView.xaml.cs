@@ -16,7 +16,6 @@ namespace SRTPluginManager.MVVM.View
     public partial class HomeView : UserControl
     {
         private const string updateJsonUrl = "https://github.com/SpeedrunTooling/SRTPluginManager/releases/download/1.0.0.0U/Update.json";
-        private static readonly string currentVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
 
         public HomeView()
         {
@@ -112,7 +111,7 @@ namespace SRTPluginManager.MVVM.View
                         return; // Do nothing if update information is incomplete or missing
                     }
 
-                    if (IsNewVersionAvailable(currentVersion, latestVersion))
+                    if (IsNewVersionAvailable(App.currentVersion, latestVersion))
                     {
                         MessageBox.Show(
                             $"A new version {latestVersion} is available.\n\nRelease Notes:\n{releaseNotes}\nPress 'Check for Updates' to update your Manager",

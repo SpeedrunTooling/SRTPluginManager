@@ -1,13 +1,14 @@
-﻿using static SRTPluginManager.Core.Utilities;
-using System.Windows;
-using System.Linq;
-using System;
-using System.IO;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using static SRTPluginManager.Core.Utilities;
 
 namespace SRTPluginManager
 {
@@ -19,7 +20,7 @@ namespace SRTPluginManager
         private static FileStream logFS;
         public static StreamWriter logSW;
 
-
+        public static readonly string currentVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
