@@ -16,13 +16,13 @@ on:
       versionPreReleaseTag: # Use alpha, beta, or rc for pre-release. An empty string for stable.
         description: "Pre-Release Tag"
         required: true
-        default: "alpha"
+        default: ""
         type: choice
         options:
-          - "alpha"
-          - "beta"
-          - "RC"
           - ""
+          - "RC"
+          - "beta"
+          - "alpha"
 
 env:
   projectName: SRTPluginManager
