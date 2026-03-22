@@ -23,6 +23,7 @@ on:
           - "beta"
           - "RC"
           - ""
+
 env:
   projectName: SRTPluginManager
   baseFolderName: SRTPluginManager
@@ -87,7 +88,6 @@ jobs:
     needs: setup
 
     steps:
-      # Checkout latest code
       - name: Checkout
         uses: actions/checkout@v6
         with:
@@ -98,18 +98,16 @@ jobs:
           echo 'VERSION=${{needs.Setup.outputs.verSemVerString}}' >> $env:GITHUB_ENV
           echo 'FILEVERSION=${{needs.Setup.outputs.verMajor}}.${{needs.Setup.outputs.verMinor}}.${{needs.Setup.outputs.verPatch}}.${{needs.Setup.outputs.verBuild}}' >> $env:GITHUB_ENV
           echo 'ASSEMBLYVERSION=${{needs.Setup.outputs.verMajor}}.${{needs.Setup.outputs.verMinor}}.0.0' >> $env:GITHUB_ENV
-
-      # Install .NET
+          
       - name: Install .NET
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: "10.0.x"
           dotnet-quality: "ga"
-
-      # Compiles the plugin
+          
       - name: Build
         run: |
-          dotnet build "${{env.projectName}}.sln" /p:"Configuration=${{env.configuration}};Platform=${{env.platform}};VERSION=$env:VERSION;FILEVERSION=$env:FILEVERSION;ASSEMBLYVERSION=$env:ASSEMBLYVERSION"
+          dotnet publish "${{env.projectName}}.sln" /p:"Configuration=${{env.configuration}};Platform=${{env.platform}};VERSION=$env:VERSION;FILEVERSION=$env:FILEVERSION;ASSEMBLYVERSION=$env:ASSEMBLYVERSION"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
@@ -126,7 +124,6 @@ jobs:
       is-prerelease: true
 
     steps:
-      # Checkout latest code
       - name: Checkout
         uses: actions/checkout@v6
         with:
@@ -134,8 +131,7 @@ jobs:
 
       - name: Download all artifacts
         uses: actions/download-artifact@v8
-
-      # Zip the publish artifacts
+        
       - name: Zip the publish artifacts
         run: |
           Add-Type -assembly 'System.IO.Compression'
@@ -148,8 +144,7 @@ jobs:
             [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, $fileToZip, $fileNameInZip)
           }
           $zipFile.Dispose()
-
-      # Pushes the release
+          
       - name: Publish release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
