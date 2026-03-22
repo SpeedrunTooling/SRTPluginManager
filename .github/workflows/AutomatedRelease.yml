@@ -132,7 +132,7 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v8
         with:
-          path: $GITHUB_WORKSPACE/Artifacts
+          path: ${{github.workspace}}/Artifacts
         
       - name: Zip the publish artifacts
         run: |
