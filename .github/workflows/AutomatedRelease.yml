@@ -1,0 +1,182 @@
+name: "Automated Release"
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      buildConfiguration:
+        description: "Build Configuration"
+        required: true
+        default: "Release"
+        type: choice
+        options:
+          - Release
+          - Debug
+      versionPreReleaseTag: # Use alpha, beta, or rc for pre-release. An empty string for stable.
+        description: "Pre-Release Tag"
+        required: true
+        default: "alpha"
+        type: choice
+        options:
+          - "alpha"
+          - "beta"
+          - "RC"
+          - ""
+env:
+  projectName: SRTPluginManager
+  baseFolderName: SRTPluginManager
+  platform: AnyCPU
+  configuration: ${{ github.event.inputs.buildConfiguration || 'Release' }}
+
+jobs:
+  setup:
+    name: Setup Environment
+    runs-on: windows-2025-vs2026
+
+    outputs:
+      verMajor: ${{steps.version-parts.outputs.version_major}}
+      verMinor: ${{steps.version-parts.outputs.version_minor}}
+      verPatch: ${{steps.version-parts.outputs.version_patch}}
+      verPreReleaseTag: ${{steps.version-parts.outputs.version_prereltag}}
+      verBuild: ${{steps.build-number.outputs.current_build_number}}
+      verSHAHash: ${{steps.short-sha-hash.outputs.short_sha_hash}}
+      verSemVerString: ${{steps.semver-string.outputs.semver_string}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Get version parts
+        id: version-parts
+        run: |
+          [string[]]$versionParts = (Get-Content -Path "version.txt" -Raw).Split('.');
+          echo "version_major=$($versionParts[0])" >> $env:GITHUB_OUTPUT
+          echo "version_minor=$($versionParts[1])" >> $env:GITHUB_OUTPUT
+          echo "version_patch=$($versionParts[2])" >> $env:GITHUB_OUTPUT
+          echo "version_prereltag=${{ github.event.inputs.versionPreReleaseTag || '' }}" >> $env:GITHUB_OUTPUT
+
+      - name: Get new build number
+        id: build-number
+        run: |
+          $build_number = $((${{ vars.BUILD_NUMBER }} + 1))
+          echo "current_build_number=$build_number" >> $env:GITHUB_OUTPUT
+
+      - name: Get short SHA hash
+        id: short-sha-hash
+        run: |
+          $short_sha_hash = $(("${{ github.sha }}".substring(0, 7)))
+          echo "short_sha_hash=$short_sha_hash" >> $env:GITHUB_OUTPUT
+
+      - name: Get SemVer string
+        id: semver-string
+        run: |
+          [string]$semver_string = "${{steps.version-parts.outputs.version_major}}.${{steps.version-parts.outputs.version_minor}}.${{steps.version-parts.outputs.version_patch}}";
+          if (![string]::IsNullOrWhitespace("${{steps.version-parts.outputs.version_prereltag}}")) {
+            $semver_string += "-${{steps.version-parts.outputs.version_prereltag}}";
+          }
+          $semver_string += "+${{steps.build-number.outputs.current_build_number}}";
+          $semver_string += ".${{steps.short-sha-hash.outputs.short_sha_hash}}";
+          echo "semver_string=$semver_string" >> $env:GITHUB_OUTPUT;
+
+  build:
+    name: "Build"
+    runs-on: windows-2025-vs2026
+    needs: setup
+
+    steps:
+      # Checkout latest code
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set versioning environment variable
+        run: |
+          echo 'VERSION=${{needs.Setup.outputs.verSemVerString}}' >> $env:GITHUB_ENV
+          echo 'FILEVERSION=${{needs.Setup.outputs.verMajor}}.${{needs.Setup.outputs.verMinor}}.${{needs.Setup.outputs.verPatch}}.${{needs.Setup.outputs.verBuild}}' >> $env:GITHUB_ENV
+          echo 'ASSEMBLYVERSION=${{needs.Setup.outputs.verMajor}}.${{needs.Setup.outputs.verMinor}}.0.0' >> $env:GITHUB_ENV
+
+      # Install .NET
+      - name: Install .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "10.0.x"
+          dotnet-quality: "ga"
+
+      # Compiles the plugin
+      - name: Build
+        run: |
+          dotnet build "${{env.projectName}}.sln" /p:"Configuration=${{env.configuration}};Platform=${{env.platform}};VERSION=$env:VERSION;FILEVERSION=$env:FILEVERSION;ASSEMBLYVERSION=$env:ASSEMBLYVERSION"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: Artifacts
+          path: |
+            ${{env.projectName}}/bin/${{env.configuration}}/${{env.platform}}/net10.0-windows7.0/*
+
+  package:
+    name: "Package"
+    runs-on: windows-2025-vs2026
+    needs: [setup, build]
+    env:
+      is-prerelease: true
+
+    steps:
+      # Checkout latest code
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v8
+
+      # Zip the publish artifacts
+      - name: Zip the publish artifacts
+        run: |
+          Add-Type -assembly 'System.IO.Compression'
+          Add-Type -assembly 'System.IO.Compression.FileSystem'
+          [System.IO.Compression.ZipArchive]$zipFile = [System.IO.Compression.ZipFile]::Open('${{env.projectName}}_${{needs.Setup.outputs.verSemVerString}}.zip', ([System.IO.Compression.ZipArchiveMode]::Create))
+          [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, 'LICENSE', 'LICENSE')
+          $filesToZip = (Get-ChildItem -Path Artifacts -File -Recurse).FullName
+          foreach ($fileToZip in $filesToZip) {
+            $fileNameInZip = $fileToZip.Replace(($pwd.Path + '\Artifacts\'),'')
+            [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, $fileToZip, $fileNameInZip)
+          }
+          $zipFile.Dispose()
+
+      # Pushes the release
+      - name: Publish release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: ${{env.is-prerelease}}
+          title: "Automated Build - v${{needs.Setup.outputs.verSemVerString}} Release"
+          files: |
+            ${{env.projectName}}_${{needs.Setup.outputs.verSemVerString}}.zip
+
+  postrun:
+    name: Post-Run
+    runs-on: windows-2025-vs2026
+    needs: [setup, package]
+
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Update build number variable
+        env:
+          GH_TOKEN: ${{ secrets.GH_VARIABLE_RW_TOKEN }}
+        run: gh variable set BUILD_NUMBER -b${{needs.Setup.outputs.verBuild}}
