@@ -62,7 +62,7 @@ namespace SRTPluginManager
 
         private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadManagerAsync("ManagerUpdate.zip", Config.ManagerConfig.downloadURL, InstallUpdate, TempFolderPath, CancellationToken.None);
+            await DownloadManagerAsync("ManagerUpdate.zip", new Uri(Config.ManagerConfig.downloadURL, UriKind.Absolute), TempFolderPath, CancellationToken.None);
             Process.Start(Path.Combine(TempFolderPath, "SRTPluginManager.exe"), "--LoadUpdate");
             Environment.Exit(0);
         }

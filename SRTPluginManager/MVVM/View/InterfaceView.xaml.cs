@@ -177,7 +177,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync(Config.InterfaceConfig[CurrentInterface].pluginName, Config.InterfaceConfig[CurrentInterface].pluginName + ".zip", new Uri(Config.InterfaceConfig[CurrentInterface].downloadURL, UriKind.Absolute), InstallUpdate, PluginFolderPath, false, CancellationToken.None);
+            await DownloadFileAsync(Config.InterfaceConfig[CurrentInterface].pluginName, Config.InterfaceConfig[CurrentInterface].pluginName + ".zip", new Uri(Config.InterfaceConfig[CurrentInterface].downloadURL, UriKind.Absolute), PluginFolderPath, false, CancellationToken.None);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();

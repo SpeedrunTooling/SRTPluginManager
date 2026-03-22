@@ -1,14 +1,16 @@
-﻿using SRTPluginManager.Properties;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
-using System;
-using System.Linq;
+using SRTPluginManager.Properties;
 
 namespace SRTPluginManager.Core
 {
@@ -101,57 +103,78 @@ namespace SRTPluginManager.Core
                 process.Kill();
         }
 
-        public static async Task DownloadManagerAsync(string fileName, string url, Button button, string destination, CancellationToken cancellationToken)
+        /// <summary>
+        /// Downloads a file as an asynchronous operation and saves it to the specified destination file path.
+        /// The method returns a tuple indicating whether the download was successful and an error message if it was not.
+        /// </summary>
+        /// <param name="downloadUri">The URI of the file to download.</param>
+        /// <param name="destinationFilePath">The destination path including the filename to save the file to.</param>
+        /// <param name="cancellationToken">(Optional) A cancellation token to abort the in-progress asynchronous operation.</param>
+        /// <returns>A tuple of bool and string where the bool is true upon success, and the string is non-null and contains an error message when the bool is false.</returns>
+        public static async Task<(bool Success, string? ErrorMessage)> TryDownloadFileAsync(Uri downloadUri, string destinationFilePath, CancellationToken cancellationToken)
         {
-            var file = Path.Combine(TempFolderPath, fileName);
-
-            // Download file.
             using (var httpClient = new HttpClient())
-            using (var downloadStream = await httpClient.GetStreamAsync(url))
-            using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
-                await downloadStream.CopyToAsync(fileStream);
+            {
+                using (var httpResponseMessage = await httpClient.GetAsync(downloadUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                {
+                    if (!httpResponseMessage.IsSuccessStatusCode)
+                        return (false, $"Error downloading {downloadUri}{Environment.NewLine}{Environment.NewLine}HTTP Status Code {httpResponseMessage.StatusCode:D}: {httpResponseMessage.ReasonPhrase}");
 
-            // Unzip file.
-            await UnzipPackageAsync(file, destination, cancellationToken);
+                    using (var fileStream = new FileStream(destinationFilePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+                        await httpResponseMessage.Content.CopyToAsync(fileStream, cancellationToken);
+                }
+            }
+
+            return (true, null);
+        }
+
+        public static async Task DownloadManagerAsync(string fileName, Uri downloadUri, string destinationDirectoryPath, CancellationToken cancellationToken)
+        {
+            var zipFilePath = Path.Combine(TempFolderPath, fileName);
+
+            var downloadFileResult = await TryDownloadFileAsync(downloadUri, zipFilePath, cancellationToken);
+            if (downloadFileResult.Success)
+                await UnzipPackageAsync(zipFilePath, destinationDirectoryPath, cancellationToken);
+            else
+                MessageBox.Show(downloadFileResult.ErrorMessage, "SRT Plugin Manager - Download", MessageBoxButton.OK, MessageBoxImage.Warning);
+
             autoResetEvent.Set();
         }
 
-        public static async Task DownloadFileAsync(string pluginName, string fileName, Uri downloadUri, Button button, string destination, bool isSRT, CancellationToken cancellationToken)
+        public static async Task DownloadFileAsync(string pluginName, string fileName, Uri downloadUri, string destinationDirectoryPath, bool isSRT, CancellationToken cancellationToken)
         {
-            var file = Path.Combine(TempFolderPath, fileName);
+            var zipFilePath = Path.Combine(TempFolderPath, fileName);
 
-            // Download file.
-            using (var httpClient = new HttpClient())
-            using (var downloadStream = await httpClient.GetStreamAsync(downloadUri, cancellationToken))
-            using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
-                await downloadStream.CopyToAsync(fileStream, cancellationToken);
+            var downloadFileResult = await TryDownloadFileAsync(downloadUri, zipFilePath, cancellationToken);
+            if (downloadFileResult.Success)
+                await UnzipPackageAsync(pluginName, zipFilePath, destinationDirectoryPath, isSRT, cancellationToken);
+            else
+                MessageBox.Show(downloadFileResult.ErrorMessage, "SRT Plugin Manager - Download", MessageBoxButton.OK, MessageBoxImage.Warning);
 
-            // Unzip file.
-            await UnzipPackageAsync(pluginName, file, destination, isSRT, cancellationToken);
             autoResetEvent.Set();
         }
 
-        public static async Task UnzipPackageAsync(string file, string destination, CancellationToken cancellationToken)
+        public static async Task UnzipPackageAsync(string zipFilePath, string destinationDirectoryPath, CancellationToken cancellationToken)
         {
             try
             {
-                await using (var zipArchive = ZipFile.Open(file, ZipArchiveMode.Read))
-                    await zipArchive.ExtractToDirectoryAsync(destination, true, cancellationToken);
+                await using (var zipArchive = ZipFile.Open(zipFilePath, ZipArchiveMode.Read))
+                    await zipArchive.ExtractToDirectoryAsync(destinationDirectoryPath, true, cancellationToken);
             }
             finally
             {
-                File.Delete(file);
+                File.Delete(zipFilePath);
             }
         }
 
-        public static async Task UnzipPackageAsync(string pluginName, string file, string destination, bool isSRT, CancellationToken cancellationToken)
+        public static async Task UnzipPackageAsync(string pluginName, string zipFilePath, string destinationDirectoryPath, bool isSRT, CancellationToken cancellationToken)
         {
             // Ensure the SRT is closed before we start trying to replace files.
             KillSRT();
 
             if (!isSRT)
             {
-                var pluginDirectory = new DirectoryInfo(Path.Combine(destination, pluginName));
+                var pluginDirectory = new DirectoryInfo(Path.Combine(destinationDirectoryPath, pluginName));
                 if (pluginDirectory.Exists)
                 {
                     // Save plugin config file.
@@ -166,22 +189,14 @@ namespace SRTPluginManager.Core
                 }
             }
 
-            try
-            {
-                await using (var zipArchive = ZipFile.Open(file, ZipArchiveMode.Read))
-                    await zipArchive.ExtractToDirectoryAsync(destination, true, cancellationToken);
-            }
-            finally
-            {
-                File.Delete(file);
-            }
+            await UnzipPackageAsync(zipFilePath, destinationDirectoryPath, cancellationToken);
 
             if (!isSRT)
             {
                 // If the plugin config file existed in the temp folder, copy it back to the plugin's folder now and then delete it from the temp folder.
                 if (File.Exists(Path.Combine(TempFolderPath, string.Format("{0}.cfg", pluginName))))
                 {
-                    File.Copy(Path.Combine(TempFolderPath, string.Format("{0}.cfg", pluginName)), Path.Combine(destination, pluginName, string.Format("{0}.cfg", pluginName)));
+                    File.Copy(Path.Combine(TempFolderPath, string.Format("{0}.cfg", pluginName)), Path.Combine(destinationDirectoryPath, pluginName, string.Format("{0}.cfg", pluginName)));
                     File.Delete(Path.Combine(TempFolderPath, string.Format("{0}.cfg", pluginName)));
                 }
             }
