@@ -5,11 +5,8 @@ using System.Windows.Controls;
 using static SRTPluginManager.Core.Utilities;
 using System;
 using System.Net.Http;
-using System.Threading.Tasks;
-using System.Windows;
 using Newtonsoft.Json.Linq;
-using System.IO.Compression;
-using System.Linq;
+using System.Reflection;
 
 namespace SRTPluginManager.MVVM.View
 {
@@ -19,7 +16,7 @@ namespace SRTPluginManager.MVVM.View
     public partial class HomeView : UserControl
     {
         private const string updateJsonUrl = "https://github.com/SpeedrunTooling/SRTPluginManager/releases/download/1.0.0.0U/Update.json";
-        private const string currentVersion = "1.0.1.1"; // Ensure this matches your actual current version
+        private static readonly string currentVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
 
         public HomeView()
         {
