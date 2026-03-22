@@ -1,17 +1,14 @@
 ﻿using SRTPluginManager.Properties;
 using System.Diagnostics;
 using System.IO;
-using System.Windows;
 using System.IO.Compression;
 using System.Net.Http;
-using System.Reflection;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace SRTPluginManager.Core
 {
@@ -104,59 +101,61 @@ namespace SRTPluginManager.Core
                 process.Kill();
         }
 
-        public static async Task DownloadManagerAsync(string fileName, string url, Button button, string destination)
+        public static async Task DownloadManagerAsync(string fileName, string url, Button button, string destination, CancellationToken cancellationToken)
         {
             var file = Path.Combine(TempFolderPath, fileName);
 
             // Download file.
-            using (var hc = new HttpClient())
-            using (var s = await hc.GetStreamAsync(url))
-            using (var fs = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
-                await s.CopyToAsync(fs);
+            using (var httpClient = new HttpClient())
+            using (var downloadStream = await httpClient.GetStreamAsync(url))
+            using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+                await downloadStream.CopyToAsync(fileStream);
 
             // Unzip file.
-            UnzipPackage(file, destination);
+            await UnzipPackageAsync(file, destination, cancellationToken);
             autoResetEvent.Set();
         }
 
-        public static void UnzipPackage(string file, string destination)
-        {
-            ZipFile.ExtractToDirectory(file, destination, true);
-            File.Delete(file);
-            //if (!Directory.Exists(file))
-            //{
-            //    ZipFile.ExtractToDirectory(file, TempFolderPath);
-            //}
-            //File.Delete(file); // deletes temp zip
-        }
-
-        public static async Task DownloadFileAsync(string pluginName, string fileName, string url, Button button, string destination, bool isSRT)
+        public static async Task DownloadFileAsync(string pluginName, string fileName, Uri downloadUri, Button button, string destination, bool isSRT, CancellationToken cancellationToken)
         {
             var file = Path.Combine(TempFolderPath, fileName);
 
             // Download file.
-            using (var hc = new HttpClient())
-            using (var s = await hc.GetStreamAsync(url))
-            using (var fs = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
-                await s.CopyToAsync(fs);
+            using (var httpClient = new HttpClient())
+            using (var downloadStream = await httpClient.GetStreamAsync(downloadUri, cancellationToken))
+            using (var fileStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.ReadWrite | FileShare.Delete))
+                await downloadStream.CopyToAsync(fileStream, cancellationToken);
 
             // Unzip file.
-            UnzipPackage(pluginName, file, destination, isSRT);
+            await UnzipPackageAsync(pluginName, file, destination, isSRT, cancellationToken);
             autoResetEvent.Set();
         }
 
-        public static void UnzipPackage(string pluginName, string file, string destination, bool isSRT)
+        public static async Task UnzipPackageAsync(string file, string destination, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await using (var zipArchive = ZipFile.Open(file, ZipArchiveMode.Read))
+                    await zipArchive.ExtractToDirectoryAsync(destination, true, cancellationToken);
+            }
+            finally
+            {
+                File.Delete(file);
+            }
+        }
+
+        public static async Task UnzipPackageAsync(string pluginName, string file, string destination, bool isSRT, CancellationToken cancellationToken)
         {
             // Ensure the SRT is closed before we start trying to replace files.
             KillSRT();
 
             if (!isSRT)
             {
-                DirectoryInfo pluginDirectory = new DirectoryInfo(Path.Combine(destination, pluginName));
+                var pluginDirectory = new DirectoryInfo(Path.Combine(destination, pluginName));
                 if (pluginDirectory.Exists)
                 {
                     // Save plugin config file.
-                    FileInfo configFile = pluginDirectory.EnumerateFiles(string.Format("{0}.cfg", pluginName), SearchOption.TopDirectoryOnly).FirstOrDefault();
+                    var configFile = pluginDirectory.EnumerateFiles(string.Format("{0}.cfg", pluginName), SearchOption.TopDirectoryOnly).FirstOrDefault();
 
                     // If the config file exists, copy it to the temp folder until after the delete and unzip completes.
                     if (configFile != default && configFile.Exists)
@@ -167,8 +166,15 @@ namespace SRTPluginManager.Core
                 }
             }
 
-            ZipFile.ExtractToDirectory(file, destination, true);
-            File.Delete(file);
+            try
+            {
+                await using (var zipArchive = ZipFile.Open(file, ZipArchiveMode.Read))
+                    await zipArchive.ExtractToDirectoryAsync(destination, true, cancellationToken);
+            }
+            finally
+            {
+                File.Delete(file);
+            }
 
             if (!isSRT)
             {
@@ -179,82 +185,7 @@ namespace SRTPluginManager.Core
                     File.Delete(Path.Combine(TempFolderPath, string.Format("{0}.cfg", pluginName)));
                 }
             }
-
-
-            //if (!Directory.Exists(file))
-            //{
-            //    ZipFile.ExtractToDirectory(file, TempFolderPath);
-            //}
-
-            //if (isSRT)
-            //{
-            //    File.Delete(file);
-            //    UpdateSRTPackage(TempFolderPath, destination);
-            //}
-            //else
-            //{
-            //    var dirs = Directory.GetDirectories(TempFolderPath);
-            //    UpdatePackage(dirs[0], destination);
-            //}
         }
-
-        //public static void UpdateSRTPackage(string source, string destination)
-        //{
-        //    var filesSource = Directory.GetFiles(source);
-        //    CopyTmpFiles(filesSource, destination);
-        //    var directoriesSource = Directory.GetDirectories(source);
-        //    if (directoriesSource.Length > 0) CopyTmpFolders(directoriesSource, destination, source);
-        //    DeleteTmpFiles();
-        //}
-
-        //public static void UpdatePackage(string source, string destination)
-        //{
-        //    var dest = Path.Combine(destination, Path.GetFileName(source));
-        //    if (!Directory.Exists(dest)) Directory.CreateDirectory(dest);
-        //    var filesSource = Directory.GetFiles(source);
-        //    CopyTmpFiles(filesSource, dest);
-        //    var directoriesSource = Directory.GetDirectories(source);
-        //    if (directoriesSource.Length > 0) CopyTmpFolders(directoriesSource, dest, source);
-        //    DeleteTmpFiles();
-        //}
-
-        //private static void CopyTmpFolders(string[] folders, string destination, string source)
-        //{
-        //    foreach (string folder in folders)
-        //    {
-        //        var folderPath = Path.Combine(destination, Path.GetFileName(folder));
-        //        if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-        //        var files = Directory.GetFiles(folder);
-        //        CopyTmpFiles(files, folderPath);
-        //    }
-        //    DeleteDirectories(source);
-        //}
-
-        //private static void CopyTmpFiles(string[] files, string destination)
-        //{
-        //    var i = 1;
-        //    foreach (string file in files)
-        //    {
-        //        File.Copy(file, Path.Combine(destination, Path.GetFileName(file)), true);
-        //        File.Delete(file);
-        //        i++;
-        //    } 
-        //}
-
-        //private static void DeleteTmpFiles()
-        //{
-        //    DeleteDirectories(TempFolderPath);
-        //    DeleteFiles(TempFolderPath);
-        //}
-
-        //public static void DeleteDirectories(string source)
-        //{
-        //    var dirs = Directory.GetDirectories(source);
-        //    foreach (string directory in dirs)
-        //    {
-        //        Directory.Delete(directory, true);
-        //    }
-        //}
 
         public static void UninstallExtension(string source, string extensionName)
         {

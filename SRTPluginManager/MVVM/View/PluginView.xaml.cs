@@ -1,12 +1,13 @@
-﻿using SRTPluginManager.Core;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using SRTPluginManager.Core;
 using static SRTPluginManager.Core.Utilities;
 
 namespace SRTPluginManager.MVVM.View
@@ -317,7 +318,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void GetUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync(Config.PluginConfig[(int)CurrentPlugin].pluginName, Config.PluginConfig[(int)CurrentPlugin].pluginName + ".zip", Config.PluginConfig[(int)CurrentPlugin].downloadURL, GetUpdate, PluginFolderPath, false);
+            await DownloadFileAsync(Config.PluginConfig[(int)CurrentPlugin].pluginName, Config.PluginConfig[(int)CurrentPlugin].pluginName + ".zip", new Uri(Config.PluginConfig[(int)CurrentPlugin].downloadURL, UriKind.Absolute), GetUpdate, PluginFolderPath, false, CancellationToken.None);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();
@@ -428,7 +429,7 @@ namespace SRTPluginManager.MVVM.View
         private async void SRTGetUpdate_Click(object sender, RoutedEventArgs e)
         {
             SRTGetUpdate.Content = "Please Wait! Installing...";
-            await DownloadFileAsync("SRTHost", "SRTHost.zip", Config.SRTConfig.downloadURL, GetUpdate, ApplicationPath, true);
+            await DownloadFileAsync("SRTHost", "SRTHost.zip", new Uri(Config.SRTConfig.downloadURL, UriKind.Absolute), GetUpdate, ApplicationPath, true, CancellationToken.None);
             InitSRTData();
         }
 

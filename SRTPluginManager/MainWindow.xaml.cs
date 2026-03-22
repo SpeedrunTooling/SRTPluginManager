@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using static SRTPluginManager.Core.Utilities;
@@ -61,7 +62,7 @@ namespace SRTPluginManager
 
         private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadManagerAsync("ManagerUpdate.zip", Config.ManagerConfig.downloadURL, InstallUpdate, TempFolderPath);
+            await DownloadManagerAsync("ManagerUpdate.zip", Config.ManagerConfig.downloadURL, InstallUpdate, TempFolderPath, CancellationToken.None);
             Process.Start(Path.Combine(TempFolderPath, "SRTPluginManager.exe"), "--LoadUpdate");
             Environment.Exit(0);
         }

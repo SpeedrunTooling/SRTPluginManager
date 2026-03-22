@@ -1,11 +1,12 @@
-﻿using SRTPluginManager.Core;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using SRTPluginManager.Core;
 using static SRTPluginManager.Core.Utilities;
 
 namespace SRTPluginManager.MVVM.View
@@ -120,7 +121,7 @@ namespace SRTPluginManager.MVVM.View
 
         private async void InstallUpdate_Click(object sender, RoutedEventArgs e)
         {
-            await DownloadFileAsync(Config.ExtensionsConfig[CurrentExtension].pluginName, Config.ExtensionsConfig[CurrentExtension].pluginName + ".zip", Config.ExtensionsConfig[CurrentExtension].downloadURL, InstallUpdate, PluginFolderPath, false);
+            await DownloadFileAsync(Config.ExtensionsConfig[CurrentExtension].pluginName, Config.ExtensionsConfig[CurrentExtension].pluginName + ".zip", new Uri(Config.ExtensionsConfig[CurrentExtension].downloadURL, UriKind.Absolute), InstallUpdate, PluginFolderPath, false, CancellationToken.None);
             await Task.Run(() =>
             {
                 autoResetEvent.WaitOne();
