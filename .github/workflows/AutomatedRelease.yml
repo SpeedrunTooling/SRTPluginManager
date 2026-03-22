@@ -26,8 +26,8 @@ on:
 
 env:
   projectName: SRTPluginManager
-  baseFolderName: SRTPluginManager
-  platform: AnyCPU
+  platformFolder: AnyCPU
+  platform: Any CPU
   configuration: ${{ github.event.inputs.buildConfiguration || 'Release' }}
 
 jobs:
@@ -114,7 +114,7 @@ jobs:
         with:
           name: Artifacts
           path: |
-            ${{env.projectName}}/bin/${{env.configuration}}/${{env.platform}}/net10.0-windows7.0/*
+            ${{env.projectName}}/bin/${{env.configuration}}/${{env.platformFolder}}/net10.0-windows7.0/*
 
   package:
     name: "Package"
