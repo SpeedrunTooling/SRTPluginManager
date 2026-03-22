@@ -2,20 +2,14 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows7.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    
-    <Authors>VideoGameRoulette</Authors>
-    <Company>VideoGameRoulette</Company>
-    <Copyright>Copyright © 2021 VideoGameRoulette</Copyright>
     <Product>SRT Host Plugin Manager</Product>
     <Description>A plugin manager for SRT Host.</Description>
-    <Version>1.0.0.9</Version>
-    <FileVersion>1.0.0.9</FileVersion>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <DebugType>embedded</DebugType>
-    <CopyDestionationPath>$(SolutionDir)..\..\..\Squirrelies\SRTHost\SRTHost\bin\$(Configuration)\net5.0-windows\</CopyDestionationPath>
     <ApplicationIcon>SRTIconTaskbar.ico</ApplicationIcon>
+    <Version>1.0.1.12</Version>
+    <FileVersion>1.0.1.12</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <CopyDestionationPath>$(SolutionDir)..\..\..\SpeedRunTool\SRTHost\SRTHost\bin\$(Configuration)\net5.0-windows\</CopyDestionationPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -78,8 +72,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Memory.dll.x86" Version="1.2.27" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>

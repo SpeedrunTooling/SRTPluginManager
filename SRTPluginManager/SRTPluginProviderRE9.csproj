@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <Product>Resident Evil: Requiem (2026) Memory Provider Plugin</Product>
+    <Description>A provider plugin for the SRT Host to provide memory values to other plugins.</Description>
+    <Version>1.0.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+	<!-- netcoreapp3.1 had to be hardcoded here because this project reports $(TargetFramework) as netstandard2.0 (rightfully so) and I am not sure how this project's csproj can auto-detect another project's framework version to copy it to the appropriate folder so we're just... hardcoding this. -->
+	<CopyDestionationPath>$(SolutionDir)..\..\..\..\SpeedRunTool\SRTHost\SRTHost\bin\$(Configuration)\net5.0-windows\plugins</CopyDestionationPath>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <Target Name="CopyOutputToDestination" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <OutputFiles Include="$(OutDir)**\*"></OutputFiles>
+    </ItemGroup>
+    <Message Text="Copying files: @(OutputFiles)" Importance="high" />
+    <Copy SourceFiles="@(OutputFiles)" DestinationFolder="$(CopyDestionationPath)\$(ProjectName)\%(RecursiveDir)" OverwriteReadOnlyFiles="true"></Copy>
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\SpeedRunTool\SRTHost\SRTPluginBase\SRTPluginBase.csproj">
+      <Private>false</Private>
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </ProjectReference>
+  </ItemGroup>
+  
+</Project>
