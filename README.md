@@ -1,35 +1,26 @@
 # SRTPluginManager
-![TestDevBranch](https://img.shields.io/github/workflow/status/SpeedrunTooling/SRTPluginManager/Publish?label=latest%20build&style=for-the-badge)
-![Release](https://img.shields.io/github/v/release/SpeedrunTooling/SRTPluginManager?label=current%20release&style=for-the-badge)
-![Date](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?style=for-the-badge)
-![Downloads](https://img.shields.io/github/downloads/SpeedrunTooling/SRTPluginManager/total?color=%23007EC6&style=for-the-badge)
 
-# Join Me Live On Twitch
-![Twitch](https://img.shields.io/twitch/status/videogameroulette?style=for-the-badge)
+![Release](https://img.shields.io/github/v/release/SpeedrunTooling/SRTPluginManager?label=current%20release&style=for-the-badge) ![Date](https://img.shields.io/github/release-date/SpeedrunTooling/SRTPluginManager?style=for-the-badge) ![Downloads](https://img.shields.io/github/downloads/SpeedrunTooling/SRTPluginManager/total?color=%23007EC6&style=for-the-badge)
 
-# Table of Contents
-- [How to Install](https://github.com/SpeedrunTooling/SRTPluginManager#how-to-install)
-- [How to Use](https://github.com/SpeedrunTooling/SRTPluginManager#how-to-use)
-  - [Start SRT](https://github.com/SpeedrunTooling/SRTPluginManager#start-srt)
-  - [Stop SRT](https://github.com/SpeedrunTooling/SRTPluginManager#stop-srt)
-- [SRTHost](https://github.com/SpeedrunTooling/SRTPluginManager/blob/main/README.md#srt-host)
-- [Extensions](https://github.com/SpeedrunTooling/SRTPluginManager#extensions)
-  - [UI JSON](https://github.com/SpeedrunTooling/SRTPluginManager#ui-json)
-  - [UI Websocket](https://github.com/SpeedrunTooling/SRTPluginManager#ui-websocket)
-- [User Interfaces](https://github.com/SpeedrunTooling/SRTPluginManager#user-interfaces)
-  - [Direct X](https://github.com/SpeedrunTooling/SRTPluginManager#direct-x)
-  - [WPF](https://github.com/SpeedrunTooling/SRTPluginManager#wpf-windows-presentation-foundation)
-- [Widgets](https://github.com/SpeedrunTooling/SRTPluginManager#widgets)
-  - [Stats HUD](https://github.com/SpeedrunTooling/SRTPluginManager#stats-hud)
-  - [Inventory HUD](https://github.com/SpeedrunTooling/SRTPluginManager#inventory-hud)
+## Table of Contents
 
-# How to Install
-[Install Guide Video on YouTube](https://www.youtube.com/watch?v=sU_ibNIQnQ8)
+- [How to Install](#how-to-install)
+- [How to Use](#how-to-use)
+  - [Start SRT](#start-srt)
+  - [Stop SRT](#stop-srt)
+- [User Interfaces](#user-interfaces)
+  - [JSON](#json)
+  - [Direct X](#direct-x)
+  - [WPF](#wpf-windows-presentation-foundation)
+  - [WinForms](#winforms-windows-forms)
+- [Widgets](#widgets)
+  - [Stats HUD](#stats-hud)
+  - [Inventory HUD](#inventory-hud)
 
-or
+## How to Install
 
-- Download and install the [.NET 10 Desktop Runtime](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe)
-- Download latest release at [Latest Release](https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest)
+- Download and install the [.NET 10 Desktop Runtime](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe).
+- Download the latest release at <https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest>.
 - Extract contents of zip to any desired folder ex. "C:/SRTHost"
 - Run SRTPluginManager.exe
 - Navigate to SRTHost tab
@@ -47,31 +38,30 @@ or
 - IF WEBSOCKET INSTALLED. Make sure to generate User Token by clicking the refresh button beside the User Token box or manually typing one in from tourney provider and clicking save button.
 - Copy links for stats or inventory url and paste into web browser or OBS.
 
-# How to Use
+## How to Use
 
-## Start SRT
+### Start SRT
+
 - Navigate to SRTHost tab
 - Choose Game from Supported Game List
 - Click Start SRT
 
-## Stop SRT
+### Stop SRT
+
 - Navigate to SRTHost tab
 - Choose Game from Supported Game List
 - Click Stop SRT
 
-## SRT Host
-![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865877964464586772/unknown.png)
+### User Interfaces
 
-## Extensions
-![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865878441153134622/unknown.png)
+#### JSON
 
-### UI JSON
-Initiallizes local JSON Server for communications between game and local web servers for web HUD's.\
+Initializes local JSON Server for communications between game and local clients such as the Stats and Inventory HUDs referenced later on.
 [Local Host API](http://localhost:7190)
+
 <details>
   <summary>Example</summary>
-
-```
+```json
 {
     GameName: "Example API RE2R",
     VersionInfo: "9.9.9.9",
@@ -160,27 +150,26 @@ Initiallizes local JSON Server for communications between game and local web ser
 ```
 </details>
 
-### UI Websocket
-Initiallizes Websocket Server for communications between game and online web servers for web HUD's.
+#### Direct X
 
-## User Interfaces
-![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865878463856640010/unknown.png)
+Initializes in-game overlay using SharpDX.
 
-### Direct X 
-Initiallizes in-game overlay using SharpDX.\
-![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865883096922849320/unknown.png)
+#### WPF (Windows Presentation Foundation)
 
-### WPF (Windows Presentation Foundation)
-Initiallizes External HUD Application using WPF.\
-![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865884741211652116/unknown.png)
+Initializes External HUD Application using WPF.
 
-## Widgets
-![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865878482801262622/unknown.png)
+#### WinForms (Windows Forms)
 
-### Stats HUD
-[Stats HUD](https://speedruntooling.github.io/StatsHUD)\
-![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865890495401164801/unknown.png)
+Initializes External HUD Application using WinForms.
 
-### Inventory HUD
-[Inventory HUD](https://speedruntooling.github.io/InventoryHUD)\
-![screenshot](https://cdn.discordapp.com/attachments/551840398016774193/865890549995536414/unknown.png)
+### Widgets
+
+The widgets require the JSON plugin to be installed. More info on that below.
+
+#### Stats HUD
+
+[Stats HUD](https://speedruntooling.github.io/StatsHUD)
+
+#### Inventory HUD
+
+[Inventory HUD](https://speedruntooling.github.io/InventoryHUD)
