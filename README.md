@@ -28,6 +28,7 @@
 
 or
 
+- Download and install the [.NET 10 Desktop Runtime](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe)
 - Download latest release at [Latest Release](https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest)
 - Extract contents of zip to any desired folder ex. "C:/SRTHost"
 - Run SRTPluginManager.exe
