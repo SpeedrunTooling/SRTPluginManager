@@ -19,7 +19,7 @@
 
 - Install prerequisites:
   - [.NET 10 Desktop Runtime](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe).
-- Download the latest release at <https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest>.
+- Download the latest release at <https://github.com/SpeedrunTooling/SRTPluginManager/releases>.
 - Extract contents of zip to any desired folder. For example: `C:/SRTHost`
 - Run `SRTPluginManager.exe`.
   - Navigate to the `SRT Host` tab.
@@ -163,4 +163,5 @@ Initializes External HUD Application using WinForms.
 #### Web-based HUD UIs
 
 [Stats HUD](https://speedruntooling.github.io/StatsHUD)
+
 [Inventory HUD](https://speedruntooling.github.io/InventoryHUD)
