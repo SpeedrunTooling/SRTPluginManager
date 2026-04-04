@@ -13,30 +13,26 @@
   - [Direct X](#direct-x)
   - [WPF](#wpf-windows-presentation-foundation)
   - [WinForms](#winforms-windows-forms)
-- [Widgets](#widgets)
-  - [Stats HUD](#stats-hud)
-  - [Inventory HUD](#inventory-hud)
+  - [Web-based HUD UIs](#web-based-hud-uis)
 
 ## How to Install
 
-- Download and install the [.NET 10 Desktop Runtime](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe).
+- Install prerequisites:
+  - [.NET 10 Desktop Runtime](https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe).
 - Download the latest release at <https://github.com/SpeedrunTooling/SRTPluginManager/releases/latest>.
-- Extract contents of zip to any desired folder ex. "C:/SRTHost"
-- Run SRTPluginManager.exe
-- Navigate to SRTHost tab
-- In Host Version Info Panel click Install to install latest SRT Host or alternatively Update to update it when available (Be careful this is a big download so its delayed click only once and let it do its thing you'll know when its done and install button disappears if you click twice it will crash the program)
-- Select Game you want to install from Supported Games List
-- In Current Plugin Panel click Install to install latest PluginProvider or alternatively Update to update it when available
-- Navigate to Extension tab
-- Install UI JSON
-- Install UI Websocket (Optional; only required if you have 2 pc stream setup, are outputting UI to tourney, or want to view the SRT HUD from a phone, tablet, or another device's browser)
-- Navigate to User Interfaces tab
-- Install any desired User Interfaces for each game supported more info below.
-- Navigate to Widgets tab
-- Select options for Web UI (Note some options are game specific not all work for all games at this time)
-- IF WEBSOCKET INSTALLED. Make sure you uncheck "Enable Local Host Server"
-- IF WEBSOCKET INSTALLED. Make sure to generate User Token by clicking the refresh button beside the User Token box or manually typing one in from tourney provider and clicking save button.
-- Copy links for stats or inventory url and paste into web browser or OBS.
+- Extract contents of zip to any desired folder. For example: `C:/SRTHost`
+- Run `SRTPluginManager.exe`.
+  - Navigate to the `SRT Host` tab.
+    - In the `Host Version Info` panel, click `Install` or `Update` to install the latest version of the `SRT Host plugin system`. Bear in mind that this is a large download and there is no progress indicator after clicking this button so give it a few moments.
+    - Select the game you want to install from the `Supported Games` list.
+      - In the `Current Plugin` panel, click `Install` or `Update` to install the latest `PluginProvider` for that game.
+  - Navigate to the `Extensions` tab.
+    - Install the `UI JSON` plugin. This allows web-based UIs to display game information locally.
+  - Navigate to the `User Interfaces` tab.
+    - Install any desired `User Interfaces` plugins for each game supported.
+  - Navigate to the `Widgets` tab.
+    - Select options for the `Web UI`. Note that some options are game-specific and may not work for all games.
+    - Copy the links for the `StatsHUD` or `InventoryHUD` URLs and paste into a web browser or an OBS browser source.
 
 ## How to Use
 
@@ -162,14 +158,7 @@ Initializes External HUD Application using WPF.
 
 Initializes External HUD Application using WinForms.
 
-### Widgets
-
-The widgets require the JSON plugin to be installed. More info on that below.
-
-#### Stats HUD
+#### Web-based HUD UIs
 
 [Stats HUD](https://speedruntooling.github.io/StatsHUD)
-
-#### Inventory HUD
-
 [Inventory HUD](https://speedruntooling.github.io/InventoryHUD)
