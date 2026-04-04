@@ -57,6 +57,7 @@ Initializes local JSON Server for communications between game and local clients 
 
 <details>
   <summary>Example</summary>
+
 ```json
 {
     GameName: "Example API RE2R",
@@ -144,6 +145,7 @@ Initializes local JSON Server for communications between game and local clients 
     IGTFormattedString: "01:04:31"
 }
 ```
+
 </details>
 
 #### Direct X
